@@ -1,0 +1,10 @@
+{
+  "name": "com.david.utils",
+  "version": "1.0.0",
+  "displayName": "David Utils",
+  "description": "Common utility scripts (Collections, Math, StringUtil).",
+  "unity": "2021.3",
+  "author": {
+    "name": "David"
+  }
+}
