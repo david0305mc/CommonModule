@@ -1,0 +1,10 @@
+{
+  "name": "com.david.datamanager",
+  "version": "1.0.0",
+  "displayName": "David DataManager",
+  "description": "DataManager",
+  "unity": "2021.3",
+  "author": {
+    "name": "David"
+  }
+}

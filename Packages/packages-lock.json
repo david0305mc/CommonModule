@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.david.datamanager": {
+      "version": "file:com.david.datamanager",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.david.utils": {
       "version": "file:com.david.utils",
       "depth": 0,
