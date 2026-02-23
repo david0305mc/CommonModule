@@ -1,0 +1,17 @@
+Id|type|value|Desc
+string|string|string|string
+ShowDevilSayTextCoolTime|int|2|대사 다시뜨는 시간
+OfflineRewardMinTime|int|180|오프라인 보상 최소시간
+OfflineRewardMaxTime|int|1800|오프라인 최대 시간
+OfflineRewardRate|int|10|오프라인 보상 배율
+FreeGachaCooltime|int|21600|무료 가챠 시간
+MaxFishCreate|int|20|
+FishTankSetDefaultCount|int|10|
+StoneTalkMax|int|45|
+FishTalkMax|int |10|
+StoneGrowUp_1|int|100|산호석 첫번째 외형 성장 레벨 (산호 늘어남)
+StoneGrowUp_2|int|200|산호석 두번째 외형 성장 레벨 (산호석 커짐 1)
+StoneGrowUp_3|int|300|산호석 세번째 외형 성장 레벨 (산호석 커짐 2)
+StartHeart|int|7000|
+StoneLevelMax|int|99999|
+share_event_count|int|10|공유 이벤트 제한 횟수
