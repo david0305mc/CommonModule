@@ -1,0 +1,738 @@
+Id|ko|en|jp
+string|string|string|string
+common_artifact_name_all|모든 아티팩트|All Artifacts|모든 아티팩트
+common_fish_all|모든 물고기|All Fish|모든 물고기
+common_skill_name_all|모든 스킬|All Skills|모든 스킬
+common_coral_name_all|모든 산호|All Corals|모든 산호
+buy_coral|{0} 구매하기 |Purchase {0}|{0} 산호 구매하기
+have_fish_kind|{0} 류 {1} 마리 보유하기|Own {0} fish of the {1} type|{0} 류 {1} 마리 보유하기
+stone_levelup|산호석 {0} 레벨 달성하기|Reach Corallite Lv. {0}|산호석 {0} 레벨 달성하기
+have_fish|{0} 물고기 {1} 마리 보유하기|Own {0} x{1}|{0} 물고기 {1} 마리 보유하기
+coral_levelup|{0} {1} 레벨 달성하기|Reach {0} Lv. {1}|{0} 산호 {1} 레벨 달성하기
+attendance_count|어비스리움 출석하기 {0}회|Attend Abyssrium {0} time(s)|어비스리움 출석하기 {0}회
+login_count_per_day|하루 {0} 번 접속하기|Log in {0} time(s) a day|
+use_skill|아무 스킬이나 {0}번 사용하기|Use any skill {0} time(s)|스킬{0}회 사용
+skill_levelup|{0} 스킬 {1}레벨 달성하기|Reach {0} Skill Lv. {1}|{0} 스킬 {1}레벨 달성하기
+artifact_levelup|{0} 아티팩트 {1}레벨 달성하기|Reach {0} Artifact Lv. {1}|{0} 아티팩트 {1}레벨 달성하기
+have_fish_species|물고기 {0}종 수집하기|Collect {0} species of fish|
+daily_mission_clear|일일 미션 클리어하기 {0}회|Clear Daily Mission {0} time(s)|
+ad_view|광고 시청 {0}회|Watch an ad {0} time(s)|
+set_fish_kind|{0} 류 {1} 마리 배치하기|Place {1} fish of the {0} type|{0} 류 {1} 마리 배치하기
+touch_stone|산호석 {0}회 터치하기|Tap Corallite {0} time(s)|
+use_heart|생명력 {0}개 사용하기|Use {0} Vitality|
+fish_create|물고기 {0}마리 창조하기|Create fish x{0}|
+create_new_fish_type|사용안함|Not Used|
+use_pearl|진주 사용하기 {0}개|Use {0} Pearls|
+use_gem|보석 {0}개 사용하기|Use {0} Gems|
+guide_mission_clear|가이드 미션 클리어하기 {0}회|Clear Guide Mission {0} time(s)|
+open_mystery_box|신비의 상자 {0}회 열어보기|Open Mystery Chest {0} time(s)|
+have_fish_all|어비스리움 물고기 {0} 마리 보유하기|Own {0} Abyssrium fish|
+skill_levelup_all|모든 스킬 {0} 레벨 달성하기|Reach Lv. {0} for all Skills|
+artifact_levelup_all|모든 아티팩트 {0} 레벨 달성하기|Reach Lv. {0} for all Artifacts|
+fish_create_all|아무 물고기 {0} 마리 새로 창조하기|Create any {0} new fish|
+coral_levelup_all|모든 산호 레벨 합계 {0} 달성하기|Reach Total Coral Lv. {0}|
+have_fish_normal_type|일반 물고기 {0} 종 수집하기|Collect {0} species of Normal Fish|
+have_fish_hidden_type|히든 물고기 {0} 종 수집하기|Collect {0} species of Hidden Fish|
+have_fish_evol_type|진화 물고기 {0} 종 수집하기|Collect {0} species of Evolution Fish|
+stone_talk_0|고요한 느낌이야|It feels peaceful.|stone_talk_0
+stone_talk_1|오늘 하루 잘 지냈어?|How've you been today?|stone_talk_1
+stone_talk_2|안녕?|Hello!|stone_talk_2
+stone_talk_3|오랜만인걸?|It's been a while!|stone_talk_3
+stone_talk_4|슬퍼하지마|Don't be sad.|stone_talk_4
+stone_talk_5|혼자가 아니야|You're not alone.|stone_talk_5
+stone_talk_6|잘될거야|Everything will be alright.|stone_talk_6
+stone_talk_7|이야호|Hooray.|stone_talk_7
+stone_talk_8|모두 행복해질거야|Everyone will be happy.|stone_talk_8
+stone_talk_9|설치없는 앱인토스!|No-install App-in-Toss!|stone_talk_9
+stone_talk_10|숨어있는 곰치!|A Moray Eel is hiding!|
+stone_talk_11|사랑해|I love you.|
+stone_talk_12|고마워|Thank you.|
+stone_talk_13|사진을 자주찍어줘*-_-*|Take lots of pictures of me!|
+stone_talk_14|신비한 곳이야|This is a mysterious place.|
+stone_talk_15|행복해|I'm happy.|
+stone_talk_16|새로운 산호를 얻으면\n친구를 더 많이 만들 수 있어|You can make more friends\nif you unlock new coral|
+stone_talk_17|산호석 탭에서는\n스킬을 강화할 수 있어|You can enhance skills\nin the Corallite tab.|
+stone_talk_18|숨겨진 물고기들을 찾아봐!|Try to find the hidden fish!|
+stone_talk_19|지금이 아니어도 괜찮아|It doesn't have to be now.|
+stone_talk_20|VR로 봐봤어?|Have you tried out the VR mode?|
+stone_talk_21|오늘도 고생했어!|Good job today!|
+stone_talk_22|숨겨진 물고기들을 찾아봐!|Try to find the hidden fish!|
+stone_talk_23|잘했어!|Well done!|
+stone_talk_24|숨겨진 물고기들을 찾아봐!|Try to find the hidden fish!|
+stone_talk_25|힘내|Cheer up.|
+stone_talk_26|흰긴수염 고래가 보고싶어...|I miss Blue Whale...|
+stone_talk_27|사진을 자주찍어줘*-_-*|Take lots of pictures of me!|
+stone_talk_28|배고프다...|Hmm...I'm hungry...|
+stone_talk_29|스킬을 쓰면 좀더 쉽게 할수있어|It's easier if you use your skills!|
+stone_talk_30|ABYSSRIUM!|Abyssrium!|
+stone_talk_31|어비스리움!|Abyssrium!|
+stone_talk_32|선물이 도착했을까?|Is the present here?|
+stone_talk_33|산호가 좋아|I like Corals.|
+stone_talk_34|물고기가 좋아!|I like fish!|
+stone_talk_35|내 인스타그램 봤어?\n@taptapfish|Have you checked out my Instagram?\n@taptapfish|
+stone_talk_36|공유할 때 #taptapfish 태그를 잊지마|Don't forget to hashtag #taptapfish\nwhen you share!|
+stone_talk_37|동굴안에 공간 있어요|There's a space inside the cave:)|
+stone_talk_38|새로운 물고기를 얻고 싶다면\n"물고기 관리"창을 봐|If you want a new fish,\ngo to "Manage Fish"|
+stone_talk_39|산호는 레벨업할 때에\n더 커지거나 많아지기도 해|Coral grow or multiply\nwhen you go up a level|
+stone_talk_40|오잉?|Huh?|
+stone_talk_41|네가 있어서 고마워!|Glad to be with you!|
+stone_talk_42|친구들이 항상 웃었으면...|I have no friends...\nI'M SO LONELYYYYY...|
+stone_talk_43|오잉?|Huh?|
+stone_talk_44|달이 진다...|It's highmoon...|
+stone_talk_45|꿈에서 만나!|Relax~|
+fish_talk_0|반가워!|Nice!|fish_talk_0
+fish_talk_1|안녕?|Hello!|fish_talk_1
+fish_talk_2|도망쳐!|Run!|fish_talk_2
+fish_talk_3|깜짝이야!|That scared me!|fish_talk_3
+fish_talk_4|스피드 업!|Faster!|fish_talk_4
+fish_talk_5|크헤헤|Kuhehe|fish_talk_5
+fish_talk_6|오잉?|Huh?|fish_talk_6
+fish_talk_7|윙크 >_0|Wink >*0|fish_talk_7
+fish_talk_8|꺄아 >_<|OMG >*<|fish_talk_8
+fish_talk_9|하트 뿅뿅 |Heart eyes|fish_talk_9
+coral_1_name|연약한 가지산호|Fragile Staghorn Coral|
+coral_2_name|싱그러운 해초|Fresh Seaweed|
+coral_3_name|붉은 부채산호|Red Sea Fan|
+coral_4_name|신비의 불가사리|Mysterious Starfish|
+coral_5_name|새하얀 말미잘|White Anemone|
+coral_6_name|진주빛 말미잘|Pearly Anemone|
+coral_7_name|푸른 버섯돌산호|Cactus Coral|
+coral_8_name|진홍 나팔돌산호|Orange Cup Coral|
+coral_9_name|푸른 양배추산호|Blue Cabbage Coral|
+coral_10_name|초록 넓적산호|Green Spongodes|
+coral_11_name|빛나는 바다꽃|Glowing Sea Flower|
+coral_12_name|사파이어빛 부채산호|Sapphire Sea Fan|
+coral_13_name|루비빛 양배추산호|Ruby Cabbage Coral|
+coral_14_name|별혹산호|Star Horn Coral|
+coral_15_name|푸른 원탁 산호|Blue Table Coral|
+coral_16_name|하얀 흔들 말미잘|White Swing Anemone|
+coral_17_name|주홍빛 사슴뿔 산호|Orange Blade Coral|
+coral_18_name|분홍 나무 산호|Pink Tree Coral|
+coral_19_name|초록빛 키다리 해초|Green Giant Kelp|
+missionname_1|새로운 친구!|A New Friend!|
+missionname_2|다른 세상 이야기|Stories From Other Worlds|
+missionname_3|물고기의 마음|Fish's Heart|
+missionname_4|자랑해보기|Boast|
+missionname_5|산호석의 힘|Corallite's Power|
+missionname_6|<color=#FFC200>성실한 하루</color>|<color=#FFC200>Diligent Day</color>|
+missionname_7|<color=#00FF98>구독 추가 보상</color>|<color=#00FF98>Subscription Bonus</color>|
+missionname_8|새로운 보금자리|New home|
+missionname_9|신나는 여행|Exciting Tour|
+missionname_10|박물관 개장!|The museum is open!|
+achieve_title_1|산호석의 성장|Corallite's Growth|
+achieve_title_2|풍성해지는 바다|Bountiful Sea|
+achieve_title_3|친구와의 만남|Friendly Encounter|
+achieve_title_4|물고기의 마음|Fish's Heart|
+achieve_title_6|강력한 힘|Great Power|
+achieve_title_7|다른 세상 이야기|Stories From Other Worlds|
+achieve_title_8|다시 만난 세상|Back to the World Once Again|
+achieve_title_9|추억 남기기|Leaving Memories|
+achieve_title_10|행복을 나누며|Sharing Happiness|
+achieve_title_11|새로운 만남|A New Encounter|
+achieve_title_12|마주하는 시간|We Finally Meet!|
+achieve_window_tab_0_title|일일 미션|DAILY MISSION|
+achieve_window_tab_1_title|목표 달성|Achieved|
+achieve_window_tab_2_title|콜렉션|Collection|
+ev_1|퍼큘라 크라운 진화|Percula Clownfish Evolution|
+ev_2|파이어 고비 진화|Fire Goby Evolution|
+ev_3|블루탱 진화|Blue Tang Evolution|
+ev_4|블랙 & 골드 담셀 진화|Black & Gold Damsel Evolution|
+ev_5|임페리얼 앤젤 진화|Emperor Angel Evolution|
+ev_6|블랙팁 샤크 진화|Blacktip Shark Evolution|
+ev_7|버지스 나비 진화|Burgess Butterfly Evolution|
+ev_8|블루 패럿피쉬 진화|Blue Parrotfish Evolution|
+ev_9|이스턴 스무스 박스피쉬 복어 진화|Eastern Smooth Boxfish Evolution|
+ev_10|오렌지 해마 진화|Orange Seahorse Evolution|
+ev_11|문어 진화|Octopus Evolution|
+ev_12|붉은 바다거북 진화|Loggerhead Turtle Evolution|
+ev_13|병코 돌고해 진화|Bottlenose Dolphin Evolution|
+ev_14|수구리 진화|Shovelnose Guitarfish Evolution|
+ev_15|백상어 진화|Great White Shark Evolution|
+ev_16|북극고래 진화|Bowhead Whale Evolution|
+fish_manage_fish_tab_title|물고기 관리|Manage Fish|
+fish_manage_collect_count|{0}/{1} 종 수집|Collected {0}/{1} species|
+fish_manage_tank_tab|나의 바다|My Sea|
+fish_manage_filter_all_btn|전체|All|
+fish_manage_filter_collect_btn|보유|Owned|
+fish_manage_filter_not_collect_btn|미보유|Not Available|
+reward_popup_common_btn|받기|Get|
+free_vitality|무료 생명력 받기|Get free Vitality|
+get_free_vitality|무료 생명력 <color=#FFB32C> {0} </color>받기|Get {0} free Vitality|
+common_level_desc|<color=#FFB32C>레벨 {0}</color>|<color=#FFB32C>Lv. {0}</color>|
+common_stone_name|외로운 산호석|Lonely Corallite|
+common_stone_effect|탭당 생명력 생산량 <color=#FFB32C>+{0}</color> |Vitality production per tap <color=#FFB32C>+{0}</color>|
+btn_levelup|레벨업|Level Up|
+skill_1_title|화산 폭발|Volcanic Eruption|
+skill_2_title|맛있는 먹이|Delicious Food|
+skill_3_title|달의 노래|Song of the Moon|
+skill_4_title|스킬 재충전|Recharge Skill|
+skill_5_title|마이다스 탭|Midas Tap|
+coral_unlock_stone_level_desc|산호석 Lv.{0}|Corallite Lv. {0}|
+status_locked|<color=#FFB32CFF>잠김</color>|<color=#FFB32CFF>Locked</color>|
+btn_buy_dia_desc|{0} 보석|{0} Gems|
+text_level|<color=#FFB32C>레벨 {0}</color>|<color=#FFB32C>Lv. {0}</color>|
+skill_desc_01|{0} 분간 매초<color=#FFB32C> {1} </color>회 자동 탭|Auto-tap {1} times per sec for {0} min|
+skill_desc_02|탭당 생명력 생산량의<color=#FFB32C> {0} </color>배를 즉시 획득|Instantly get <color=#FFB32C> {0} </color>x Vitality production per tap|
+skill_desc_03|{0} 분간 모든 생명력 생산량<color=#FFB32C> {1} % </color>증가|Increase all Vitality production by <color=#FFB32C> {1}% </color> for {0} min|
+skill_desc_04|모든 스킬 쿨타임 재 충전|Recharge all Skill Cooldowns|
+time_format_miniute|{0}분|{0} min|
+time_format_count|{0}회|{0}|
+time_format_percent|{0}%|{0}%|
+gem_not_sufficient_title|보석이 부족합니다|Insufficient Gems|
+gem_not_sufficient_desc|보석이 부족합니다.\n상점 페이지로 이동 하시겠습니까?|Insufficient Gems.\nDo you want to visit the Shop?|
+pearl_not_sufficient_title|진주가 부족합니다|Pearls are not enough|
+pearl_not_sufficient_desc|진주가 부족합니다.\n상점 페이지로 이동 하시겠습니까?|Insufficient Pearls\nDo you want to visit the Shop?|
+gem_use_check_desc|보석을 사용하시겠습니까?|Do you want to use Gem?|
+banner_today_dont_see_desc|오늘 하루 보지 않기|I don't see it anymore today.|
+popup_skill_title|스킬 획득|Skill Acquired|
+artifact_1_title|노틸러스호의 잔해|Remains of a Nautilus|
+artifact_2_title|신비한 조개|Mystic Shell|
+artifact_3_title|빛나는 소라|Glowing Conch|
+artifact_desc_1|매분 자동 탭<color=#FFB32C> {0} </color>회 영구 증가|Permanently increase Auto-tap by<color=#FFB32C> {0} </color>per min|
+artifact_desc_2|탭당 생명력<color=#FFB32C> {0}% </color>영구 증가|Permanently increase Vitality per tap by <color=#FFB32C> {0}% </color>|
+artifact_desc_3|스킬 쿨타임<color=#FFB32C> {0}% </color>영구 감소|Permanently decrease Skill Cooldown by <color=#FFB32C> {0}% </color>|
+artifact_title|아티팩트|Artifact|
+coral_effect_desc_1|초당 생명력 생산량 <color=#FFB32C>+ {0}</color>|Vitality production per sec <color=#FFB32C>+ {0}</color>|
+max_fish_count_desc|최대 물고기 <color=#FFED00>+ {0}</color>|Max Fish <color=#FFED00>+ {0}</color>|
+coral_effect_desc_2|<color=#FFB32C>+ {0} 생명력</color>|<color=#FFB32C>+ {0} Vitality</color>|<color=#FFB32C>+{0}</color> 
+btn_buy|구매|Buy|
+common_create_life|생명 창조|CREATE LIFE|
+heart_not_sufficient_title|생명력이 부족합니다.|Not enough Vitality.|
+btn_redirect|바로가기|Go|
+popup_fish_created_title|새로운 물고기를 창조했습니다!|YOU'VE CREATED A NEW FISH!|
+common_effect_desc|효과|EFFECT|
+fish_heart_tap_buff_desc|탭당 생명력 생산량 <color=#FFB32C> 200%</color> 증가|Vitality production per tap <color=#FFED00>+200%</color>|
+fish_heart_sec_buff_desc|초당 생명력 생산량 <color=#FFB32C> 200%</color> 증가|Vitality production per sec <color=#FFED00>+200%</color>|
+msg_new_fish|새로운 친구|New Friend|
+toast_have_max_fish_desc|최대 보유한 물고기입니다.|You already have max number of this fish.|
+create_duplication_fish_title|물고기를 창조했습니다!|Created Fish!|
+fish_storage_desc|공간이 부족해 배치된 물고기가 가방에 보관됩니다.|Due to lack of space, placed fish are stored in bags.|
+fish_info_view_total_title|총 보유|Owned (Total)|
+fish_info_view_total_count|{0} 마리|{0} fish|
+fish_info_view_schooling_title|활동중|Active|
+fish_info_view_storage_title|보관중|Stored|
+toast_fish_not_set|더 이상 배치할 물고기가 없습니다!|No more fish to place!|
+toast_fish_not_storage|더 이상 보관할 물고기가 없습니다!  |No more fish to store!|
+fish_manage_random_set_btn|랜덤 배치|Random|
+random_set_popup_title|랜덤 물고기 배치하기|Place a random fish|
+random_set_popup_desc|수조의 남은 공간에 무작위로 물고기들을 배치하시겠습니까? |Do you want to place random fish in the remaining space?|
+common_btn_cancel|취소|Cancel|
+common_btn_ok|확인|OK|
+random_set_complete_title|물고기 배치 완료|Fish Placed|
+random_set_complete_desc|물고기 배치를 완료하였습니다|Fish placement complete.|
+common_fish_set_fail_popup_title|물고기 배치 실패 |Failed to place fish|
+fish_tank_scale_fail_popup_desc|수조에 남은 공간이 부족하여 물고기를 배치할 수 없습니다. |Not enough space in the tank to place fish.|
+storage_all_popup_title|물고기 모두 들이기|Store All Fish|
+fish_manage_storage_all_btn|물고기 모두 들이기|Store All Fish|
+storage_all_popup_desc|모든 물고기를 보관함에 들이시겠습니까?|Will you store all the fish inside the Storage?|
+storage_all_complete_popup_title|들이기 완료|Stored|
+storage_all_complete_popup_desc|수조의 모든 물고기를 보관처리 완료 하였습니다.|Stored all fish inside the Aquarium.|
+search_popup_title|검색하기 |Search|
+search_text_fish_default_desc|물고기 이름을 입력해주세요.|Please enter a fish name.|
+search_result_title|검색 결과|Search results|
+search_list_no_data_desc|검색 결과가 없습니다.|No search results.|
+have_fish_count_desc2|보유 마리 수 : {0}|Owned: {0}|
+fish_manage_tank_count|활동중 ( {0} / {1} )|Active ( {0} / {1} )|
+common_btn_close|닫기|Close|
+fish_unlocked_popup_hidden_title|숨겨진 물고기 발견|Hidden fish revealed|
+fish_unlocked_popup_condition|등장 조건|Appearing condition|
+fish_manage_my_tank_desc|다양한 물고기로 나의 바다를 채워보세요.|Fill your sea with various fish.|
+fish_manage_have_empty_desc|해당되는 물고기가 없어요|There is no fish meeting the conditions.|
+daily_mission_remain|{0}시간 {1}분 {2}초 남음|{0}h {1}m {2}s remaining|
+daily_mission_main_desc|매일 모든 미션을 완료하고 보상을 받으세요!|Complete all missions every day and collect rewards!|
+goal_mission_main_desc|작은 목표들이 쌓여 더 큰 보상이 됩니다.|Small goals add up to bigger rewards.|
+collection_mission_main_desc|물고기를 수집해 컬렉션을 완성하고 보너스를 획득하세요!|Collect fish to complete collections and get bonuses!|
+toast_first_clear_mission|미션을 완료하고 보상을 받으세요!|Complete missions and collect rewards!|
+title_bonus_get_reward_popup|보너스 획득 기회! |Bonus Chance!|
+btn_get_more_one|한번 더 받기|Get one more time|
+btn_finish|완료|COMPLETE|
+common_btn_reward|보상|REWARD|
+common_btn_reward_ get|보상 받기|Get Reward|
+collect_fish_desc|물고기 수집|Collect Fish|
+shop_free_dia_name|무료 보석 받기|Get free gems|
+shop_free_pearl_name|무료 진주 받기|Get free Pearls|
+shop_free_midas_name|마이다스 터치 버프|Midas Touch Buff|
+shop_free_dia_dec|짧은 동영상을 보고 무료 보석<color=#FFB32C> {0} </color>을 받으세요|Watch a short video to get <color=#FFB32C> {0} </color> Free Gems|
+shop_free_pearl_dec|짧은 동영상을 보고 무료 진주<color=#FFB32C> {0} </color>을 받으세요|Watch a short video to get <color=#FFB32C> {0} </color> Free Pearls|
+shop_free_midas_dec|화면을 길게 터치하면 자동으로 1초에<color=#FFB32C> 10번 </color>탭을 합니다.|Long press the screen to auto-tap <color=#FFB32C> 10 times </color>times per second.|
+heart_desc|(수정필요) 생명력 입니다|Vitality|
+gem_desc|(수정필요) 보석 입니다|Gems|
+heart_product_desc|(수정필요) 생명력 버프 입니다|Vitality Buff|
+heart_product_desc2|(수정필요) 생명력 버프 2 입니다|Vitality Buff 2|
+pearl_desc|(수정필요) 진주 입니다|Pearls|
+tearstone_name|진화석|Evolution Stone|
+heart_name|생명력|Vitality|
+gem_name|보석|Gems|
+heart_product_name|생명력 버프 1|Vitality Buff 1|
+heart_product_name2|생명력 버프 2|Vitality Buff 2|
+pearl_name|진주|Pearls|
+nav_bar_shop|상점|Shop|
+nav_bar_stone|산호석|Corallite|
+nav_bar_coral|산호|Coral|
+nav_bar_evol|진화|Evolution|
+nav_bar_fish|물고기|Fish|
+nav_bar_mission|미션|Mission|
+nav_bar_setting|마이북|My Book|
+common_btn_ad_watch|무료 보상|Free Reward|
+mystery_box_open_title|신비의 상자|MYSTERY CHEST|
+mystery_box_open_desc|무언가 좋은것이 들어있을 것 같은 느낌이다.|I feel like something good is inside.|
+btn_open|상자 열기|Open Chest|
+offline_reward_main_desc|자리를 비운 사이에 <color=#FFB32C>{0}</color> 생명력을 모았습니다|Collected <color=#FFB32C>{0}</color> Vitality while you were away|
+reward_get_x2_btn|<color=#FFB32C>{0}</color>\n2배 보상 받기|Get <color=#FFB32C>{0}</color> Extra Reward|
+offline_reward_title|오프라인 보너스 생산 정보|Offline Bonus Production Info|
+offline_reward_time|{0}/{1} 분|{0}/{1} min|
+evolution_common_btn|진화하기|Evolve|
+evolution_bonus_name|진화 생명력 생산량 보너스|Evolution Vitality Production Bonus|
+common_info_popup_title|안내|Info|
+evolution_bonus_desc|진화 시 탭 / 초 당 생명력 생산량이 증가합니다.|Evolution increases Vitality production per tap/sec.|
+evolution_desc|{0} 종을 진화 시켜 새로운 종을 찾으세요!|Evolve {0} species to find new ones!|
+evolution_complete|확정 진화|Guaranteed Evolution|
+evolution_complete_desc|진화석 사용시 확정으로 진화 합니다.|Evolve successfully by using Evolution Stones.|
+evolution_done|크라운 피쉬가 진화했다!!|Clownfish Evolved!!|
+evolution_bonus_effect_new|신규 진화 생산량 보너스 <color=#FFB32C> {0}% </color>증가|New Evolution Production Bonus <color=#FFB32C>+{0}%</color>|
+evolution_bonus_effect_dup|진화 생산량 보너스 <color=#FFB32C> {0}% </color>증가|Evolution Production Bonus <color=#FFB32C>+{0}%</color>|
+tearStone_not_sufficient_title|진화석이 부족합니다.|Not enough Evolution Stones.|
+evstone|진화석|Evolution Stone|
+evolution_unlock_desc |{0} 로 획득|Obtain with {0}|
+attendance_last_reward_get_desc|<color=#FF0085>[{0}]</color> 획득 가능 : {0} |<color=#FF0085>[{0}]</color> Obtainable : {0}|
+attendance_tab_name_1|일일 출석|Daily Attendance|
+attendance_common_now_day_desc1| 일차|Day|
+attendacne_refresh_time_desc|출석 보상은 매일 04:00 시에 다시 수령 할 수 있습니다.|Attendance rewards reset daily at 04:00.|
+tuto_text_99_9901|잠들어 있는 산호석을 터치해보세요! ( {0} / {1} )|Tap the sleeping Corallite! ( {0} / {1} )|
+tuto_text_99_9902|하단의 메뉴 버튼을 눌러보세요|Tap the Menu button at the bottom.|
+tuto_text_99_9903|산호석을 성장 시켜 보세요|Try upgrading the Corallite.|
+tuto_text_99_9905|산호로 주변을 꾸며 볼까요|Shall we decorate with Coral?|
+tuto_text_99_9906|산호를 구매해 주세요!|Please purchase a Coral!|
+tuto_text_99_9908|이제 물고기 친구를 불러볼까요?|Shall we call a fish friend?|
+tuto_text_99_9909|물고기를 창조해주세요!|Please create a fish!|
+tuto_text_99_9910|새로운 물고기를 창조했어요!|You created a new fish!|
+tuto_text_99_9911|물고기를 창조하면 생명력 생산량이 증가합니다|Creating fish increases Vitality production.|
+tuto_end_toast_desc|나만의 바다를 창조해주세요!|Create your own sea!|
+tuto_stone_levelup_title|산호석 레벨업!|Corallite Level Up!|
+tuto_stone_effect_title|산호석 레벨업 효과|Corallite Level Up Effect|
+tuto_stone_effect_desc|터치당 생명력 획득량이 상승합니다.|Vitality per tap increases.|
+tuto_coral_levelup_title|산호 레벨업!|Coral Level Up!|
+tuto_coral_effect_title|산호 레벨업 효과|Coral Level Up Effect|
+tuto_coral_effect_desc|초 당 생명력 생산량이 상승합니다.\n 물고기 배치 수가 증가합니다.|Vitality per sec increases.\nFish capacity increases.|
+stone_Top_Title|초 당 생명력 생산량이 상승합니다.\n 물고기 배치 수가 증가합니다.|Manage Corallite|
+coral_Top_Title|산호 관리|Manage Coral|
+fish_Top_Title|물고기 관리|Manage Fish|
+shop_Top_Title|상점|Shop|
+evol_Top_Title|진화|Evolution|
+stone_levelup_desc_1|산호석 LV. 100|Corallite Lv. 100|
+stone_levelup_desc_2|산호석 LV. 300|Corallite Lv. 300|
+stone_levelup_desc_3|산호석 LV. 500|Corallite Lv. 500|
+stone_levelup_desc_4|산호석 LV. 400|Corallite Lv. 400|
+MaidasSkillDesc|화면을 길게 터치하면 자동으로 1초에 10번 탭을 합니다.|Long press the screen to auto-tap 10 times per second.|
+common_title_notice|안내|Info|
+notenough_fish|{0} 물고기가 부족합니다.|Not enough {0} fish.|
+touch_close|터치하여 닫기|Tap to close|
+fishkind_0|크라운|Clownfish|
+fishkind_1|고비|Goby|
+fishkind_2|탱|Tang|
+fishkind_3|담셀|Damsel|
+fishkind_4|앤젤|Angel|
+fishkind_5|놀래기|Wrasse|
+fishkind_6|도티백|Dottyback|
+fishkind_7|나비|Butterfly|
+fishkind_8|패럿피쉬|Parrotfish|
+fishkind_9|복어|Boxfish|
+fishkind_10|해마|Seahorse|
+fishkind_11|해파리|Jellyfish|
+fishkind_12|바다거북|Sea Turtle|
+fishkind_13|돌고래|Dolphin|
+fishkind_14|가오리|Sting Ray|
+fishkind_15|상어|Shark|
+fishkind_16|개복치|Sun fish|
+fishkind_17|고래|Whale|
+fishkind_18|연체동물|Mollusca|
+fishkind_19|해룡|Seadragon|
+fishkind_20|곰치|Moray Eel|
+fishkind_21|수구리|Shovelnose Guitarfish|
+fishkind_22|불가사리|Starfish|
+fishkind_23|새치|Marlin|
+fishkind_24|챠로미스|Chromis|
+fishkind_25|안티아스|Anthias|
+fishkind_26|참치|Tuna|
+fishkind_27|바슬렛|Basslet|
+more_achieve_item_0_title|신비의 돌!|Mystic Stone!|神秘的な石!
+more_achieve_item_0_desc|외로운 산호석 레벨 {0} 달성하기|Reach Lonely Corallite Lv. {0}|サンゴ石のレベルを{0}にする
+more_achieve_item_1_title|샘솟는 생명력!|Springing Vitality!|あふれる生命力!
+more_achieve_item_1_desc|생명력 {0} 보유하기|Own {0} Vitality|{0}の生命力を保有する
+more_achieve_item_2_title|생명의 산호!|Coral of Life!|命のサンゴ!
+more_achieve_item_2_desc|산호 레벨 합계 {0} 달성하기|Reach Lv. {0} Corallite in Total|サンゴの合計レベルを{0}にする
+more_achieve_item_3_title|하드 워커!|Hard Worker!|ハードワーカー!
+more_achieve_item_3_desc|탭 {0}번 하기|Tap {0} times|{0}回タップする
+more_achieve_item_4_title|레디! 액션!|Ready! Action!|レディ!アクション!
+more_achieve_item_4_desc|스킬 {0}번 사용하기|Use Skill {0} times|スキルを{0}回使用する
+more_achieve_item_5_title|광고 타임!|Ad Time!|CMタイム!
+more_achieve_item_5_desc|광고 {0}번 보기|Watch Ad {0} times|広告を{0}回視聴する
+more_achieve_item_6_title|출석 도장!|Attendance Stamp!|毎日ログイン!
+more_achieve_item_6_desc|출석 {0}일 하기|Attend {0} days|{0}日ログインする
+more_achieve_item_7_title|내 물고기가 진화했다!|My Fish Evolved!|
+more_achieve_item_7_desc|진화 물고기 {0} 마리 수집하기|Collect {0} Evolution Fish|
+more_achieve_item_8_title|소중한 순간!|Precious Moment!|大切な瞬間!
+more_achieve_item_8_desc|사진 {0}번 공유하기|Share photo {0} times|写真を{0}回シェアする
+more_achieve_item_9_title|콜렉터!|Collector!|コレクター!
+more_achieve_item_9_desc|일반 물고기 {0}종 수집하기|Collect {0} species of Normal Fish|
+more_achieve_item_10_title|친구들과 놀아요!|Play with Friends!|友達と遊ぼう!
+more_achieve_item_10_desc|물고기 생명력 탭 {0}번 하기|Tap Fish Vitality {0} times|魚の生命力を{0}回タップする
+daily_mission_0_title|손가락 풀기|Warming Up Fingers|指の練習
+daily_mission_0_desc|탭 {0}번 하기|Tap {0} times|{0}回タップする
+daily_mission_1_title|꾸준한 사진작가|Steady Photographer|勤勉なカメラマン
+daily_mission_1_desc|사진 {0}회 공유|Share photo {0} times|写真{0}回シェアする
+daily_mission_2_title|테크니컬 플레이어|Technical Player|テクニカルプレイヤー
+daily_mission_2_desc|스킬 {0}번 사용|Use Skill {0} times|スキル{0}回使用
+daily_mission_3_title|광고 매니아|Ad Mania|広告マニア
+daily_mission_3_desc|광고 {0}회 시청|Watch Ad {0} times|広告{0}回視聴
+daily_mission_4_title|타임 머신|Time Machine|タイムマシン
+daily_mission_4_desc|게임 플레이 {0}분 달성|Play game for {0} min|ゲームプレイ{0}分完了
+daily_name_tapfishcount|친구들과 인사하기|Greet Friends|友達と挨拶
+collection_0_pacific|작은 친구들|Little Friends|小さなお友達
+collection_0_atlantic|알록달록 바다|Colorful Ocean|色とりどりの海
+collection_0_indian|바다의 천사들|Ocean's Angels|海の天使たち
+collection_0_antarctic|골목대장|Leader of the Gang|ガキ大将
+collection_0_arctic|통통한 친구들|Chubby Friends|丸々した友達
+collection_1_pacific|천사들의 군무|Dance of Angels|天使たちの群舞
+collection_1_atlantic|회전목마|Merry-go-round|回転木馬
+collection_1_indian|반짝반짝 해파리|Shiny Jellyfish|キラキラクラゲ
+collection_1_antarctic|딱딱한 등껍질|Hard Shell|硬い甲羅
+collection_1_arctic|고대어 등장!|Ancient Fish Has Appeared!|古代魚登場！
+collection_2_pacific|태평양의 청새치들|Marlins of the Pacific|太平洋のマカジキ
+collection_2_atlantic|만타가오리의 그림자|Shadow of Manta Ray|オ二イトマキエイの影
+collection_2_indian|안녕 돌고래?|Hi Dolphin!|こんにちは、イルカ？
+collection_2_antarctic|무서운 상어소굴|Scary Shark's Den|怖いサメの巣窟
+collection_2_arctic|심해의 오징어|Deep Sea Squid|深海のイカ
+collection_3_pacific|작은고래와 친구들|Little Whale and Friends|小さなクジラと友人
+collection_3_atlantic|고래? 상어?|Whale? Shark?|クジラ？サメ？
+collection_3_indian|벨루가는 나의 친구|Beluga Is My Friend|ベルーガは私の友人
+collection_3_antarctic|미갈루 발견!|Found Migaloo!|ミカルルー発見！
+collection_3_arctic|흰긴수염고래의 고향|Home of Blue Whale|シロナガスクジラの故郷
+fishname_Emperor Angel|임페리얼 앤젤|Emperor Angel|インペリアルエンジェル
+fishname_Bicolor Angel|바이컬러 앤젤|Bicolor Angel|バイカラーエンジェル
+fishname_Scribbled Angelfish|스크리블드 앤젤|Scribbled Angelfish|スクリブルドエンゼル
+fishname_Peppermint Angelfish|페퍼민트 앤젤|Peppermint Angel|ペパーミントエンゼル
+fishname_Mahi Mahi|마히마히|Mahi Mahi|シイラ
+fishname_Coelacanth|실러캔스|Coelacanth|シーラカンス
+fishname_Bathynomus|바티노무스|Giant Isopod|ダイオウグソクムシ
+fishname_Nautilus|앵무조개|Nautilus|オウムガイ
+fishname_Narwhal|일각고래|Narwhal|イッカク
+fishname_Gulper Eel|풍선장어|Gulper Eel|フウセンウナギ
+toast_fish_unlock|조건을 완료해주세요|Please complete the condition|
+stone_levelup_desc_arti|산호석 LV. {0}|Corallite Lv. {0}|
+fishticket_name|물고기 창조 티켓|Fish Creation Ticket|
+fishticket_desc|물고기 창조 티켓입니다.|It is a Fish Creation Ticket.|
+fishname_ClownFish|퍼큘라 크라운|Percula Clownfish|
+fishname_Red ClownFish|레드 크라운|Red Clownfish|
+fishname_Blue ClownFish|블루 크라운|Blue Clownfish|
+fishname_Snow Clown|스노우플레이크 크라운|Snowflake Clownfish|
+fishname_royal_gramma_basslet|로얄 그래마 바슬렛|Royal Gramma Basslet|
+fishname_deepwater_Candy_ basslet|캔디 바슬렛|Candy Basslet|
+fishname_Blue Tang|블루탱|Blue Tang|
+fishname_Achilles Tang|아킬레스 탱|Achilles Tang|
+fishname_Clown Tang|크라운 탱|Clown Tang|
+fishname_gemmattum_tang|젬 탱|Gem Tang|
+fishname_Yello Tang|옐로우탱|Yellow Tang|
+fishname_Moorish Idol|무어리쉬 아이돌|Moorish Idol|
+fishname_Powder Blue Tang|파우더 블루탱|Powder Blue Tang|
+fishname_Convict Tang|컨빅트 탱|Convict Tang|
+fishname_NasoTang|나소탱|Naso Tang|
+fishname_fairy_wrasse|요정 놀래기|Fairy Wrasse|
+fishname_hawaiian_cleaner_wrasse|하와이 청소놀래기|Hawaiian Cleaner Wrasse|
+fishname_spotted_wrasse|비자놀래기|Spotted Wrasse|
+fishname_checkerboard_wrasse|체커보드 래스|Checkerboard Wrasse|
+fishname_Spotted Mandarin Dragonet|스팟 만다린|Spotted Mandarin Dragonet|
+fishname_Black and Gold Damsel|블랙 & 골드 담셀|Black and Gold Damsel|
+fishname_Blue Fin Damsel|블루 핀 담셀|Blue Fin Damsel|
+fishname_Lion Fish|라이언 피쉬|Lionfish|
+fishname_Jewel Damsel|주얼 담셀|Jewel Damsel|
+fishname_Burgess Butterfly|버지스 나비|Burgess Butterfly|
+fishname_Raccoon Butterfly|라쿤 나비|Raccoon Butterfly|
+fishname_Triangel Butterfly|트라이앵글 나비|Triangle Butterfly|
+fishname_Lined Butterfly|줄나비|Lined Butterfly|
+fishname_Pajama Cardinal|파자마 카디날|Pajama Cardinal|
+fishname_Juvenile Pinnate Spadefish|쥬브나일 핀아트 스페이드 피쉬|Juvenile Pinnate Spadefish|
+fishname_mailed_butterflyfish|매일드 버터플라이|Mailed Butterflyfish|
+fishname_oval_spot_butterflyfish|오벌 스팟 버터플라이|Oval-spot Butterflyfish|
+fishname_Bicolor Dottyback|로얄 도티백|Royal Dottyback|
+fishname_Orchid Dottyback|오키드 도티백|Orchid Dottyback|
+fishname_Diadem Dottyback|다이아뎀 도티백|Diadem Dottyback|
+fishname_Springer Dottyback|스프링거 도티백|Springer Dottyback|
+fishname_Fire Goby|파이어 고비|Fire Goby|
+fishname_Blue Banded Goby|블루 밴디드 고비|Blue Banded Goby|
+fishname_Helfrich Goby|헬프리치 고비|Helfrich's Firefish|
+fishname_flying_fish|날치|Flying Fish|
+fishname_Seaslug|바다민달팽이|Sea Slug|
+fishname_Randalls Goby|랜달스 고비|Randall's Goby|
+fishname_Scissortail Goby|시저테일 고비|Scissortail Goby|
+fishname_Yellow Watchman Goby|옐로 와치맨 고비|Yellow Watchman Goby|
+fishname_blackfin_coral_goby|블랙핀 코랄 고비|Blackfin Coral Goby|
+fishname_whitecap_goby|화이트캡 고비|Whitecap Goby|
+fishname_Panther Grouper|팬더 그루퍼|Panther Grouper|
+fishname_Hatchet Fish|납작 앨퉁이|Hatchet Fish|
+fishname_Eastern Smooth Boxfish|이스턴 스무스 박스피쉬 복어|Eastern Smooth Boxfish|
+fishname_Cube BoxFish|옐로우 박스피쉬 복어|Yellow Boxfish|
+fishname_Clown Trigger|크라운 트리거 복어|Clown Trigger|
+fishname_Camel Cowfish|낙타 거북복|Camel Cowfish|
+fishname_Longhorn Cowfish|롱혼 카우피쉬 복어|Longhorn Cowfish|
+fishname_Orange Cowfish|오렌지 카우피쉬 복어|Orange Cowfish|
+fishname_Juvenile Spotted Boxfish|스팟티드 박스피쉬 복어|Juvenile Spotted Boxfish|
+fishname_blackfin_tuna|흑다랑어|Blackfin Tuna|
+fishname_bigeye_tuna|눈다랑어|Bigeye Tuna|
+fishname_Orange Seahorse|오렌지 해마|Orange Seahorse|
+fishname_Black Seahorse|블랙 해마|Black Seahorse|
+fishname_Brazilian Seahorse|브라질리언 해마|Brazilian Seahorse|
+fishname_Potbelly Seahorse|배불뚝이 해마|Potbelly Seahorse|
+fishname_Pygmy Seahorse|피그미 해마|Pygmy Seahorse|
+fishname_Asfur Angel|애스퍼 앤젤|Asfur Angel|
+fishname_French Angel|프렌치 앤젤|French Angel|
+fishname_Queen Angelfish|퀸 앤젤|Queen Angel|
+fishname_BlobFish|블롭 피쉬|BlobFish|
+fishname_queen_angelfish|퍼플 퀸 엔젤피쉬|Purple Queen Angelfish|
+fishname_keyhole_angelfish|키홀 엔젤피시|Keyhole Angelfish|
+fishname_mango_angelfish|망고 엔젤피쉬|Mango Angelfish|
+fishname_midnight_angelfish|미드나잇 엔젤피쉬|Midnight Angelfish|
+fishname_Blue Parrotfish|블루 패럿피쉬|Blue Parrotfish|
+fishname_Red Parrotfish|레드 패럿피쉬|Red Parrotfish|
+fishname_knothead_parrotfish|놋트헤드 패럿피쉬|Knothead Parrotfish|
+fishname_SeaPig|바다돼지|Sea Pig|
+fishname_Oarfish|산갈치|Oarfish|
+fishname_Kemps Ridley Turtle|켐프각시 바다거북|Kemps Ridley Turtle|
+fishname_Loggerhead Turtle|붉은 바다거북|Loggerhead Turtle|
+fishname_Blue Green Chromis|블루 그린 챠로미스|Bluegreen Chromis|
+fishname_Black Bar Chromis|블랙바 챠로미스|Black Bar Chromis|
+fishname_Dugon|듀공|Dugong|
+fishname_ribbon_eel|리본 장어|Ribbon Eel|
+fishname_chocochip_starfish|초코칩 불가사리|Chocolate Chip Starfish|
+fishname_granulated_sea_star|코리아스터 불가사리|Granulated Sea Star|
+fishname_solaster_endeca|아홉 무장 불가사리|Purple Sunstar|
+fishname_Green Turtle|초록 바다거북|Green Sea Turtle|
+fishname_Hawksbill Turtle|대모 거북|Hawksbill Turtle|
+fishname_phocoenoides_dolphin|까치 돌고래|Dall's Porpoise|
+fishname_flatback_sea_turtle|납작등 바다거북|Flatback Sea Turtle|
+fishname_tasmanian_giant_crab|태즈메니안 자이언트 크랩|Tasmanian Giant Crab|
+fishname_Giant Squid|대왕 오징어|Giant Squid|
+fishname_Piglet Squid|피글렛 오징어|Piglet Squid|
+fishname_Colossal Squid|콜로살 오징어|Colossal Squid|
+fishname_redbar_anthias|레드 바 안티아스|Red Bar Anthias|
+fishname_lyretail_anthias_male|라이어테일 안티아스|Lyretail Anthias|
+fishname_clearfin_lionfish|클리어핀 라이언피쉬|Clearfin Lionfish|
+fishname_Leafy Seadragon|나뭇잎 해룡|Leafy Seadragon|
+fishname_Ribbon Seadragon|리본 해룡|Ribbon Seadragon|
+fishname_Weedy Seadragon|풀잎 해룡|Weedy Seadragon|
+fishname_Red Weedy Seadragon|붉은 풀잎해룡|Red Weedy Seadragon|
+fishname_Giant Seadragon|대왕 해룡|Giant Seadragon|
+fishname_Octopus|문어|Octopus|
+fishname_Cuttle Fish|갑오징어|Cuttle Fish|
+fishname_green_moray|녹색 곰치|Green Moray Eel|
+fishname_giant_moray|대왕 곰치|Giant Moray Eel|
+fishname_Vampire Squid|뱀파이어 오징어|Vampire Squid|
+fishname_casper_octopus|캐스퍼 문어|Casper Octopus|
+fishname_striped_octopus|줄무늬 문어|Striped Octopus|
+fishname_white_spotted_octopus|백점 문어|White-Spotted Octopus|
+fishname_asian_porpoise|상괭이|Finless Porpoise|
+fishname_Bottleneck Dolphin|병코 돌고래|Bottlenose Dolphin|
+fishname_Shovelnose Guitarfish|수구리|Shovelnose Guitarfish|
+fishname_Bowmouth Guitarfish|목탁수구리|Bowmouth Guitarfish|
+fishname_narwhal|일각고래|Narwhal|
+fishname_Giant Guitarfish|대왕 수구리|Giant Guitarfish|
+fishname_Manatee|매너티|Manatee|
+fishname_Sun Fish|개복치|Sun fish|
+fishname_Dwarf Whale|꼬마향고래|Dwarf Whale|
+fishname_Jelly Fish|보름달 물 해파리|Moon Jellyfish|
+fishname_Jelly FishB|야광원양해파리|Mauve Stinger|
+fishname_Torpedo Ray|전기가오리|Torpedo Ray|
+fishname_Spotted Eagle Ray|점박이 매가오리|Spotted Eagle Ray|
+fishname_opar_sunfish|붉은 개복치|Red Sunfish|
+fishname_Manta Ray|만타 가오리|Manta Ray|
+fishname_Thresher Shark|긴꼬리상어|Thresher Shark|
+fishname_Zebra Bullhead Shark|얼룩말상어|Zebra Bullhead Shark|
+fishname_Striped Marlin|청새치|Striped Marlin|
+fishname_black_marlin|흑새치|Black Marlin|
+fishname_Sawfish|톱가오리|Sawfish|
+fishname_onefin_electric_ray|원핀 전기 가오리|Onefin Electric Ray|
+fishname_Irrawaddy Dolphin|이라와디 돌고래|Irrawaddy Dolphin|
+fishname_Commerson Dolphin|머리코 돌고래|Commerson Dolphin|
+fishname_Pantropical Spotted Dolphin|열대얼룩 돌고래|Pantropical Spotted Dolphin|
+fishname_vaquita|바키타 돌고래|Vaquita|
+fishname_Hammerhead Shark|망치상어|Hammerhead Shark|
+fishname_Great White Shark|백상어|Great White Shark|
+fishname_Whale Shark|고래상어|Whale Shark|
+fishname_epaulette_shark|견장 상어|Epaulette Shark|
+fishname_MegaMouth|넓은주둥이상어|MegaMouth|
+fishname_Basking Shark|돌묵상어|Basking Shark|
+fishname_Blue Whale|흰긴수염고래|Blue Whale|
+fishname_Pink Dolphin|분홍 돌고래|Pink Dolphin|
+fishname_Beluga Whale|벨루가|Beluga Whale|
+fishname_spinner_dolphin|긴부리 돌고래|Spinner Dolphin|
+fishname_Migaloo|미갈루|Migaloo|
+fishname_bowhead_whale|북극고래|Bowhead Whale|
+fishname_Sperm Whale|향유고래|Sperm Whale|
+fishname_1000 Blue Whale|천년 흰긴수염고래|1000 years old Blue Whale|
+fishname_lethotremus_awae|엄지도치|Eumicrotremus Awae|
+fishname_0_Axolotls|우파루파|Axolotl|
+fishname_Marine otte|바다수달|Marine Otter|
+fishname_Baby Penguin|아기 펭귄|Baby Penguin|
+fishname_Harp Seal|하프 물범|Harp Seal|
+fishname_baby_alligator_snapping_turtle|아기 악어 거북|Baby Alligator Snapping Turtle|
+fishname_A pair of Pigmy Right Whale|한 쌍의 피그미 참고래|A Pair of Pygmy Right Whales|
+fishname_sebae_anemonefish|세베 크라운피쉬|Sebae Clownfish|
+fishname_froastbite_clownfish|프로스트바이트 크라운|Frostbite Clownfish|
+fishname_Tomato Clownfish|토마토 크라운피쉬|Tomato Clownfish|
+fishname_Juggalo Clownfish|저갈로 크라운피쉬|Juggalo Clownfish|
+fishname_Wyoming White Clownfish|와이오밍 화이트 크라운피쉬|Wyoming White Clownfish|
+fishname_snow_storm_clownfish|스노우 스톰 크라운피쉬|Snow Storm Clownfish|
+fishname_baby_clownfish|아기 퍼큘라 크라운|Baby Percula Clownfish|
+fishname_Firecracker Goby|폭죽 고비|Firecracker Goby|
+fishname_yellow_nose_prawn_goby|옐로우노즈 프론 고비|Yellow Nose Prawn Goby|
+fishname_poison_goby|포이즌 고비|Poison Goby|
+fishname_purple_fire_goby|퍼플 고비|Purple Goby|
+fishname_Bluespine Unicorn Tang|유니콘 탱|Unicorn Tang|
+fishname_Sailfin Tang|세일핀탱|Sailfin Tang|
+fishname_White Tail Tang|화이트테일 탱|White Tail Tang|
+fishname_White Tang|화이트 탱|White Tang|
+fishname_orange_shoulder_tang|오렌지 숄더 탱|Orange Shoulder Tang|
+fishname_tomoni_tang|토미니 탱|Purple Tomini Tang|
+fishname_baby_blue_tang|아기 블루탱|Baby Blue Tang|
+fishname_Neon Velvet Damsel|벨벳 담셀|Neon Velvet Damsel|
+fishname_Pink Smith Damsel|핑크 스미스 담셀|Pink Smith Damsel|
+fishname_Three Stripe Damsel|스리 스트라이프 담셀|Three Stripe Damsel|
+fishname_ambon_damsel|암본 담셀|Ambon Damsel|
+fishname_orange_line_chromis_damsel|오렌지 라인 챠로미스 담셀|Orange Line Chromis Damsel|
+fishname_Cross Damsel|크로스 담셀|Cross Damsel|
+fishname_purplemask_angelfish|퍼플 마스크 엔젤피쉬|Purplemask Angelfish|
+fishname_green_neon_angelfish|그린 네온 엔젤피쉬|Neon Green Angelfish|
+fishname_majestic_angel|마제스틱 엔젤|Majestic Angelfish|
+fishname_pelagic_thresher_shark|환도상어|Pelagic Thresher Shark|
+fishname_lemon_shark|레몬 샤크|Lemon Shark|
+fishname_grey_bambooshark|그레이 뱀부샤크|Grey Bamboo Shark|
+fishname_crocodile_shark|강남상어|Crocodile Shark|
+fishname_graceful_shark|그레이스풀 샤크|Graceful Shark|
+fishname_dwarf_lanternshark|드워프 랜턴샤크|Dwarf Lanternshark|
+fishname_Baby Shark|아기 상어|Baby Shark|
+fishname_philippine_butterflyfish|필리핀 나비|Philippine Butterflyfish|
+fishname_redtail_butterflyfish|레드테일 나비|Redtail Butterfly|
+fishname_Foureye Butterfly|포아이 나비|Foureye Butterflyfish|
+fishname_Longnose Butterfly|롱노즈 나비|Longnose Butterflyfish|
+fishname_Zoster Butterflyfish|자스터 나비|Zoster Butterflyfish|
+fishname_Saddle Butterflyfish|새들 나비|Saddle Butterflyfish|
+fishname_baby_raccoon_butterfly|아기 라쿤 나비|Baby Raccoon Butterfly|
+fishname_stoplight_parrotfish|스톱라이트 패롯피쉬|Stoplight Parrotfish|
+fishname_bicolour_parrotfish|바이칼라 패롯피시|Bicolour Parrotfish|
+fishname_spectacled_parrotfish|스펙타클드 패롯피시|Spectacled Parrotfish|
+fishname_pacific_longnose_parrotfish|패시픽 롱노즈 패롯피시|Pacific Longnose Parrotfish|
+fishname_tri_colour_parrotfish|트라이칼라 패롯피쉬|Tricolour Parrotfish|
+fishname_Porcupine Puffer|포큐파인 푸퍼|Porcupine Puffer|
+fishname_Valentinni's sharpnose puffer|발렌티니스 복어|Valentinni's Sharpnose Puffer|
+fishname_golden_puffer|골든 푸퍼|Golden Puffer|
+fishname_papuan_toby_puffer|파푸아 토비 푸퍼|Papuan Toby Puffer|
+fishname_White bar Boxfish|화이트바 박스피쉬|White Bar Boxfish|
+fishname_masked_puffer|마스크드 푸퍼|Masked Puffer|
+fishname_baby_yellow_boxfish|아기 옐로우 박스피쉬|Baby Yellow Boxfish|
+fishname_spotted_seahorse|복해마|Spotted Seahorse|
+fishname_Sindonis Seahorse|신도 해마|Sindonis Seahorse|
+fishname_thorny_seahorse|가시 해마|Thorny Seahorse|
+fishname_tiger_tail_seahorse|호랑이꼬리 해마|Tiger Tail Seahorse|
+fishname_bullneck_seahorse|불넥 해마|Bullneck Seahorse|
+fishname_giant_pacific_seahorse|퍼시픽 해마|Giant Pacific Seahorse|
+fishname_baby_dumbo|아기 덤보 문어|Baby Dumbo Octopus|
+fishname_baby_flapjack_octopus|아기 우무 문어|Baby Flapjack Octopus|
+fishname_caribbean_reef_octopus|캐리비안 리프 문어|Caribbean Reef Octopus|
+fishname_Pig-nosed Turtle|돼지코 거북|Pig-nosed Turtle|
+fishname_Snapping Turtle|늑대 거북|Snapping Turtle|
+fishname_Alligator Snapping Turtle|악어 거북|Alligator Snapping Turtle|
+fishname_Leatherback Turtle|가죽등 거북|Leatherback Turtle|
+fishname_baby_leatherback_turtle|아기 장수거북|Baby Leatherback Turtle|
+fishname_short_beaked_common_dolphin|짧은부리 참돌고래|Short Beaked Common Dolphin|
+fishname_hectors_dolphin|흰머리돌고래|Hector's Dolphin|
+fishname_sarawak_dolphin|샛돌고래|Sarawak Dolphin|
+fishname_gymnura_butterfly_ray|나비 가오리|Butterfly Ray|
+fishname_black_ray|블랙 가오리|Black Ray|
+fishname_baby_manta_ray|아기 만타 가오리|Baby Manta Ray|
+fishname_ghost_shark|고스트 샤크|Ghost Shark|
+fishname_arabian_carpet_shark|아라비안 카펫 샤크|Arabian Carpet Shark|
+fishname_greenland_shark|그린란드 상어|Greenland Shark|
+fishname_chain_catshark|체인 캣샤크|Chain Catshark|
+fishname_mexican_horn_shark|멕시칸 혼샤크|Mexican Horn Shark|
+fishname_cookiecutter_shark|쿠키컷터 샤크|Cookiecutter Shark|
+fishname_megalodon|메갈로돈|Megalodon|
+fishname_sei_whale|보리 고래|Sei Whale|
+fishname_short_finned_pilot_whale|들쇠 고래|Short-finned Pilot Whale|
+fishname_pigmy_killer_whale|들고양이 고래|Pigmy Killer Whale|
+fishname_melon_headed_whale|고양이 고래|Melon-headed Whale|
+fishname_Killer Whale|범고래|Killer Whale|
+fishname_baby_narwhal|아기 일각고래|Baby Narwhal|
+fishname_blacktip_shark|블랙팁 샤크|Blacktip Shark|
+menu_title|마이북|My book|
+setting_effect_sound|효과음|SFX|
+setting_amb_sound|환경음|Ambience|
+setting_bgm|배경음|BGM|
+setting_korean|한국어|Korean|
+setting_english|English|English|
+leader_board|랭킹보기|Leaderboard|
+setting_save|클라우드 저장|Save to\nCloud|
+setting_save_explain|진행 상황을 저장하시려면 저장버튼을 눌러주세요|Tap the Save button to save your progress.|
+ev_ex_1|퍼큘라 크라운에서 진화|Evolve from Percula Clownfish|
+ev_ex_2|파이어 고비에서 진화|Evolve from Fire Goby|
+ev_ex_3|블루탱에서 진화|Evolve from Blue Tang|
+ev_ex_4|블랙 & 골드 담셀에서 진화|Evolve from Black & Gold Damsel|
+ev_ex_5|임페리얼 앤젤에서 진화|Evolve from Emperor Angel|
+ev_ex_6|블랙팁 샤크에서 진화|Evolve from Blacktip Shark|
+ev_ex_7|버지스 나비에서 진화|Evolve from Burgess Butterfly|
+ev_ex_8|블루 패럿피쉬에서 진화|Evolve from Blue Parrotfish|
+ev_ex_9|이스턴 스무스 박스피쉬 복어에서 진화|Evolve from Eastern Smooth Boxfish|
+ev_ex_10|오렌지 해마에서 진화|Evolve from Orange Seahorse|
+ev_ex_11|문어에서 진화|Evolve from Octopus|
+ev_ex_12|붉은 바다거북에서 진화|Evolve from Loggerhead Turtle|
+ev_ex_13|병코 돌고래에서 진화|Evolve from Bottlenose Dolphin|
+ev_ex_14|수구리에서 진화|Evolve from Shovelnose Guitarfish|
+ev_ex_15|백상어에서 진화|Evolve from Great White Shark|
+ev_ex_16|북극고래에서 진화|Evolve from Bowhead Whale|
+shop_free_fish_name|물고기 창조 티켓|Fish Creation Ticket|
+shop_free_fish_dec|물고기 창조 티켓을<color=#FFB32C> {0} </color>장 획득합니다.|Get<color=#FFB32C> {0} </color>Fish Creation Tickets.|
+fishname_pink_cuttlefish|분홍 갑오징어|Pink Cuttlefish|
+fishname_black_spotted_whipray|토시소녀 가오리|Black-spotted Whipray|
+multi_levelup|레벨업 x {0}|Level Up x {0}|
+heartticket_name|생명력 생산 티켓|Vitality Production Ticket|
+heartticket_desc|생명력을 올려주는 티켓|Ticket that increases Vitality|
+shop_dia_heartticket_name|생명력 충전|Vitality Recharge|
+shop_dia_heartticket_desc|생명력을<color=#FFB32C> {0} </color>만큼 충전 합니다.|Recharge Vitality by<color=#FFB32C> {0} </color>.|
+btn_lock_condition|조건 보기 |View Condition|
+get_bonus|보너스 획득!|Bonus Acquired!|
+text_free|무료|FREE|
+server_receive_failed|서버에서 동기화 정보를 불러오지 못했습니다.\n네트워크 상태를 확인한 뒤 다시 시도해 주세요.|Failed to load sync data from the server.\nPlease check your network connection and try again.|
+server_save_failed|네트워크 상태가 불안정하여 저장에 실패했습니다. \n다시 시도하거나, 나중에 다시 저장할 수 있습니다.|Failed to save due to unstable network connection.\nPlease try again or save later.|
+common_info_retry|재시도|Retry|
+common_info_exit|종료|Exit|
+attendance_title|출석부|Attendance|
+setting_language|언어|Language|
+setting_support|지원|Support|
+setting_contact|문의|Contact|
+count_play_time|연속으로 {0} 분 플레이 하기 |Play continuously for {0} minutes|
+use_target_skill|스킬 {0}  {1}번 사용하기|Use skill {0} {1} times|
+bonus_mission|닫으면 추가 보석 {0} 획득 기회가 사라져요!|Closing will lose {0} extra gems!|
+daily_mission_5_title|성실한 하루|A Day of Hard Work|
+cooltime_toast|아직 준비되지 않았어요.|Not ready yet.|
+daily_mission_6_title|광고 애호가|Ad Enthusiast|
+daily_mission_7_title|광고 마스터|Ad Master|
+fishname_Right Whale Dolphin|흰배돌고래|Right Whale Dolphin|
+fishname_round_ribbontail_ray|둥근 리본테일 가오리|Round ribbontail ray|
+fishname_bullseye_electric_ray|불스아이 일렉트릭 래이|Bullseye electric ray|
+skill_format_miniute|{0} 분|{0} minutes|
+skill_format_count|{0} 회|{0} times|
+skill_format_percent|{0} %|{0} %|
+skill_format_times|{0} 배|{0} times|
+btn_max|최대값|MAX|
+daily_mission_8_title|탭의 연금술사|Tap Alchemist|
+common_skill_title|스킬|Skill|
+fish_manage_btn|관리|Fish|
+get_reward|보상을 획득하였습니다.|You have obtained the reward|
+btn_community|커뮤니티|Community|
+event_complete|오늘 참여 가능한 이벤트 횟수를 모두 사용했습니다.\n내일 다시 참여할 수 있습니다. ( {0}/{1} )|You have used all available event attempts for today.\nYou can participate again tomorrow. ({0}/{1})|
+fishname_baby_axolotl|아기 우파루파|Baby Axolotl|
+fishname_baby_spotted_seal|아기 점박이 물범|Baby Spotted Seal|
+fishname_Baby PolarBear|아기 북극곰|Baby Polar Bear|
+fishname_shiny_blue_whale|기억의 고래|Whale of Memories|
+none_unlock_attend|출석부에서 획득|Obtained from the attendance book|
+fishname_Corgi|코기|Welsh Corgi|
+event_limit_count|일일 제한 ( {0} / {1} )|Daily Limit ({0} / {1})|

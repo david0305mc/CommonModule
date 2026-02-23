@@ -7,10 +7,7 @@ public static class TableCodeGenMenu
     [MenuItem("Tools/Data/Generate Tables")]
     public static void Generate()
     {
-        // tableNames를 어디서 관리하느냐에 따라 바꾸면 됨
-        var tableNames = new[] { "Coral" };
-        // TableCodeGenMenu.Generate(tableNames);
-        TableCodeGenerator.GenerateAll(tableNames);
+        TableCodeGenerator.GenerateAll();
         Debug.Log("테이블 코드 생성 완료");
     }
 

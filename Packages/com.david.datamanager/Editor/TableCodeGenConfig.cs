@@ -17,4 +17,6 @@ public sealed class TableCodeGenConfig : ScriptableObject
     [Header("Special Table Names")]
     public string configTableName = "ConfigTable.csv";
     public string enumTableName = "EnumTable.csv";
+
+    public string[] tableNames;
 }

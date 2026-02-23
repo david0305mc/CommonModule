@@ -1,0 +1,5 @@
+ID|ArtifactName|ArtifactDesc|ArtifactLevelUpDesc|IconName|ModelName|MaxLevel|LevelUpCost|UnlockType|UnlockTarget|UnlockValue|UnlockDesc
+int|string|string|string|string|string|int|int|unlocktype|int|int|string
+1|artifact_1_title|artifact_desc_1|artifact_1_levelup_desc|artifact_icon_3|Coral_Boat|20|300|3|0|0|stone_levelup_desc_arti
+2|artifact_2_title|artifact_desc_2|artifact_2_levelup_desc|artifact_icon_1|Shell|20|300|3|0|500|stone_levelup_desc_arti
+3|artifact_3_title|artifact_desc_3|artifact_3_levelup_desc|artifact_icon_2|Coral_SealShell|10|500|3|0|500|stone_levelup_desc_arti

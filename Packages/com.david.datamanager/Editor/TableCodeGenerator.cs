@@ -90,13 +90,14 @@ public static class TableCodeGenerator
         => ToFullPathFromAssetRelative(Config.csvFolderPath);
 
     // ===== 외부 호출 API =====
-    public static void GenerateAll(IEnumerable<string> tableNames)
+    public static void GenerateAll()
     {
         if (Config == null)
         {
             Debug.LogError("[TableCodeGenerator] TableCodeGenConfig를 찾거나 생성하지 못했습니다.");
             return;
-        }
+        } 
+        IEnumerable<string> tableNames =_config.tableNames;
 
         var list = tableNames?.ToList() ?? new List<string>();
         if (list.Count == 0)
