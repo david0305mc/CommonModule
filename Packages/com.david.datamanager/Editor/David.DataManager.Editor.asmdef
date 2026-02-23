@@ -1,0 +1,18 @@
+{
+    "name": "David.DataManager.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5cd74e5ed4d08e34ba224203db2ede38"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
