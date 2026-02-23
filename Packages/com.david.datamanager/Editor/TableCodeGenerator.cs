@@ -4,13 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using UnityEngine.Scripting;
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public static class CsvTableCodeGenerator
+public static class TableCodeGenerator
 {
     // ===== 경로 설정 =====
     private static string ProjectRoot => Directory.GetParent(Application.dataPath).FullName;
