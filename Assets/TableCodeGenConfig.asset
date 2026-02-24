@@ -18,3 +18,7 @@ MonoBehaviour:
   csvFolderPath: Assets/Resources/Data
   configTableName: ConfigTable.csv
   enumTableName: EnumTable.csv
+  tableNames:
+  - Coral
+  - Skill
+  - Artifact

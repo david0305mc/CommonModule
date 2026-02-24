@@ -6,5 +6,8 @@
   "unity": "2021.3",
   "author": {
     "name": "David"
+  },
+  "dependencies": {
+    "com.cysharp.unitask": "2.5.0"
   }
 }
