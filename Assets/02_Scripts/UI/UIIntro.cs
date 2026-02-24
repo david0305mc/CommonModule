@@ -1,8 +1,7 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UtilTest : MonoBehaviour
+public class UIIntro  : MonoBehaviour
 {
     [SerializeField] private Button button;
 
