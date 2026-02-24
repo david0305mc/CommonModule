@@ -9,7 +9,8 @@ public class UIIntro  : MonoBehaviour
     {
         button.onClick.AddListener(() =>
         {
-            Debug.Log($"MathUtil.Clamp01(100f) {MathUtil.Clamp01(100f)}");
+            // Debug.Log($"MathUtil.Clamp01(100f) {MathUtil.Clamp01(100f)}");
+            DataManager.Instance.LoadDataAsync();
         });
     }
 }

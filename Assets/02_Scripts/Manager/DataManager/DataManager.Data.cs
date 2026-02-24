@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-public partial class DataManager {
+public partial class DataManager : Singleton<DataManager>{
 	[Preserve]
 	public partial class Coral {
 		public int id;

@@ -127,7 +127,7 @@ public static class TableCodeGenerator
             sb.AppendLine("using UnityEngine;");
             sb.AppendLine("using UnityEngine.Scripting;");
             sb.AppendLine();
-            sb.AppendLine("public partial class DataManager {");
+            sb.AppendLine("public partial class DataManager : Singleton<DataManager> {");
 
             GenTableData(sb, tableNames);
 
