@@ -45,8 +45,13 @@ public partial class DataManager : Singleton<DataManager>
                     Debug.LogError($"메서드를 찾을 수 없습니다: Bind{tableName}Data");
                     continue;
                 }
+                var tableType = Type.GetType($"DataManager+{tableName}");
+                if (tableType == null)
+                {
+                    Debug.Log("tableType == null");
+                }
 
-                method.Invoke(this, new object[] { Type.GetType($"DataManager+{tableName}"), data });
+                method.Invoke(this, new object[] { tableType, data });
             }
             catch (Exception e)
             {

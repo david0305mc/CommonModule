@@ -16,27 +16,39 @@ public static class TableCodeGenMenu
     {
         Debug.Log("TableConfig 생성 실행");
 
-        // 1️⃣ Resources 폴더 경로
         string resourcesFolderPath = "Assets/Resources";
         string assetPath = resourcesFolderPath + "/TableCodeGenConfig.asset";
 
-        // 2️⃣ Resources 폴더 없으면 생성
+        // Resources 폴더 없으면 생성
         if (!AssetDatabase.IsValidFolder(resourcesFolderPath))
         {
             AssetDatabase.CreateFolder("Assets", "Resources");
             Debug.Log("Resources 폴더 생성 완료");
         }
 
-        // 3️⃣ 이미 존재하는지 체크
         var existing = AssetDatabase.LoadAssetAtPath<TableCodeGenConfig>(assetPath);
+
+        // 🔴 이미 존재할 경우 경고 팝업
         if (existing != null)
         {
-            Debug.LogWarning("이미 TableCodeGenConfig가 존재합니다.");
-            Selection.activeObject = existing;
-            return;
+            bool overwrite = EditorUtility.DisplayDialog(
+                "TableConfig 이미 존재",
+                "기존 TableCodeGenConfig.asset 파일이 존재합니다.\n\n덮어쓰시겠습니까?",
+                "덮어쓰기",
+                "취소"
+            );
+
+            if (!overwrite)
+            {
+                Debug.Log("생성 취소됨");
+                Selection.activeObject = existing;
+                return;
+            }
+
+            // 기존 파일 삭제
+            AssetDatabase.DeleteAsset(assetPath);
         }
 
-        // 4️⃣ ScriptableObject 생성
         var config = ScriptableObject.CreateInstance<TableCodeGenConfig>();
 
         AssetDatabase.CreateAsset(config, assetPath);

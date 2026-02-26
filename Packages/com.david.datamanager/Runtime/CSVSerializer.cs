@@ -13,7 +13,7 @@ public static class CSVSerializer
     // ===== 옵션 =====
     public sealed class Options
     {
-        public char Separator = ',';
+        public char Separator = '|';
         public char ArraySeparator = ',';          // 배열 내부 구분자
         public bool TrimHeader = true;
         public bool TrimValue = true;
@@ -22,6 +22,9 @@ public static class CSVSerializer
         public bool LogMissingFields = false;      // 누락 필드 로그 (디폴트 꺼짐)
         public bool EnumIgnoreCase = true;
         public CultureInfo Culture = CultureInfo.InvariantCulture;
+        // ✅ 추가: 헤더(0번째 줄) 다음부터 스킵할 데이터 줄 수
+        // 예) 1이면 "2번째 라인(rows[1])"을 건너뛰고 rows[2]부터 읽음
+        public int SkipDataRows = 0;
     }
 
     private static readonly Options DefaultOptions = new Options();
@@ -133,24 +136,26 @@ public static class CSVSerializer
         var header = rows[0];
         var colToMember = BuildColumnMapping(elementType, header, opt);
 
-        int dataCount = Math.Max(0, rows.Count - 1);
+        int startRow = 1 + Math.Max(0, opt.SkipDataRows);   // ✅ 변경
+        if (startRow > rows.Count) startRow = rows.Count;
+
+        int dataCount = Math.Max(0, rows.Count - startRow); // ✅ 변경
         var array = Array.CreateInstance(elementType, dataCount);
 
-        for (int r = 1; r < rows.Count; r++)
+        int outIndex = 0;
+        for (int r = startRow; r < rows.Count; r++)         // ✅ 변경
         {
             var obj = Activator.CreateInstance(elementType);
             var cols = rows[r];
 
-            foreach (var kv in colToMember) // kv.Key=colIndex, kv.Value=MemberSetter
+            foreach (var kv in colToMember)
             {
                 int colIndex = kv.Key;
                 if (colIndex >= cols.Length) continue;
 
                 var raw = cols[colIndex];
                 if (opt.TrimValue && raw != null) raw = raw.Trim();
-
-                if (string.IsNullOrEmpty(raw))
-                    continue;
+                if (string.IsNullOrEmpty(raw)) continue;
 
                 try
                 {
@@ -164,7 +169,8 @@ public static class CSVSerializer
                 }
             }
 
-            array.SetValue(obj, r - 1);
+            array.SetValue(obj, outIndex); // ✅ r-1 대신 outIndex 사용
+            outIndex++;
         }
 
         return array;

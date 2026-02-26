@@ -1,4 +1,10 @@
+using System.IO;
+using System.Linq;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [CreateAssetMenu(
     fileName = "TableCodeGenConfig",
@@ -19,4 +25,33 @@ public sealed class TableCodeGenConfig : ScriptableObject
     public string enumTableName = "EnumTable.csv";
 
     public string[] tableNames;
+
+#if UNITY_EDITOR
+    [ContextMenu("Refresh Table Names From CSV")]
+    public void RefreshTableNames()
+    {
+        if (!Directory.Exists(csvFolderPath))
+        {
+            Debug.LogWarning($"CSV 폴더가 존재하지 않습니다: {csvFolderPath}");
+            tableNames = new string[0];
+            return;
+        }
+
+        var csvFiles = Directory.GetFiles(csvFolderPath, "*.csv", SearchOption.TopDirectoryOnly);
+
+        tableNames = csvFiles
+            .Select(Path.GetFileName)
+            .Where(name =>
+                !string.Equals(name, configTableName) &&
+                !string.Equals(name, enumTableName))
+            .Select(Path.GetFileNameWithoutExtension)
+            .OrderBy(name => name)
+            .ToArray();
+
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
+
+        Debug.Log($"TableNames 갱신 완료. 총 {tableNames.Length}개");
+    }
+#endif
 }
