@@ -13,6 +13,7 @@ using UnityEditor;
 public sealed class TableCodeGenConfig : ScriptableObject
 {
     [Header("Output Paths")]
+    public string dataTableLoaderPath = "Assets/02_Scripts/Manager/DataManager/DataManager.Loader.cs";
     public string dataTableDefPath = "Assets/02_Scripts/Manager/DataManager/DataManager.Data.cs";
     public string configTableDefPath = "Assets/02_Scripts/Manager/DataManager/ConfigTable.cs";
     public string tableEnumDefPath = "Assets/02_Scripts/Manager/DataManager/EnumTable.cs";

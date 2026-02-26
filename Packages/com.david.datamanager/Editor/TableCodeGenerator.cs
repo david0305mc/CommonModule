@@ -96,8 +96,8 @@ public static class TableCodeGenerator
         {
             Debug.LogError("[TableCodeGenerator] TableCodeGenConfig를 찾거나 생성하지 못했습니다.");
             return;
-        } 
-        IEnumerable<string> tableNames =_config.tableNames;
+        }
+        IEnumerable<string> tableNames = _config.tableNames;
 
         var list = tableNames?.ToList() ?? new List<string>();
         if (list.Count == 0)
@@ -112,6 +112,108 @@ public static class TableCodeGenerator
 
         AssetDatabase.Refresh();
         Debug.Log("[TableCodeGenerator] GenerateAll 완료");
+    }
+    public static void GenTableLoader()
+    {
+        var sb = new StringBuilder();
+
+        sb.AppendLine("#pragma warning disable 114");
+        sb.AppendLine("using System;");
+        sb.AppendLine("using System.IO;");
+        sb.AppendLine("using System.Reflection;");
+        sb.AppendLine("using Cysharp.Threading.Tasks;");
+        sb.AppendLine("using UnityEngine;");
+        sb.AppendLine("using UnityEngine.Scripting;");
+        sb.AppendLine("#if UNITY_EDITOR");
+        sb.AppendLine("using UnityEditor;");
+        sb.AppendLine("#endif");
+        sb.AppendLine();
+
+        sb.AppendLine("public partial class DataManager : Singleton<DataManager>");
+        sb.AppendLine("{");
+        sb.AppendLine("    private static TableCodeGenConfig _config;");
+        sb.AppendLine();
+
+        sb.AppendLine("    private static TableCodeGenConfig Config");
+        sb.AppendLine("    {");
+        sb.AppendLine("        get");
+        sb.AppendLine("        {");
+        sb.AppendLine("            if (_config != null) return _config;");
+        sb.AppendLine();
+        sb.AppendLine("#if UNITY_EDITOR");
+        sb.AppendLine("            var guids = AssetDatabase.FindAssets(\"t:TableCodeGenConfig\");");
+        sb.AppendLine("            if (guids != null && guids.Length > 0)");
+        sb.AppendLine("            {");
+        sb.AppendLine("                var path = AssetDatabase.GUIDToAssetPath(guids[0]);");
+        sb.AppendLine("                _config = AssetDatabase.LoadAssetAtPath<TableCodeGenConfig>(path);");
+        sb.AppendLine("                if (_config != null) return _config;");
+        sb.AppendLine("            }");
+        sb.AppendLine("#endif");
+        sb.AppendLine();
+        sb.AppendLine("            // 런타임에서는 Resources에서 로드(필요 시 경로 맞춰서 변경)");
+        sb.AppendLine("            _config = Resources.Load<TableCodeGenConfig>(\"TableCodeGenConfig\");");
+        sb.AppendLine("            return _config;");
+        sb.AppendLine("        }");
+        sb.AppendLine("    }");
+        sb.AppendLine();
+
+        sb.AppendLine("    [Preserve]");
+        sb.AppendLine("    public async UniTask LoadDataAsync()");
+        sb.AppendLine("    {");
+        sb.AppendLine("        if (Config == null)");
+        sb.AppendLine("        {");
+        sb.AppendLine("            Debug.LogError(\"TableCodeGenConfig를 찾을 수 없습니다. (Resources/TableCodeGenConfig.asset 확인)\");");
+        sb.AppendLine("            return;");
+        sb.AppendLine("        }");
+        sb.AppendLine();
+        sb.AppendLine("        foreach (var tableName in Config.tableNames)");
+        sb.AppendLine("        {");
+        sb.AppendLine("            try");
+        sb.AppendLine("            {");
+        sb.AppendLine("                string data = await LoadTableDataAsync(tableName);");
+        sb.AppendLine("                if (string.IsNullOrEmpty(data))");
+        sb.AppendLine("                {");
+        sb.AppendLine("                    Debug.LogError($\"데이터를 찾을 수 없습니다: {tableName}\");");
+        sb.AppendLine("                    continue;");
+        sb.AppendLine("                }");
+        sb.AppendLine();
+        sb.AppendLine("                var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;");
+        sb.AppendLine("                var method = GetType().GetMethod($\"Bind{tableName}Data\", flags);");
+        sb.AppendLine("                if (method == null)");
+        sb.AppendLine("                {");
+        sb.AppendLine("                    Debug.LogError($\"메서드를 찾을 수 없습니다: Bind{tableName}Data\");");
+        sb.AppendLine("                    continue;");
+        sb.AppendLine("                }");
+        sb.AppendLine();
+        sb.AppendLine("                // ✅ 중첩 타입( DataManager+{tableName} )은 GetNestedType이 가장 안전");
+        sb.AppendLine("                var tableType = GetType().GetNestedType(tableName, BindingFlags.Public | BindingFlags.NonPublic);");
+        sb.AppendLine("                if (tableType == null)");
+        sb.AppendLine("                {");
+        sb.AppendLine("                    Debug.LogError($\"tableType을 찾을 수 없습니다: DataManager+{tableName}\");");
+        sb.AppendLine("                    continue;");
+        sb.AppendLine("                }");
+        sb.AppendLine();
+        sb.AppendLine("                method.Invoke(this, new object[] { tableType, data });");
+        sb.AppendLine("            }");
+        sb.AppendLine("            catch (Exception e)");
+        sb.AppendLine("            {");
+        sb.AppendLine("                Debug.LogError($\"테이블 로드 실패 {tableName}: {e}\");");
+        sb.AppendLine("            }");
+        sb.AppendLine("        }");
+        sb.AppendLine("    }");
+        sb.AppendLine();
+
+        sb.AppendLine("    [Preserve]");
+        sb.AppendLine("    public UniTask<string> LoadTableDataAsync(string tableName)");
+        sb.AppendLine("    {");
+        sb.AppendLine("        // Resources/Data/{tableName}.txt(or .bytes/.csv 등 TextAsset) 형태 가정");
+        sb.AppendLine("        var ta = Resources.Load<TextAsset>(Path.Combine(\"Data\", tableName));");
+        sb.AppendLine("        return UniTask.FromResult(ta != null ? ta.text : null);");
+        sb.AppendLine("    }");
+        sb.AppendLine("}");
+
+        var outPath = ToFullPathFromAssetRelative(Config.dataTableLoaderPath);
+        WriteCode(outPath, sb.ToString());
     }
 
     public static void GenDatatable(IEnumerable<string> tableNames)

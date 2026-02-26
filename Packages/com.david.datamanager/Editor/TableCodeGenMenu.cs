@@ -3,15 +3,21 @@ using UnityEngine;
 
 public static class TableCodeGenMenu
 {
+    [MenuItem("Tools/Data/Generate Table Loader", false, 200)]
+    public static void GenerateTableLoader()
+    {
+        TableCodeGenerator.GenTableLoader();
+        Debug.Log("테이블 코드 로딩 생성 완료");
+    }
 
-    [MenuItem("Tools/Data/Generate Tables")]
+    [MenuItem("Tools/Data/Generate Tables", false, 100)]
     public static void Generate()
     {
         TableCodeGenerator.GenerateAll();
         Debug.Log("테이블 코드 생성 완료");
     }
 
-    [MenuItem("Tools/Data/Generate TableConfig")]
+    [MenuItem("Tools/Data/Generate TableConfig", false, 300)]
     public static void GenerateTableConfig()
     {
         Debug.Log("TableConfig 생성 실행");
