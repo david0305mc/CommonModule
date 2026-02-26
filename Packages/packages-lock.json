@@ -15,6 +15,12 @@
         "com.cysharp.unitask": "2.5.0"
       }
     },
+    "com.david.popupmanager": {
+      "version": "file:com.david.popupmanager",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.david.utils": {
       "version": "file:com.david.utils",
       "depth": 0,

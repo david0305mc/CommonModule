@@ -2,6 +2,7 @@
   <Project Path="David.Utils.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="David.DataManager.Editor.csproj" />
+  <Project Path="David.PopupManager.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="David.Utils.Editor.csproj" />
   <Project Path="David.DataManager.csproj" />
