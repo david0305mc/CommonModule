@@ -3,6 +3,6 @@
   <Project Path="David.Utils.csproj" />
   <Project Path="David.DataManager.Editor.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
-  <Project Path="David.DataManager.csproj" />
   <Project Path="David.Utils.Editor.csproj" />
+  <Project Path="David.DataManager.csproj" />
 </Solution>
