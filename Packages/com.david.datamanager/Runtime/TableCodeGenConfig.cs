@@ -13,10 +13,10 @@ using UnityEditor;
 public sealed class TableCodeGenConfig : ScriptableObject
 {
     [Header("Output Paths")]
-    public string dataTableLoaderPath = "Assets/02_Scripts/Manager/DataManager/DataManager.Loader.cs";
-    public string dataTableDefPath = "Assets/02_Scripts/Manager/DataManager/DataManager.Data.cs";
-    public string configTableDefPath = "Assets/02_Scripts/Manager/DataManager/ConfigTable.cs";
-    public string tableEnumDefPath = "Assets/02_Scripts/Manager/DataManager/EnumTable.cs";
+    public string dataTableLoaderPath = "Assets/02_Scripts/Runtime/Manager/DataManager/DataManager.Loader.cs";
+    public string dataTableDefPath = "Assets/02_Scripts/Runtime/Manager/DataManager/DataManager.Data.cs";
+    public string configTableDefPath = "Assets/02_Scripts/Runtime/Manager/DataManager/ConfigTable.cs";
+    public string tableEnumDefPath = "Assets/02_Scripts/Runtime/Manager/DataManager/EnumTable.cs";
 
     [Header("CSV Folder (Resources/Data 기준이면 그대로 둬도 됨)")]
     public string csvFolderPath = "Assets/Resources/Data";

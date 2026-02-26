@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a20a5af61c3832740934f4afc4a5bf21, type: 3}
   m_Name: TableCodeGenConfig
   m_EditorClassIdentifier: 
-  dataTableLoaderPath: Assets/02_Scripts/Manager/DataManager/DataManager.Loader.cs
-  dataTableDefPath: Assets/02_Scripts/Manager/DataManager/DataManager.Data.cs
-  configTableDefPath: Assets/02_Scripts/Manager/DataManager/ConfigTable.cs
-  tableEnumDefPath: Assets/02_Scripts/Manager/DataManager/EnumTable.cs
+  dataTableLoaderPath: Assets/02_Scripts/Runtime/Manager/DataManager/DataManager.Loader.cs
+  dataTableDefPath: Assets/02_Scripts/Runtime/Manager/DataManager/DataManager.Data.cs
+  configTableDefPath: Assets/02_Scripts/Runtime/Manager/DataManager/ConfigTable.cs
+  tableEnumDefPath: Assets/02_Scripts/Runtime/Manager/DataManager/EnumTable.cs
   csvFolderPath: Assets/Resources/Data
   configTableName: ConfigTable.csv
   enumTableName: EnumTable.csv
