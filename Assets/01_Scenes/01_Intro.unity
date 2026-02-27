@@ -286,6 +286,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7122097120552301154, guid: 44788406831b68244a434005cbbd8038, type: 3}
+      propertyPath: popupPrefabs.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7813931099175616391, guid: 44788406831b68244a434005cbbd8038, type: 3}
       propertyPath: m_Name
       value: PopupManager

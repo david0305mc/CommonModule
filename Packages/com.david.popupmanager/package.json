@@ -6,5 +6,12 @@
   "unity": "2021.3",
   "author": {
     "name": "David"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Demo Scene",
+      "description": "테스트/데모 씬",
+      "path": "Samples~/Demo"
+    }
+  ]
 }
