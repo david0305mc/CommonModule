@@ -161,4 +161,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
   popupRoot: {fileID: 961550528200767479}
-  popupPrefabs: []
+  popupPrefabs:
+  - {fileID: 5842411446071940116, guid: 1a25aef2c7c22ab46a43edee440e0157, type: 3}
