@@ -11,7 +11,7 @@
     {
       "displayName": "Demo Scene",
       "description": "테스트/데모 씬",
-      "path": "Samples~/Demo"
+      "path": "PopupManager/Samples~/Demo"
     }
   ]
 }
