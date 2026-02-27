@@ -1,16 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIMain : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] Button testButton;
+    void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        testButton.onClick.AddListener(() =>
+        {
+            PopupManager.Instance.ShowPopupAsync<PopupOK, bool>();
+        });
     }
 }
