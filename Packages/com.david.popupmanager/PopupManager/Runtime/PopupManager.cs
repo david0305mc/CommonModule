@@ -222,7 +222,7 @@ public abstract class PopupBase<T> : PopupBaseBase
         cts = new CancellationTokenSource();
         IsClosing = false;
         gameObject.SetActive(true);
-        WaitForFirstClip().Forget();
+        await WaitForFirstClip();
     }
 
     protected virtual async UniTask WaitForFirstClip()
