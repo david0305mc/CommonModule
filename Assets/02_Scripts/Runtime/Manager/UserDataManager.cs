@@ -1,16 +1,6 @@
 using UnityEngine;
-
-public class UserDataManager : MonoBehaviour
+using R3;
+public class UserDataManager : Singleton<UserDataManager>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
