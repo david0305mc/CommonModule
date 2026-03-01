@@ -1,3 +1,4 @@
+using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ public class UIMain : MonoBehaviour
     {
         testButton.onClick.AddListener(() =>
         {
-            PopupManager.Instance.ShowPopupAsync<PopupOK, bool>();
+            PopupManager.Instance.ShowPopupAsync<PopupMVVM, Unit>();
         });
     }
 }
