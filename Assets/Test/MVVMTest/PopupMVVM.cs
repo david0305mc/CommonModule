@@ -1,3 +1,5 @@
+using System;
+using Cysharp.Threading.Tasks;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -9,30 +11,30 @@ public class PopupMVVM : PopupBase<Unit>
     [SerializeField] private Button addButton;
     [SerializeField] private Button minusButton;
 
-    private PopupViewModel _vm;
+    private ViewModel_A _vm;
     private CompositeDisposable _cd;
 
     public override void Awake()
     {
         base.Awake();
-
-        // ViewModel 생성(주입)
-        _vm = new PopupViewModel(UserDataManager.Instance);
         _cd = new CompositeDisposable();
-
-        // === Binding: ViewModel -> View ===
-        _vm.TitleText
-            .Subscribe(text => titleText.SetText(text))
-            .AddTo(_cd);
-
-        // === Binding: View -> ViewModel (Command) ===
-        addButton.onClick.AddListener(_vm.Add);
-        minusButton.onClick.AddListener(_vm.Minus);
+        addButton.onClick.AddListener(() =>
+        {
+            if (_vm != null)
+                _vm.AddFunc();
+        });
+        GameManager.Instance.UserModel.Gold
+    .Subscribe(text => titleText.SetText($"{text}"))
+    .AddTo(_cd);
     }
-        
-    private void OnDestroy()
+    public override async UniTask Show()
     {
-        // PopupBase가 Dispose를 지원하는 구조라면 거기에 맞추면 됨
+        await base.Show();
+
+        _vm = (ViewModel_A)_args[0];
+    }
+    void OnDestroy()
+    {
         _cd?.Dispose();
         _vm?.Dispose();
     }

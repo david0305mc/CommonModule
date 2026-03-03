@@ -9,7 +9,7 @@ public class UIMain : MonoBehaviour
     {
         testButton.onClick.AddListener(() =>
         {
-            PopupManager.Instance.ShowPopupAsync<PopupMVVM, Unit>();
+            GameManager.Instance.ShowTestA();
         });
     }
 }
