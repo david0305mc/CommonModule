@@ -405,7 +405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4228778588940284309}
   - component: {fileID: 5306369305710920720}
-  - component: {fileID: -5712003769926039825}
+  - component: {fileID: 4242293747979918741}
   m_Layer: 5
   m_Name: PopupLevelUp
   m_TagString: Untagged
@@ -441,7 +441,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5842411446071940116}
   m_CullTransparentMesh: 1
---- !u!114 &-5712003769926039825
+--- !u!114 &4242293747979918741
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -450,15 +450,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5842411446071940116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50904319c63e548e2a02d9214163254c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7752ce94c5debc84f9d24761a4f86b8d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PopupMVVM
+  m_EditorClassIdentifier: Assembly-CSharp::PopupLevelUp
   animator: {fileID: 0}
   closeTrigger: Close
   closeBtn: {fileID: 2090288826953087148}
-  titleText: {fileID: 2079875216538099091}
   addButton: {fileID: 6282478869876539948}
-  minusButton: {fileID: 0}
 --- !u!1 &6515167616911050226
 GameObject:
   m_ObjectHideFlags: 0

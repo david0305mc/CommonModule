@@ -9,5 +9,9 @@ public class UserData
     {
         Gold = new ReactiveProperty<int>();
     }
-    
+    public void AddGold(int add)
+    {
+        Gold.Value += add;
+    }
+
 }
