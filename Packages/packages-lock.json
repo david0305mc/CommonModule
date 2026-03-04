@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.antigravity.editor": {
+      "version": "https://github.com/hohollala/Antigravity.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.9"
+      },
+      "hash": "31b54b2f6839f53aebef450e1219b5e366a27093"
+    },
     "com.cysharp.r3": {
       "version": "https://github.com/Cysharp/R3.git?path=src/R3.Unity/Assets/R3.Unity",
       "depth": 0,
