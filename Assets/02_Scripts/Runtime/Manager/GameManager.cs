@@ -2,6 +2,7 @@ using R3;
 using UnityEngine;
 using System;
 using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
 public class GameManager : SingletonMono<GameManager>
 {
@@ -18,14 +19,16 @@ public class GameManager : SingletonMono<GameManager>
         UserModel = new UserData();
         UserModel.InitData();
     }
-    public void ShowTestA()
+    public async UniTask ShowTestA()
     {
-        ViewModel_A viewModel_A = new ViewModel_A(UserModel);
-        viewModel_A.MoveEvent.Subscribe(_ =>
+        ViewModel_A vm = new ViewModel_A(UserModel);
+        var disposable = vm.MoveEvent.Subscribe(_ =>
         {
             MoveEffect();
-        }).AddTo(this);
-        PopupManager.Instance.ShowPopupAsync<PopupMVVM, Unit>(new object[] { viewModel_A }).Forget();
+        });
+        vm.AddTo(disposable);
+        await PopupManager.Instance.ShowPopupAsync<PopupMVVM, Unit>(new object[] { vm });
+        vm.Dispose();
     }
 
     public void MoveEffect()

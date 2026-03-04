@@ -16,27 +16,28 @@ public class PopupMVVM : PopupBase<Unit>
     public override void Awake()
     {
         base.Awake();
-        _cd = new CompositeDisposable();
 
         addButton.onClick.AddListener(() =>
         {
-            if (_vm != null)
-                _vm.AddFunc();
+            _vm?.AddFunc();
         });
-        GameManager.Instance.UserModel.Gold
-    .Subscribe(text => titleText.SetText($"{text}"))
-    .AddTo(_cd);
     }
     public override async UniTask Show()
     {
         await base.Show();
+        _cd?.Dispose();
+        _cd = new CompositeDisposable();
 
         _vm = (ViewModel_A)_args[0];
+        _vm.TitleText.Subscribe(goldText =>
+        {
+            titleText.SetText(goldText);
+        }).AddTo(_cd);
     }
 
-    void OnDestroy()
+    public override async UniTask CloseAsync()
     {
         _cd?.Dispose();
-        _vm?.Dispose();
+        base.CloseAsync();
     }
 }
