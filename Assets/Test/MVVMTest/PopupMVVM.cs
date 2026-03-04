@@ -9,7 +9,6 @@ public class PopupMVVM : PopupBase<Unit>
 {
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private Button addButton;
-    [SerializeField] private Button minusButton;
 
     private ViewModel_A _vm;
     private CompositeDisposable _cd;
@@ -18,6 +17,7 @@ public class PopupMVVM : PopupBase<Unit>
     {
         base.Awake();
         _cd = new CompositeDisposable();
+
         addButton.onClick.AddListener(() =>
         {
             if (_vm != null)
@@ -33,6 +33,7 @@ public class PopupMVVM : PopupBase<Unit>
 
         _vm = (ViewModel_A)_args[0];
     }
+
     void OnDestroy()
     {
         _cd?.Dispose();

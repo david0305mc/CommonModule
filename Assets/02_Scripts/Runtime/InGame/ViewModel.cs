@@ -4,7 +4,7 @@ using System;
 
 public class ViewModelBase : IDisposable
 {
-    private CompositeDisposable _cd = new CompositeDisposable();
+    protected CompositeDisposable _cd = new();
 
     public void Dispose()
     {
@@ -15,14 +15,19 @@ public class ViewModelBase : IDisposable
 
 public class ViewModel_A : ViewModelBase
 {
-    UserData _userModel;
+    private readonly UserData _userModel;
+    private readonly Subject<Unit> _moveEvent = new();
+    public Observable<Unit> MoveEvent => _moveEvent;
+
     public ViewModel_A(UserData userModel)
     {
         _userModel = userModel;
+        _moveEvent.AddTo(_cd);
     }
     public void AddFunc()
     {
-        _userModel.Gold.Value++;
+        _userModel.AddGold(10);
+        _moveEvent.OnNext(Unit.Default);
     }
-    
+
 }

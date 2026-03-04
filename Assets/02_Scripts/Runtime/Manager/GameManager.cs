@@ -21,17 +21,16 @@ public class GameManager : SingletonMono<GameManager>
     public void ShowTestA()
     {
         ViewModel_A viewModel_A = new ViewModel_A(UserModel);
+        viewModel_A.MoveEvent.Subscribe(_ =>
+        {
+            MoveEffect();
+        }).AddTo(this);
         PopupManager.Instance.ShowPopupAsync<PopupMVVM, Unit>(new object[] { viewModel_A }).Forget();
     }
 
-    public void ShowTestB()
+    public void MoveEffect()
     {
-        PopupManager.Instance.ShowPopupAsync<PopupLevelUp, Unit>(new object[]
-        {
-            new System.Action(() =>
-            {
-                UserModel.AddGold(10);
-            })
-        }).Forget();
+        // some Event
+        Debug.Log("MoveEffect");
     }
 }

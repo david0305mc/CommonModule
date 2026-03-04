@@ -9,7 +9,7 @@ public class UIMain : MonoBehaviour
     {
         testButton.onClick.AddListener(() =>
         {
-            GameManager.Instance.ShowTestB();
+            GameManager.Instance.ShowTestA();
         });
     }
 }
