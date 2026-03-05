@@ -6,7 +6,7 @@ public class PopupLevelUp : PopupBase<Unit>
 {
     [SerializeField] private Button addButton;
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }

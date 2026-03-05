@@ -406,6 +406,7 @@ GameObject:
   - component: {fileID: 4228778588940284309}
   - component: {fileID: 5306369305710920720}
   - component: {fileID: 4242293747979918741}
+  - component: {fileID: 7258426223579236556}
   m_Layer: 5
   m_Name: PopupLevelUp
   m_TagString: Untagged
@@ -457,6 +458,28 @@ MonoBehaviour:
   closeTrigger: Close
   closeBtn: {fileID: 2090288826953087148}
   addButton: {fileID: 6282478869876539948}
+--- !u!95 &7258426223579236556
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5842411446071940116}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3d56a3cfee3a0d94ebb8917a5c74adc0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6515167616911050226
 GameObject:
   m_ObjectHideFlags: 0

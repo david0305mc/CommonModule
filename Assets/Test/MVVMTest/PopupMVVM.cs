@@ -13,7 +13,7 @@ public class PopupMVVM : PopupBase<Unit>
     private ViewModel_A _vm;
     private CompositeDisposable _cd;
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
@@ -24,7 +24,7 @@ public class PopupMVVM : PopupBase<Unit>
     }
     public override async UniTask Show()
     {
-        await base.Show();
+        base.Show();
         _cd?.Dispose();
         _cd = new CompositeDisposable();
 

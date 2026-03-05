@@ -1,23 +1,27 @@
+// PopupManager.cs
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PopupManager : SingletonMono<PopupManager>
 {
     private const string ResourcesPopupPath = "Popup";
 
+    [Header("Roots")]
     [SerializeField] private Transform popupRoot;
+    [SerializeField] private Transform poolRoot; // 비워두면 popupRoot를 재사용
+
+    [Header("Fallback Prefabs (optional)")]
     [SerializeField] private List<GameObject> popupPrefabs;
 
-    private Dictionary<string, Queue<GameObject>> pool;
-    private Stack<PopupBaseBase> activePopups;
+    // key = typeof(TPopup).Name
+    private readonly Dictionary<string, Stack<GameObject>> _pool = new();
+    private readonly List<PopupBaseBase> _active = new(); // top = last
 
     public bool IsOnStack<TPopup>() where TPopup : PopupBaseBase
-        => activePopups != null && activePopups.Any(p => p is TPopup);
+        => _active.Any(p => p is TPopup);
 
     protected override void Awake()
     {
@@ -27,8 +31,9 @@ public class PopupManager : SingletonMono<PopupManager>
 
     public void InitSingleton()
     {
-        pool = new Dictionary<string, Queue<GameObject>>();
-        activePopups = new Stack<PopupBaseBase>();
+        _pool.Clear();
+        _active.Clear();
+        if (poolRoot == null) poolRoot = popupRoot;
     }
 
     private void Update()
@@ -37,91 +42,125 @@ public class PopupManager : SingletonMono<PopupManager>
             TryCloseTopPopup().Forget();
     }
 
-    public TPopup ShowPopup<TPopup, TResult>(params object[] args)
+    /// <summary>
+    /// 팝업 인스턴스를 반환 (결과는 popup.WaitForResultAsync()로 대기)
+    /// </summary>
+    public UniTask<TPopup> ShowPopup<TPopup, TResult>(params object[] args)
+        where TPopup : PopupBase<TResult>
+        => ShowPopup<TPopup, TResult>(waitOpenAni: false, args);
+
+    public async UniTask<TPopup> ShowPopup<TPopup, TResult>(bool waitOpenAni, params object[] args)
         where TPopup : PopupBase<TResult>
     {
-        string key = typeof(TPopup).Name;
+        if (popupRoot == null)
+            throw new Exception("[PopupManager] popupRoot is null.");
 
-        if (!pool.TryGetValue(key, out var queue))
-        {
-            queue = new Queue<GameObject>();
-            pool[key] = queue;
-        }
+        var key = typeof(TPopup).Name;
+        var go = Rent(key);
 
-        GameObject instance;
-        if (queue.Count > 0)
-        {
-            instance = queue.Dequeue();
-            instance.transform.SetParent(popupRoot, false);
-            instance.transform.SetAsLastSibling();
-            instance.SetActive(true);
-        }
-        else
-        {
-            var prefab = Resources.Load<GameObject>($"{ResourcesPopupPath}/{key}")
-                      ?? popupPrefabs.Find(p => p.name == key);
+        var popup = go.GetComponent<TPopup>();
+        if (popup == null)
+            throw new Exception($"[PopupManager] {key} prefab has no component: {typeof(TPopup).Name}");
 
-            if (prefab == null)
-                throw new Exception($"Popup prefab {key} not found");
+        // active push
+        _active.Add(popup);
 
-            instance = Instantiate(prefab, popupRoot);
-        }
+        // popup init & show
+        popup.Internal_Init(args, closeCallback: () => ReleasePopup(popup));
+        popup.Show().Forget();
 
-        var popup = instance.GetComponent<TPopup>();
-        activePopups.Push(popup);
-        popup.InitPopup(args, () =>
-        {
-            ReleasePopup(popup);
-        });
+        if (waitOpenAni)
+            await popup.WaitForShowAsync();
+
         return popup;
     }
 
-    // ✅ Release는 "스택에서 제거 + 풀 반환"을 보장
+    /// <summary>
+    /// “팝업 띄우고 결과 await” 한 줄용
+    /// </summary>
+    public async UniTask<TResult> ShowPopupForResult<TPopup, TResult>(params object[] args)
+        where TPopup : PopupBase<TResult>
+    {
+        var popup = await ShowPopup<TPopup, TResult>(waitOpenAni: false, args);
+        return await popup.WaitForResultAsync();
+    }
+
+    public async UniTask<TResult> ShowPopupForResult<TPopup, TResult>(bool waitOpenAni, params object[] args)
+        where TPopup : PopupBase<TResult>
+    {
+        var popup = await ShowPopup<TPopup, TResult>(waitOpenAni, args);
+        return await popup.WaitForResultAsync();
+    }
+
+    private GameObject Rent(string key)
+    {
+        if (!_pool.TryGetValue(key, out var stack))
+        {
+            stack = new Stack<GameObject>();
+            _pool[key] = stack;
+        }
+
+        GameObject instance;
+        if (stack.Count > 0)
+        {
+            instance = stack.Pop();
+            instance.transform.SetParent(popupRoot, false);
+            instance.transform.SetAsLastSibling();
+            instance.SetActive(true);
+            return instance;
+        }
+
+        var prefab = Resources.Load<GameObject>($"{ResourcesPopupPath}/{key}")
+                  ?? popupPrefabs?.Find(p => p != null && p.name == key);
+
+        if (prefab == null)
+            throw new Exception($"[PopupManager] Popup prefab '{key}' not found. (Resources/{ResourcesPopupPath}/{key} or popupPrefabs)");
+
+        instance = Instantiate(prefab, popupRoot);
+        instance.name = prefab.name; // (Clone) 제거 목적이면 여기서 이름 정리해도 됨
+        return instance;
+    }
+
+    /// <summary>
+    /// Release는 “active 제거 + 풀 반환”을 보장
+    /// </summary>
     public void ReleasePopup(PopupBaseBase popup)
     {
         if (popup == null) return;
 
-        // 1) activePopups에서 제거 (top이 아니어도 제거되도록 재구성)
-        if (activePopups.Count > 0)
+        // 1) active에서 제거 (top이 아니어도 제거)
+        _active.Remove(popup);
+
+        // 2) pool push
+        var key = popup.GetType().Name;
+        if (!_pool.TryGetValue(key, out var stack))
         {
-            if (ReferenceEquals(activePopups.Peek(), popup))
-            {
-                activePopups.Pop();
-            }
-            else
-            {
-                // top이 아닌 팝업이 먼저 닫히는 케이스 방어
-                var temp = new Stack<PopupBaseBase>(activePopups.Count);
-                while (activePopups.Count > 0)
-                {
-                    var p = activePopups.Pop();
-                    if (!ReferenceEquals(p, popup))
-                        temp.Push(p);
-                }
-                while (temp.Count > 0)
-                    activePopups.Push(temp.Pop());
-            }
+            stack = new Stack<GameObject>();
+            _pool[key] = stack;
         }
 
-        // 2) pool enqueue
-        string key = popup.GetType().Name;
-        if (!pool.TryGetValue(key, out var q))
-        {
-            q = new Queue<GameObject>();
-            pool[key] = q;
-        }
+        var go = popup.gameObject;
+        go.SetActive(false);
 
-        popup.transform.SetParent(popupRoot, false); // UI는 보통 local 기준 유지가 안전
-        popup.gameObject.SetActive(false);
-        q.Enqueue(popup.gameObject);
+        // poolRoot가 따로 있으면 그 밑으로 넣어두는 게 hierarchy 관리에 편함
+        var parent = poolRoot != null ? poolRoot : popupRoot;
+        popup.transform.SetParent(parent, false);
+
+        stack.Push(go);
     }
 
     public async UniTaskVoid TryCloseTopPopup()
     {
-        if (activePopups.Count == 0)
+        if (_active.Count == 0)
             return;
 
-        var top = activePopups.Peek();
+        var top = _active[^1];
+        if (top == null)
+        {
+            _active.RemoveAt(_active.Count - 1);
+            return;
+        }
+
         if (top.IsClosing)
             return;
 
@@ -131,161 +170,15 @@ public class PopupManager : SingletonMono<PopupManager>
     public bool TryGetTopPopup<TPopup>(out TPopup popup) where TPopup : PopupBaseBase
     {
         popup = null;
-        if (activePopups == null || activePopups.Count == 0)
+
+        if (_active.Count == 0)
             return false;
 
-        if (activePopups.Peek() is TPopup casted)
+        var top = _active[^1];
+        if (top is TPopup casted)
         {
             popup = casted;
             return true;
-        }
-        return false;
-    }
-}
-
-
-
-public abstract class PopupBaseBase : MonoBehaviour
-{
-    public abstract bool IsClosing { get; set; }
-    public abstract UniTask CloseAsync();
-}
-
-
-public abstract class PopupBase<T> : PopupBaseBase
-{
-    private Action _closeCallback;
-
-    private UniTaskCompletionSource<T> _completionSource;
-    protected object[] _args;
-
-    [Header("Optional Animation")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private string closeTrigger = "Close"; // 애니메이션 트리거
-    [SerializeField] private Button closeBtn;
-    public override bool IsClosing { get; set; } = false;
-    private CancellationTokenSource cts;
-
-    public virtual void Awake()
-    {
-        closeBtn?.onClick.AddListener(async () =>
-        {
-            await OnClickClose();
-        });
-    }
-    protected virtual void OnBack()
-    {
-        Debug.Log("Back button pressed (default)");
-        OnClickClose().Forget();
-    }
-    public virtual void Update()
-    {
-#if UNITY_ANDROID
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnBack();
-        }
-#elif UNITY_EDITOR
-        // 에디터 테스트용 (ESC)
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnBack();
-        }
-#endif
-    }
-
-    public void InitPopup(object[] args, Action closeCallback)
-    {
-        _closeCallback = closeCallback;
-        _args = args;
-        _completionSource = new UniTaskCompletionSource<T>();
-    }
-    public async UniTask WaitForShowAsync()
-    {
-        await Show();
-    }
-
-    public UniTask<T> WaitForResultAsync()
-    {
-        return _completionSource.Task;
-    }
-
-    protected async UniTask SetResult(T result)
-    {
-        if (IsClosing)
-            return;
-        _completionSource.TrySetResult(result);
-        await CloseAsync();
-    }
-
-    public virtual async UniTask Show()
-    {
-        cts?.Cancel();
-        cts = new CancellationTokenSource();
-        IsClosing = false;
-        gameObject.SetActive(true);
-        await WaitForFirstClip();
-    }
-
-    protected virtual async UniTask WaitForFirstClip()
-    {
-        if (animator == null) return;
-
-        // State 진입할 때까지 대기
-        AnimatorStateInfo state = default;
-        await UniTask.WaitUntil(() =>
-        {
-            state = animator.GetCurrentAnimatorStateInfo(0);
-            return state.length > 0f; // 아무 state 들어간 경우
-        });
-
-        // 해당 state 길이만큼 대기
-        var waitTime = state.length / animator.speed;
-        await UniTask.Delay(TimeSpan.FromSeconds(waitTime), cancellationToken: cts.Token);
-    }
-
-    public override async UniTask CloseAsync()
-    {
-        if (IsClosing)
-            return;
-        IsClosing = true;
-
-        if (animator != null && animator.HasParameter(closeTrigger))
-        {
-            animator.SetTrigger(closeTrigger);
-
-            // "Closed" 태그가 붙은 state에 진입할 때까지 대기
-            await UniTask.WaitUntil(() =>
-                animator.GetCurrentAnimatorStateInfo(0).IsTag("Closed"),
-                PlayerLoopTiming.Update);
-
-            // "Closed" state가 끝날 때까지 대기 (normalizedTime >= 1f)
-            await UniTask.WaitUntil(() =>
-            {
-                var state = animator.GetCurrentAnimatorStateInfo(0);
-                return state.IsTag("Closed") && state.normalizedTime >= 1f;
-            }, PlayerLoopTiming.Update);
-        }
-
-        gameObject.SetActive(false);
-        _closeCallback?.Invoke();
-        _closeCallback = null;
-    }
-
-    public virtual async UniTask OnClickClose()
-    {
-        await SetResult(default);
-    }
-}
-
-public static class AnimatorExtensions
-{
-    public static bool HasParameter(this Animator animator, string paramName)
-    {
-        foreach (var param in animator.parameters)
-        {
-            if (param.name == paramName)
-                return true;
         }
         return false;
     }
