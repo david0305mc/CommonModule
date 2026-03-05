@@ -37,7 +37,7 @@ public class PopupManager : SingletonMono<PopupManager>
             TryCloseTopPopup().Forget();
     }
 
-    public async UniTask<TResult> ShowPopupAsync<TPopup, TResult>(params object[] args)
+    public TPopup ShowPopup<TPopup, TResult>(params object[] args)
         where TPopup : PopupBase<TResult>
     {
         string key = typeof(TPopup).Name;
@@ -69,10 +69,11 @@ public class PopupManager : SingletonMono<PopupManager>
 
         var popup = instance.GetComponent<TPopup>();
         activePopups.Push(popup);
-
-        // WaitForResultAsync 내부에서 Close/Release가 발생할 수 있으니,
-        // 결과 반환 후에도 스택/풀 정합성이 유지되도록 Release 경로를 일원화하는 게 안전합니다.
-        return await popup.WaitForResultAsync(args);
+        popup.InitPopup(args, () =>
+        {
+            ReleasePopup(popup);
+        });
+        return popup;
     }
 
     // ✅ Release는 "스택에서 제거 + 풀 반환"을 보장
@@ -125,15 +126,6 @@ public class PopupManager : SingletonMono<PopupManager>
             return;
 
         await top.CloseAsync();
-
-        // ⚠️ CloseAsync 내부에서 ReleasePopup이 호출될 수 있으니,
-        // 여기서 Pop을 "무조건" 하면 이중 Pop 위험이 있습니다.
-        // 따라서 CloseAsync가 PopupManager.ReleasePopup(top)을 부르도록 규칙을 정하고,
-        // 여기서는 Pop하지 않는 방식이 더 안전합니다.
-        //
-        // 만약 CloseAsync가 Release를 안 한다면, 아래처럼 조건부로 제거:
-        if (activePopups.Count > 0 && ReferenceEquals(activePopups.Peek(), top))
-            activePopups.Pop();
     }
 
     public bool TryGetTopPopup<TPopup>(out TPopup popup) where TPopup : PopupBaseBase
@@ -162,6 +154,8 @@ public abstract class PopupBaseBase : MonoBehaviour
 
 public abstract class PopupBase<T> : PopupBaseBase
 {
+    private Action _closeCallback;
+
     private UniTaskCompletionSource<T> _completionSource;
     protected object[] _args;
 
@@ -200,11 +194,19 @@ public abstract class PopupBase<T> : PopupBaseBase
 #endif
     }
 
-    public UniTask<T> WaitForResultAsync(object[] args)
+    public void InitPopup(object[] args, Action closeCallback)
     {
+        _closeCallback = closeCallback;
         _args = args;
         _completionSource = new UniTaskCompletionSource<T>();
-        Show().Forget();
+    }
+    public async UniTask WaitForShowAsync()
+    {
+        await Show();
+    }
+
+    public UniTask<T> WaitForResultAsync()
+    {
         return _completionSource.Task;
     }
 
@@ -266,7 +268,8 @@ public abstract class PopupBase<T> : PopupBaseBase
         }
 
         gameObject.SetActive(false);
-        PopupManager.Instance.ReleasePopup(this);
+        _closeCallback?.Invoke();
+        _closeCallback = null;
     }
 
     public virtual async UniTask OnClickClose()

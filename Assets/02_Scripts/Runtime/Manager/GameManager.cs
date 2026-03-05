@@ -27,7 +27,11 @@ public class GameManager : SingletonMono<GameManager>
             MoveEffect();
         });
         vm.AddTo(disposable);
-        await PopupManager.Instance.ShowPopupAsync<PopupMVVM, Unit>(new object[] { vm });
+        var popup = PopupManager.Instance.ShowPopup<PopupMVVM, Unit>(new object[] { vm });
+        await popup.WaitForShowAsync();
+        Debug.Log("WaitForShowAsync");
+        var result = await popup.WaitForResultAsync();
+        Debug.Log("WaitForResultAsync");
         vm.Dispose();
     }
 
