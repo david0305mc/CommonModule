@@ -8,7 +8,7 @@ namespace Test
     public class HelloWorldPresenter : IStartable, IDisposable
     {
         private readonly HelloworldService _helloWorldService;
-        private readonly HelloWorldModel _helloWorldModel;
+        private readonly HelloWorldView _helloWorldModel;
         public void Start()
         {
             _helloWorldModel.HelloWorldButton.onClick.AddListener(Print);
@@ -19,7 +19,7 @@ namespace Test
             _helloWorldModel.HelloWorldButton.onClick.RemoveListener(Print);
         }
 
-        public HelloWorldPresenter(HelloworldService helloWorldService, HelloWorldModel helloWorldModel)
+        public HelloWorldPresenter(HelloworldService helloWorldService, HelloWorldView helloWorldModel)
         {
             _helloWorldService = helloWorldService;
             _helloWorldModel = helloWorldModel;

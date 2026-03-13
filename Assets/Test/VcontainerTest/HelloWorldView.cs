@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Test
 {
-    public class HelloWorldModel : MonoBehaviour
+    public class HelloWorldView : MonoBehaviour
     {
 
         [SerializeField] private Button _helloWorldButton;
