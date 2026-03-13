@@ -9,7 +9,7 @@ public class MVVMTest : Singleton<MVVMTest>
     // MVVM Test
     public async UniTask ShowMVVMPopup()
     {
-        ViewModel_A vm = new ViewModel_A(UserData.Instance);
+        ViewModel_A vm = new ViewModel_A(UserDataManager.Instance.userData);
         var disposable = vm.MoveEvent.Subscribe(_ =>
         {
             Debug.Log("MoveEffect");
