@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 6260077422105746982}
   - component: {fileID: 5807346157676197079}
   m_Layer: 5
-  m_Name: MinusButton
+  m_Name: BackToIntroButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -713,10 +713,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PopupMVVM
   animator: {fileID: 0}
   closeTrigger: Close
+  openAnimTag: Open
+  closeAnimTag: Close
   closeBtn: {fileID: 2090288826953087148}
   titleText: {fileID: 2079875216538099091}
   addButton: {fileID: 6282478869876539948}
-  minusButton: {fileID: 5807346157676197079}
+  backToIntroButton: {fileID: 5807346157676197079}
 --- !u!1 &6515167616911050226
 GameObject:
   m_ObjectHideFlags: 0

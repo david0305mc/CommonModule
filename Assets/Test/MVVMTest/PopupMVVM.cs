@@ -9,6 +9,7 @@ public class PopupMVVM : PopupBase<Unit>
 {
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private Button addButton;
+    [SerializeField] private Button backToIntroButton;
 
     private ViewModel_A _vm;
     private CompositeDisposable _cd;
@@ -20,6 +21,10 @@ public class PopupMVVM : PopupBase<Unit>
         addButton.onClick.AddListener(() =>
         {
             _vm?.AddFunc();
+        });
+        backToIntroButton.onClick.AddListener(() =>
+        {
+
         });
     }
     public override async UniTask Show()

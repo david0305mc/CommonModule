@@ -16,12 +16,8 @@ public class UIIntro : MonoBehaviour
             // {
             //     Debug.Log($"item {item.id}");
             // }
-            StartGame().Forget();
+            GameManager.Instance.StartGame().Forget();
+            button.interactable = false;
         });
-    }
-
-    private async UniTask StartGame()
-    {
-        await SceneTransition.Instance.LoadSceneWithFadeAsync(GameDefine.MainSceneName);
     }
 }

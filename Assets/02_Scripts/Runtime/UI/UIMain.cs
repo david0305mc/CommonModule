@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,17 @@ public class UIMain : MonoBehaviour
     {
         testButton.onClick.AddListener(() =>
         {
-            GameManager.Instance.ShowTestA();
+            MVVMTest.Instance.ShowMVVMPopup().Forget();
         });
     }
+
+
+
+
+
+
+
+
+
+
 }
