@@ -28,14 +28,14 @@ public class ViewModel_A : ViewModelBase
     {
         _userModel = userModel;
         _moveEvent.AddTo(_cd);
-        TitleText = _userModel.Gold.Select(gold =>
-        {
-            return $"{gold}";
-        }).ToReadOnlyReactiveProperty().AddTo(_cd);
+        // TitleText = _userModel.Gold.Select(gold =>
+        // {
+        //     return $"{gold}";
+        // }).ToReadOnlyReactiveProperty().AddTo(_cd);
     }
     public void AddFunc()
     {
-        _userModel.AddGold(10);
+        // _userModel.AddGold(10);
         _moveEvent.OnNext(Unit.Default);
     }
 
