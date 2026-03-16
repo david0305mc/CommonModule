@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public sealed class UserDataDto
+{
+    public UserCurrencyDataDTO Currency;
+    public Dictionary<int, SkillDataDTO> SkillMap;
+}
+
 public class UserDataManager : Singleton<UserDataManager>
 {
     public UserCurrencyData Currency;
