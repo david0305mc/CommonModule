@@ -564,8 +564,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1217178718}
     m_Modifications:
+    - target: {fileID: 1635736809623916929, guid: 9afbd542573ca8b41ba4d5044df9c7f3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d19e7d113146f804e903cf6ec92b7f70, type: 3}
     - target: {fileID: 1696543774031160193, guid: 9afbd542573ca8b41ba4d5044df9c7f3, type: 3}
-      propertyPath: curencyType
+      propertyPath: currencyType
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3634924016172370312, guid: 9afbd542573ca8b41ba4d5044df9c7f3, type: 3}
@@ -788,8 +792,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1217178718}
     m_Modifications:
+    - target: {fileID: 1635736809623916929, guid: 9afbd542573ca8b41ba4d5044df9c7f3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3dbd530dc5119384eb28698e2b91822c, type: 3}
     - target: {fileID: 1696543774031160193, guid: 9afbd542573ca8b41ba4d5044df9c7f3, type: 3}
-      propertyPath: curencyType
+      propertyPath: currencyType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3634924016172370312, guid: 9afbd542573ca8b41ba4d5044df9c7f3, type: 3}
