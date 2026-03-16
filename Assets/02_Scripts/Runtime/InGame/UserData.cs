@@ -1,10 +1,6 @@
 using R3;
 
 
-public sealed class UserDataDto
-{
-
-}
 
 public class UserCurrencyData
 {
