@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22910be03eecfb44985d3e0ab276bc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  dontDestroyOnLoad: 1
+  dontDestroyOnLoad: 0
 --- !u!4 &812520916
 Transform:
   m_ObjectHideFlags: 0
