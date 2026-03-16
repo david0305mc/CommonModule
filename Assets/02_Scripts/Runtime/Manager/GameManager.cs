@@ -9,4 +9,5 @@ public class GameManager : SingletonMono<GameManager>
         UserDataManager.Instance.Init();
         await SceneTransition.Instance.LoadSceneWithFadeAsync(GameDefine.MainSceneName);
     }
+    
 }

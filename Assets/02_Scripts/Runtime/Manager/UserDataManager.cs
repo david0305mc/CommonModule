@@ -19,6 +19,11 @@ public class UserDataManager : Singleton<UserDataManager>
 
     public void SaveUserData()
     {
-        
+
+    }
+
+    public void AddGem(long add)
+    {
+        Currency.Gem.Value += add;
     }
 }

@@ -6,8 +6,13 @@ using UnityEngine.UI;
 public class UIMain : MonoBehaviour
 {
     [SerializeField] Button testButton;
+
+
     void Awake()
     {
-        
+        testButton.onClick.AddListener(() =>
+        {
+            UserDataManager.Instance.AddGem(10);
+        });
     }
 }
