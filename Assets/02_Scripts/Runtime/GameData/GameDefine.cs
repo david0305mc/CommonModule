@@ -7,3 +7,10 @@ public static class GameDefine
     public static string MainSceneName = "02_Main";
     
 }
+
+public enum CurencyType
+{
+    Gold,
+    Gem,
+    Heart,
+}
