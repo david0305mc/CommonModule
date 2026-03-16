@@ -2,6 +2,8 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using R3;
 
+#if MVVMTest
+
 public class MVVMTest : Singleton<MVVMTest>
 {
 
@@ -22,3 +24,5 @@ public class MVVMTest : Singleton<MVVMTest>
         vm.Dispose();
     }
 }
+
+#endif

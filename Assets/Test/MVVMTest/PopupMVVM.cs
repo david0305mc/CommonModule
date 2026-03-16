@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if MVVMTest
+
 public class PopupMVVM : PopupBase<Unit>
 {
     [SerializeField] private TextMeshProUGUI titleText;
@@ -46,3 +48,5 @@ public class PopupMVVM : PopupBase<Unit>
         base.CloseAsync();
     }
 }
+
+#endif

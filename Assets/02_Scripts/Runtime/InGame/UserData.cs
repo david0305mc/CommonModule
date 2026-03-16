@@ -1,16 +1,15 @@
+
+
 using R3;
 
-public class UserData 
+public class UserCurrencyData
 {
-    public ReactiveProperty<int> Gold;
-
-    public void InitData()
-    {
-        Gold = new ReactiveProperty<int>();
-    }
-    public void AddGold(int add)
-    {
-        Gold.Value += add;
-    }
-
+    public ReactiveProperty<long> Gold = new ReactiveProperty<long>();
+    public ReactiveProperty<long> Gem = new ReactiveProperty<long>();
+    public ReactiveProperty<long> Energy = new ReactiveProperty<long>();
+}
+public class SkillData
+{
+    public int SkillID;
+    public ReactiveProperty<long> Level = new ReactiveProperty<long>();
 }

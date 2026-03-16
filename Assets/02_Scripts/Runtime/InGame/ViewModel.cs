@@ -2,6 +2,8 @@ using R3;
 using UnityEngine;
 using System;
 
+#if MVVMTest
+
 public class ViewModelBase : IDisposable
 {
     protected CompositeDisposable _cd = new();
@@ -40,3 +42,5 @@ public class ViewModel_A : ViewModelBase
     }
 
 }
+
+#endif

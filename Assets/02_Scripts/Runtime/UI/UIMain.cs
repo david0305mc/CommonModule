@@ -8,19 +8,6 @@ public class UIMain : MonoBehaviour
     [SerializeField] Button testButton;
     void Awake()
     {
-        testButton.onClick.AddListener(() =>
-        {
-            MVVMTest.Instance.ShowMVVMPopup().Forget();
-        });
+        
     }
-
-
-
-
-
-
-
-
-
-
 }
