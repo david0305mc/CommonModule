@@ -15,7 +15,7 @@ public class UICurrency : MonoBehaviour
         {
             case CurencyType.Gold:
                 {
-                    UserDataManager.Instance.Currency.Gold.Subscribe(value =>
+                    UserDataManager.Instance.UserData.Currency.Gold.Subscribe(value =>
                     {
                         countText.SetText($"{value}");
                     }).AddTo(this);
@@ -23,7 +23,7 @@ public class UICurrency : MonoBehaviour
                 break;
             case CurencyType.Gem:
             {
-                    UserDataManager.Instance.Currency.Gem.Subscribe(value =>
+                    UserDataManager.Instance.UserData.Currency.Gem.Subscribe(value =>
                     {
                         countText.SetText($"{value}");
                     }).AddTo(this);
@@ -31,7 +31,7 @@ public class UICurrency : MonoBehaviour
                 break;
             case CurencyType.Heart:
             {
-                    UserDataManager.Instance.Currency.Heart.Subscribe(value =>
+                    UserDataManager.Instance.UserData.Currency.Heart.Subscribe(value =>
                     {
                         countText.SetText($"{value}");
                     }).AddTo(this);

@@ -6,7 +6,7 @@ public class GameManager : SingletonMono<GameManager>
 {
     public async UniTask StartGame()
     {
-        UserDataManager.Instance.Init();
+        UserDataManager.Instance.UserData.Init();
         await SceneTransition.Instance.LoadSceneWithFadeAsync(GameDefine.MainSceneName);
     }
     

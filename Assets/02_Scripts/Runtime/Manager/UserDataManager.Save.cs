@@ -44,12 +44,12 @@ public partial class UserDataManager : Singleton<UserDataManager>
         Converters = { new BigIntegerAsStringConverter() }
     };
 
-    public async UniTask LoadLocalDataAsync()
+    public async UniTask<UserDataDto> LoadLocalDataAsync()
     {
-        
+        return null;
     }
 
-    public void SaveLocalDataAsync()
+    public void SaveLocalDataAsync(UserDataDto dto)
     {
 
     }
