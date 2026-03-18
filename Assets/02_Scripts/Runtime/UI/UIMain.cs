@@ -12,7 +12,7 @@ public class UIMain : MonoBehaviour
     {
         testButton.onClick.AddListener(() =>
         {
-            UserDataManager.Instance.AddGem(10);
+            UserDataManager.Instance.AddGem();
         });
     }
 }

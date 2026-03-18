@@ -23,7 +23,7 @@ public class UserCurrencyDataDto
     public long Gem;
     public long Heart;
 
-    public static UserCurrencyDataDto CreateDto(UserCurrencyData runtime)
+    public static UserCurrencyDataDto ToDto(UserCurrencyData runtime)
     {
         return new UserCurrencyDataDto()
         {
@@ -61,10 +61,5 @@ public sealed class UserData
     {
         Currency = new UserCurrencyData();
         SkillMap = new Dictionary<int, SkillData>();
-    }
-
-    public void AddGem(long add)
-    {
-        Currency.Gem.Value += add;
     }
 }

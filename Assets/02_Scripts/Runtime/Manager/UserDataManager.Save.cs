@@ -23,7 +23,7 @@ public partial class UserDataManager : Singleton<UserDataManager>
         }
     }
 
-    public static string SavePath
+    public static string LocalUserDataPath
     {
         get
         {
@@ -44,14 +44,43 @@ public partial class UserDataManager : Singleton<UserDataManager>
         Converters = { new BigIntegerAsStringConverter() }
     };
 
-    public async UniTask<UserDataDto> LoadLocalDataAsync()
+    public async UniTask LoadLocalDataAsync()
     {
-        return null;
+        // 파일이 없으면 null 반환
+        if (!File.Exists(LocalUserDataPath))
+        {
+            Debug.Log("로컬 데이터 없음");
+            
+        }
+        try
+        {
+            string json = await File.ReadAllTextAsync(LocalUserDataPath);
+            UserDataDto dto = JsonConvert.DeserializeObject<UserDataDto>(json, _jsonSettings);
+            dto.ApplyDto(UserData);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed Load {e}");
+            
+        }
     }
-
-    public void SaveLocalDataAsync(UserDataDto dto)
+    public async UniTask SaveLocalDataAsync()
     {
+        try
+        {
+            UserDataDto dto = UserData.ToDto();
+            // DTO → JSON 변환
+            string json = JsonConvert.SerializeObject(dto, _jsonSettings);
 
+            // 비동기 파일 저장
+            await File.WriteAllTextAsync(LocalUserDataPath, json);
+
+            Debug.Log("데이터 저장 완료");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"데이터 저장 실패: {e}");
+        }
     }
 
 }
