@@ -77,7 +77,7 @@ public partial class UserDataManager : Singleton<UserDataManager>
                 return;
             }
 
-            dto.ApplyDto(UserData);
+            UserData.ApplyDto(dto);
             Debug.Log("로컬 데이터 로드 완료");
         }
         catch (Exception e)
