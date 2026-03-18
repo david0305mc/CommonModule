@@ -1,65 +1,126 @@
 using System.Collections.Generic;
 using R3;
 
-
-
-public class UserCurrencyData
+public sealed class UserCurrencyData
 {
-    public ReactiveProperty<long> Gold = new ReactiveProperty<long>();
-    public ReactiveProperty<long> Gem = new ReactiveProperty<long>();
-    public ReactiveProperty<long> Heart = new ReactiveProperty<long>();
+    public ReactiveProperty<long> Gold { get; } = new(0);
+    public ReactiveProperty<long> Gem { get; } = new(0);
+    public ReactiveProperty<long> Heart { get; } = new(0);
 
     public void ApplyDto(UserCurrencyDataDto dto)
     {
+        if (dto == null)
+            return;
+
         Gold.Value = dto.Gold;
         Gem.Value = dto.Gem;
         Heart.Value = dto.Heart;
     }
+
+    public UserCurrencyDataDto ToDto()
+    {
+        return new UserCurrencyDataDto
+        {
+            Gold = Gold.Value,
+            Gem = Gem.Value,
+            Heart = Heart.Value
+        };
+    }
 }
 
-public class UserCurrencyDataDto
+public sealed class UserCurrencyDataDto
 {
     public long Gold;
     public long Gem;
     public long Heart;
 
-    public static UserCurrencyDataDto ToDto(UserCurrencyData runtime)
+    public UserCurrencyData ToRuntimeData()
     {
-        return new UserCurrencyDataDto()
+        var data = new UserCurrencyData();
+        data.ApplyDto(this);
+        return data;
+    }
+}
+
+public sealed class SkillData
+{
+    public int SkillID;
+    public ReactiveProperty<long> Level { get; } = new(0);
+
+    public void ApplyDto(SkillDataDto dto)
+    {
+        if (dto == null)
+            return;
+
+        SkillID = dto.SkillID;
+        Level.Value = dto.Level;
+    }
+
+    public SkillDataDto ToDto()
+    {
+        return new SkillDataDto
         {
-            Gold = runtime.Gold.Value,
-            Gem = runtime.Gem.Value,
-            Heart = runtime.Heart.Value
+            SkillID = SkillID,
+            Level = Level.Value
         };
     }
 }
 
-public class SkillData
-{
-    public int SkillID;
-    public ReactiveProperty<long> Level = new ReactiveProperty<long>();
-}
-
-public class SkillDataDto
+public sealed class SkillDataDto
 {
     public int SkillID;
     public long Level;
 }
 
-
 public sealed class UserDataDto
 {
     public UserCurrencyDataDto Currency;
-    public Dictionary<int, SkillDataDto> SkillMap;    
+    public Dictionary<int, SkillDataDto> SkillMap = new();
 }
 
 public sealed class UserData
 {
-    public UserCurrencyData Currency;
-    public Dictionary<int, SkillData> SkillMap;
-    public void Init()
+    public UserCurrencyData Currency { get; private set; } = new();
+    public Dictionary<int, SkillData> SkillMap { get; private set; } = new();
+
+    public void ApplyDto(UserDataDto dto)
     {
-        Currency = new UserCurrencyData();
-        SkillMap = new Dictionary<int, SkillData>();
+        if (dto == null)
+            return;
+
+        if (dto.Currency != null)
+            Currency.ApplyDto(dto.Currency);
+
+        SkillMap.Clear();
+
+        if (dto.SkillMap == null)
+            return;
+
+        foreach (var pair in dto.SkillMap)
+        {
+            if (pair.Value == null)
+                continue;
+
+            SkillMap[pair.Key].ApplyDto(pair.Value);
+        }
+    }
+
+    public UserDataDto ToDto()
+    {
+        var dto = new UserDataDto
+        {
+            Currency = Currency.ToDto(),
+            SkillMap = new Dictionary<int, SkillDataDto>()
+        };
+
+        foreach (var pair in SkillMap)
+        {
+            if (pair.Value == null)
+                continue;
+
+            dto.SkillMap[pair.Key] = pair.Value.ToDto();
+        }
+
+        return dto;
     }
 }

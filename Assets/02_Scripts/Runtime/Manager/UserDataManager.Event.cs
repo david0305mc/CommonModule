@@ -1,12 +1,13 @@
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 public partial class UserDataManager : Singleton<UserDataManager>
 {
-
-    public void AddGem()
+    public void AddGem(long amount = 1)
     {
-        UserData.Currency.Gem.Value += 1;
+        if (amount <= 0)
+            return;
+
+        UserData.Currency.Gem.Value += amount;
         SaveLocalDataAsync().Forget();
     }
 }
