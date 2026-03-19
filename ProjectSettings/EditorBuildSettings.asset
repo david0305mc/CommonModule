@@ -12,5 +12,5 @@ EditorBuildSettings:
     path: Packages/com.david.popupmanager/PopupManager/Samples/Demo/02_Main_Test.unity
     guid: c76cedc0a7c0d394f963d7fbce71a16d
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 3b5d8ed0a58d01c4088f551df69a8682, type: 3}
   m_UseUCBPForAssetBundles: 0
