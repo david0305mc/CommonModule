@@ -1,19 +1,30 @@
+
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class JoystickPlayer : MonoBehaviour
 {
-    private InputAction moveAction;
 
-    void Start()
+    [SerializeField] private float moveSpeed = 5f;
+
+    private void Update()
     {
-        moveAction = InputSystem.actions.FindAction("Move");
-        moveAction.performed += OnMove;
-        moveAction.Enable();
+        Vector2 move = GameInputManager.Instance.MoveValue;
+
+        Vector3 dir = new Vector3(move.x, 0f, move.y);
+        transform.position += dir * moveSpeed * Time.deltaTime;
+    }
+    void OnEnable()
+    {
+        GameInputManager.Instance.JumpPressed += OnJump;
     }
 
-    private void OnMove(InputAction.CallbackContext ctx)
+    void OnDisable()
     {
-        Debug.Log(ctx.ReadValue<Vector2>());
+        GameInputManager.Instance.JumpPressed -= OnJump;
+    }
+
+    public void OnJump()
+    {
+        Debug.Log("Jump!");
     }
 }
