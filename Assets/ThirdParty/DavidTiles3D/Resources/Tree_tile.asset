@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5548579e4c37e8e41a18fc96b9fd397b, type: 3}
+  m_Name: Tree_tile
+  m_EditorClassIdentifier: 
+  Tiles:
+  - _group: Tree_tile
+    _tileID: 40219854
+    Default: {fileID: 1078616794311879174, guid: 11374bdf32f5541a4b0a9f5208bb30ff, type: 3}
+    Randoms: []
+    Random: 0
+    _name: wood_s
+    Rules: []
+  - _group: Tree_tile
+    _tileID: -265336757
+    Default: {fileID: 554502905805439711, guid: 4a86d5e00d09e4e518be106b4520b071, type: 3}
+    Randoms: []
+    Random: 0
+    _name: wood_s_deco
+    Rules: []
+  - _group: Tree_tile
+    _tileID: -1688331834
+    Default: {fileID: 8927859365427166774, guid: fcf0bae1a85b14f288bf61004b496992, type: 3}
+    Randoms: []
+    Random: 0
+    _name: wood_s_leaves
+    Rules: []
+  - _group: Tree_tile
+    _tileID: 1742937970
+    Default: {fileID: 9135676302256199958, guid: ef90a9142e7564937bc6cd68f6081b41, type: 3}
+    Randoms: []
+    Random: 0
+    _name: wood_L
+    Rules: []
+  - _group: Tree_tile
+    _tileID: -22253046
+    Default: {fileID: 1395320611875149052, guid: 2c9a8e2b09df14e98a2b9ab7e1c8e187, type: 3}
+    Randoms: []
+    Random: 1
+    _name: wood_L_deco
+    Rules: []
+  - _group: Tree_tile
+    _tileID: 1825325309
+    Default: {fileID: 6088618770660704038, guid: 96976efec60424e30b9ac0f5eacc7a97, type: 3}
+    Randoms: []
+    Random: 0
+    _name: wood_L_leaves
+    Rules: []
+  - _group: Tree_tile
+    _tileID: -1529132357
+    Default: {fileID: 8609090204308738285, guid: 502ff3ad4181b4abb9c72ce17d963e4e, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Vine
+    Rules: []

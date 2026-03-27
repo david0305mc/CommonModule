@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5548579e4c37e8e41a18fc96b9fd397b, type: 3}
+  m_Name: Tavern_tile
+  m_EditorClassIdentifier: 
+  Tiles:
+  - _group: Tavern_tile
+    _tileID: 957733364
+    Default: {fileID: 1650674504841669309, guid: fb23272074d2d4aed854757e2c31f8f9, type: 3}
+    Randoms:
+    - {fileID: 4971954516005671037, guid: b5f6f412bce574cf9954fb110709ff0e, type: 3}
+    - {fileID: 2345257383604688013, guid: 21b7a3d1191cf46089f25c38dbb10ba9, type: 3}
+    - {fileID: 128896638774342580, guid: afb923f82b6ec47a6968b71e950911b8, type: 3}
+    Random: 1
+    _name: Stone
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: 1048431997
+    Default: {fileID: 8501450832756777255, guid: 0f0a3280f8cb946d382277d6dfaf6bf1, type: 3}
+    Randoms:
+    - {fileID: 8501450832756777255, guid: a1142adf82d91e546bbf17cbfef01685, type: 3}
+    - {fileID: 8501450832756777255, guid: d01e7b09aa03d4d449919311b5c2632c, type: 3}
+    - {fileID: 8501450832756777255, guid: 5e29e389a59ce034b9acc696a382547e, type: 3}
+    Random: 1
+    _name: Brick
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: 603663398
+    Default: {fileID: 520008915130537821, guid: 688f3b4ff2dde4de383f6592061a5212, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Roof
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: 2056780295
+    Default: {fileID: 8356667966628581279, guid: eefebc6e99b114636b5c65071bae27f1, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Roof_Corner_Out
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: -1441361681
+    Default: {fileID: 1762405773544566560, guid: c0e8acc120e2f4a61a4a80540506030c, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Roof_Corner_In
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: 30923471
+    Default: {fileID: 5488574130178907653, guid: a235a751ec3e448498b14cb1a5c67baa, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Wood_Stone_01
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: -1202514916
+    Default: {fileID: 3980595058031561340, guid: 2b8cb7a942b87418c828d79310e204e6, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Wood_Stone_02
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: 1106695405
+    Default: {fileID: 6550037511298898514, guid: 0647ccc8ae1b04210b6155f2ccc08880, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Wood_Stone_03
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: 2110976138
+    Default: {fileID: 7014656797945686176, guid: 2fa22147012f04b4c8a2eff4c10f5c98, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Stair
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: -237174790
+    Default: {fileID: 8032738585311167510, guid: 7fbcfeeca4fe04537afee13d7e44cfd4, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Window_L
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: 582338210
+    Default: {fileID: 3431301085733140571, guid: b3c77fbbae3f54a9c8bf66a4326f443f, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Window_s
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: -973667857
+    Default: {fileID: 3928150180766173180, guid: 71bed24b34ca94567aeb739439f7bf8d, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Frame_Stone
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: -459874935
+    Default: {fileID: 6233165587749889912, guid: 6a6663a6ca1b7444aa0f858a7f619c63, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Frame_Wood
+    Rules: []
+  - _group: Tavern_tile
+    _tileID: -1540961895
+    Default: {fileID: 520008915130537821, guid: 698a284244e83fa42ad75cbf3d4ab809, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Roof_Blue
+    Rules: []

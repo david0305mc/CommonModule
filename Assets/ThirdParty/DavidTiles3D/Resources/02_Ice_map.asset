@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5548579e4c37e8e41a18fc96b9fd397b, type: 3}
+  m_Name: 02_Ice_map
+  m_EditorClassIdentifier: 
+  Tiles:
+  - _group: 02_Ice_map
+    _tileID: 1048644347
+    Default: {fileID: 1890052976583762, guid: e2e35b1a94eccc942a13c8d89755bb84, type: 3}
+    Randoms:
+    - {fileID: 1890052976583762, guid: 37208337d8780c44e9c9cea7aea3558a, type: 3}
+    - {fileID: 1890052976583762, guid: c08be4a98a1c1db4e9a55d1aead1a61d, type: 3}
+    - {fileID: 1890052976583762, guid: e2e35b1a94eccc942a13c8d89755bb84, type: 3}
+    - {fileID: 1890052976583762, guid: 37208337d8780c44e9c9cea7aea3558a, type: 3}
+    - {fileID: 1890052976583762, guid: c08be4a98a1c1db4e9a55d1aead1a61d, type: 3}
+    - {fileID: 1654105625470868, guid: 3474a4506e1f0d04e9100f9c928b135d, type: 3}
+    Random: 1
+    _name: Floor
+    Rules: []
+  - _group: 02_Ice_map
+    _tileID: 1362259827
+    Default: {fileID: 4658592857861588020, guid: b110c2827dcd5c341881bdaba2977533, type: 3}
+    Randoms:
+    - {fileID: 756134374765291823, guid: e732731a67f702f448467846c76efdab, type: 3}
+    - {fileID: 1164097877221339320, guid: eddc89a02cedfb5478ff4340c09ac014, type: 3}
+    - {fileID: 3400750459807136613, guid: 5787d4b85bd99fb4eb850b84a43a0366, type: 3}
+    - {fileID: 8996959995351769246, guid: f49970272ee895340a336e07ed6a03fb, type: 3}
+    - {fileID: 3556055371710209151, guid: 5b716666da4790541aec8d94eb8b00bf, type: 3}
+    - {fileID: 5965153649958340431, guid: ece78fe846f5a9c46814004789aeb354, type: 3}
+    - {fileID: 2236865979895737628, guid: af90e3323c88516479929f3564a759dd, type: 3}
+    - {fileID: 2680797902995354613, guid: 5214e2fc0597b1f4693aba3b23bc3198, type: 3}
+    - {fileID: 1161548806697970403, guid: 4c581c2c417b0aa4598b11ab80d2dbaf, type: 3}
+    - {fileID: 8047086977481860723, guid: 36ad2e53a7b6e004cad11f12d3072c9b, type: 3}
+    - {fileID: 3898121970606857971, guid: 49e7a45a359f1b14e94b09d186351a3a, type: 3}
+    - {fileID: 4469694502584319153, guid: cfad558572efc56478ea43bf1e19f5a3, type: 3}
+    - {fileID: 2994507597167064222, guid: b2fc7b5d55e50d04c9ceeba3619aba2d, type: 3}
+    Random: 1
+    _name: Wall
+    Rules: []
+  - _group: 02_Ice_map
+    _tileID: 528694749
+    Default: {fileID: 1771447387339853761, guid: 94596dde2a89cda4fae5d0369851200a, type: 3}
+    Randoms:
+    - {fileID: 3941301870977471120, guid: 4e12e665b6f234f45895caea8f204dfc, type: 3}
+    - {fileID: 1369048105775171270, guid: d958e9a33c7b20a4cb034f82c6474a52, type: 3}
+    - {fileID: 1638631408955636686, guid: d9167668bc5e11446bda9a516d90b285, type: 3}
+    - {fileID: 4569335294234874823, guid: ae9ec3940b1b2e94298e6a4e3fc38ddd, type: 3}
+    - {fileID: 10287309756062102, guid: 822c602f055dbfb4e896b71c7d5e4d23, type: 3}
+    - {fileID: 463406196458803643, guid: d4bc7efc78aa9c54f927426e6d3def26, type: 3}
+    Random: 1
+    _name: Pillar
+    Rules: []
+  - _group: 02_Ice_map
+    _tileID: 1212979538
+    Default: {fileID: 1769333057782036, guid: 35871e7f410571b4d9171c5ad59a1373, type: 3}
+    Randoms:
+    - {fileID: 1769333057782036, guid: 35871e7f410571b4d9171c5ad59a1373, type: 3}
+    - {fileID: 1769333057782036, guid: 35871e7f410571b4d9171c5ad59a1373, type: 3}
+    - {fileID: 1769333057782036, guid: 35871e7f410571b4d9171c5ad59a1373, type: 3}
+    - {fileID: 1769333057782036, guid: 35871e7f410571b4d9171c5ad59a1373, type: 3}
+    - {fileID: 1769333057782036, guid: 35871e7f410571b4d9171c5ad59a1373, type: 3}
+    - {fileID: 1769333057782036, guid: 35871e7f410571b4d9171c5ad59a1373, type: 3}
+    - {fileID: 1769333057782036, guid: 35871e7f410571b4d9171c5ad59a1373, type: 3}
+    - {fileID: 1769333057782036, guid: 35871e7f410571b4d9171c5ad59a1373, type: 3}
+    - {fileID: 1769333057782036, guid: 377f2bce9b84add4b844bb1ec2f23814, type: 3}
+    - {fileID: 1769333057782036, guid: 0c6e30b7e1b99d6468416b05f722b985, type: 3}
+    - {fileID: 1769333057782036, guid: 7392be118db297e45b2f56eff924da63, type: 3}
+    - {fileID: 1769333057782036, guid: 8f5bbad7cefcd2a4ea912b24e1b215f4, type: 3}
+    Random: 1
+    _name: Outside
+    Rules: []
+  - _group: 02_Ice_map
+    _tileID: 1857738663
+    Default: {fileID: 1474760786853166, guid: 5de6e5182afa9b74f944cf0d73928a26, type: 3}
+    Randoms:
+    - {fileID: 1474760786853166, guid: 5de6e5182afa9b74f944cf0d73928a26, type: 3}
+    - {fileID: 1474760786853166, guid: 5de6e5182afa9b74f944cf0d73928a26, type: 3}
+    - {fileID: 1474760786853166, guid: 5de6e5182afa9b74f944cf0d73928a26, type: 3}
+    - {fileID: 1474760786853166, guid: 5de6e5182afa9b74f944cf0d73928a26, type: 3}
+    - {fileID: 1474760786853166, guid: a37d2aa3b42e78b419811ee024fab8c2, type: 3}
+    Random: 1
+    _name: Snow_Tile
+    Rules: []
+  - _group: 02_Ice_map
+    _tileID: -1515271789
+    Default: {fileID: 1294187099171700, guid: 51d773ea8e658eb4aad3a20a2b757300, type: 3}
+    Randoms:
+    - {fileID: 1203026694859312, guid: 2e9c184c95a3e754a8bab985a3732db1, type: 3}
+    Random: 1
+    _name: Grass_Deco
+    Rules: []
+  - _group: 02_Ice_map
+    _tileID: 2124649198
+    Default: {fileID: 1533623006470548, guid: 3f47028660e8edb4587bba6a8a99755f, type: 3}
+    Randoms:
+    - {fileID: 1141872616951270, guid: a5d86576f3f190e458fa1e8a13fe7f96, type: 3}
+    Random: 1
+    _name: Ice_Deco
+    Rules: []
+  - _group: 02_Ice_map
+    _tileID: -1013929649
+    Default: {fileID: 1954857893755312, guid: ae3bc788ba8ef1a409b06711e992b4dd, type: 3}
+    Randoms:
+    - {fileID: 1954857893755312, guid: ae3bc788ba8ef1a409b06711e992b4dd, type: 3}
+    - {fileID: 1954857893755312, guid: ae3bc788ba8ef1a409b06711e992b4dd, type: 3}
+    - {fileID: 1954857893755312, guid: ae3bc788ba8ef1a409b06711e992b4dd, type: 3}
+    - {fileID: 1983800293907890, guid: c7fa96b48946ec940b995b1f1eb27543, type: 3}
+    - {fileID: 1998052227640288, guid: 24bd439a78f6f2248bfc827aa3e614bc, type: 3}
+    Random: 1
+    _name: Ice
+    Rules: []

@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5548579e4c37e8e41a18fc96b9fd397b, type: 3}
+  m_Name: Door_stone_tile
+  m_EditorClassIdentifier: 
+  Tiles:
+  - _group: Door_stone_tile
+    _tileID: -1054824675
+    Default: {fileID: 1591176143020740, guid: f1441591d9e079b4d8f6ef49f2513af6, type: 3}
+    Randoms:
+    - {fileID: 1484205407312656, guid: 58927555101f49e47959f1d6479d480c, type: 3}
+    Random: 0
+    _name: door_frame_stone_double
+    Rules: []
+  - _group: Door_stone_tile
+    _tileID: -1585580121
+    Default: {fileID: 1261770917067306, guid: e021eefb31087b342a63ccbab1a11086, type: 3}
+    Randoms: []
+    Random: 0
+    _name: door_frame_stone_single
+    Rules: []
+  - _group: Door_stone_tile
+    _tileID: 823302205
+    Default: {fileID: 1484205407312656, guid: 58927555101f49e47959f1d6479d480c, type: 3}
+    Randoms: []
+    Random: 0
+    _name: door_frame_stone_rounded_double
+    Rules: []
+  - _group: Door_stone_tile
+    _tileID: -651583996
+    Default: {fileID: 1437554566264456, guid: 464dbd6b3899f494693afc49c9c0fcae, type: 3}
+    Randoms: []
+    Random: 0
+    _name: door_frame_stone_rounded_single
+    Rules: []
+  - _group: Door_stone_tile
+    _tileID: 1611659984
+    Default: {fileID: 1543414140350420, guid: d888d23c87fa0bb4886291666cc70d78, type: 3}
+    Randoms: []
+    Random: 1
+    _name: door_stone_left
+    Rules: []
+  - _group: Door_stone_tile
+    _tileID: 2133253373
+    Default: {fileID: 1795032680364926, guid: 90f320bd0345d714793e3a2e10ac0b1e, type: 3}
+    Randoms: []
+    Random: 0
+    _name: door_stone_right
+    Rules: []
+  - _group: Door_stone_tile
+    _tileID: -2136798819
+    Default: {fileID: 1441084876877868, guid: cb104c4d4c66b1945be9e9a1275900b9, type: 3}
+    Randoms: []
+    Random: 0
+    _name: door_stone_rounded
+    Rules: []
+  - _group: Door_stone_tile
+    _tileID: -1742743471
+    Default: {fileID: 1312905298368000, guid: 1a077c9127355854bba9a423ab2bda17, type: 3}
+    Randoms: []
+    Random: 0
+    _name: door_stone_rounded_left
+    Rules: []
+  - _group: Door_stone_tile
+    _tileID: 1318616621
+    Default: {fileID: 1642339314245108, guid: d0aa0980a8bdc1d4b941e1f355aa75b4, type: 3}
+    Randoms: []
+    Random: 0
+    _name: door_stone_rounded_right
+    Rules: []
+  - _group: Door_stone_tile
+    _tileID: 521722048
+    Default: {fileID: 1064641623344872, guid: cf9b25bc9ccf615489875bc89f7b96db, type: 3}
+    Randoms: []
+    Random: 0
+    _name: door_stone_rounded_double_top
+    Rules: []
+  - _group: Door_stone_tile
+    _tileID: 1033505570
+    Default: {fileID: 1583712209060140, guid: 98f23d62c66da914ab52be05d8d86a09, type: 3}
+    Randoms: []
+    Random: 0
+    _name: door_stone_rounded_top
+    Rules: []

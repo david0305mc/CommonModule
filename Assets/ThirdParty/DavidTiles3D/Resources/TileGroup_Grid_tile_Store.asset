@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5548579e4c37e8e41a18fc96b9fd397b, type: 3}
+  m_Name: TileGroup_Grid_tile_Store
+  m_EditorClassIdentifier: 
+  Tiles:
+  - _group: TileGroup_Grid_tile_Store
+    _tileID: 184811882
+    Default: {fileID: 3232304797889120383, guid: 66775095bfbea8f45977adf89469c6ad, type: 3}
+    Randoms: []
+    Random: 0
+    _name: wood_floor
+    Rules: []
+  - _group: TileGroup_Grid_tile_Store
+    _tileID: 1596025213
+    Default: {fileID: 3232304797889120383, guid: d20f64d4bcf4fb541858c983d2c7d47a, type: 3}
+    Randoms:
+    - {fileID: 3232304797889120383, guid: c27e7b90dda87434395fa6266c9c92bd, type: 3}
+    - {fileID: 3232304797889120383, guid: 678b52c7aa3d03f47ac9c0a07ab807ac, type: 3}
+    - {fileID: 3232304797889120383, guid: 2ba8520fc20b9d34c92fab99107c4c09, type: 3}
+    Random: 1
+    _name: wood_floor_deco
+    Rules: []

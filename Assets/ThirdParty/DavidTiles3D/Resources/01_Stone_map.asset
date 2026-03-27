@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5548579e4c37e8e41a18fc96b9fd397b, type: 3}
+  m_Name: 01_Stone_map
+  m_EditorClassIdentifier: 
+  Tiles:
+  - _group: 01_Stone_map
+    _tileID: -495814735
+    Default: {fileID: 1890052976583762, guid: ae4643292a131424a95fc45296dd21ca, type: 3}
+    Randoms:
+    - {fileID: 1890052976583762, guid: 5e6bbdf0b7533654aabfc769c2ef7444, type: 3}
+    - {fileID: 1890052976583762, guid: cd7a475fa3b4d51499b6baad904224cb, type: 3}
+    - {fileID: 1890052976583762, guid: ae4643292a131424a95fc45296dd21ca, type: 3}
+    - {fileID: 1890052976583762, guid: 5e6bbdf0b7533654aabfc769c2ef7444, type: 3}
+    - {fileID: 1890052976583762, guid: cd7a475fa3b4d51499b6baad904224cb, type: 3}
+    - {fileID: 1654105625470868, guid: 5a2a14fa952f0394e808a25703dc77fd, type: 3}
+    Random: 1
+    _name: Floor
+    Rules: []
+  - _group: 01_Stone_map
+    _tileID: -1123044908
+    Default: {fileID: 3005962361392196231, guid: 3804356cd71460d4687c53c5b6718a02, type: 3}
+    Randoms:
+    - {fileID: 7209792176910019648, guid: 7facbdb1df548f24aa7310d566ffbc42, type: 3}
+    - {fileID: 4142125603050406678, guid: 9ac238a64b7cd9148b2ecdd066761433, type: 3}
+    - {fileID: 2202688836061653668, guid: bdd78a29320738e46bc8419a9e9d7100, type: 3}
+    - {fileID: 5904464066288849977, guid: 6cdc74a5f3c0bf44a8d2ccd99fbbfbda, type: 3}
+    - {fileID: 5353526050690913950, guid: 3c1a75b4c541508419cda3e3db320fc6, type: 3}
+    - {fileID: 4944378810312099859, guid: 77aa7336fcd3d8043b9878b62e218a60, type: 3}
+    - {fileID: 1582977907369958494, guid: ba20f5c803d5f8b41861a878df0fcfcc, type: 3}
+    - {fileID: 6035386448365009389, guid: c0f6d6abb54730542b41b0b2e29150cd, type: 3}
+    - {fileID: 1530887043888986849, guid: 71fa82d00b701a34ab873dc5b5cb8028, type: 3}
+    - {fileID: 2769452398514472438, guid: cfe6244e5b52b1948a887a5e2259b3ea, type: 3}
+    - {fileID: 4293449627938317875, guid: 6218dbf58ac9f794784f55845a083a79, type: 3}
+    - {fileID: 8288468760360341710, guid: 566672c7d60898345a38be99decb70f1, type: 3}
+    Random: 1
+    _name: Wall
+    Rules: []
+  - _group: 01_Stone_map
+    _tileID: -1068792506
+    Default: {fileID: 2267754513623830870, guid: 909752e198595724782e67a9017f9f66, type: 3}
+    Randoms:
+    - {fileID: 6159816950350244488, guid: 74983d16ca2ef1a4192e8535f0521ee6, type: 3}
+    - {fileID: 400522603577465628, guid: 4e0c67da77207f048b12b761bf20215f, type: 3}
+    - {fileID: 5066150900571647191, guid: 18a40710303daf84f98917c05657c030, type: 3}
+    - {fileID: 5694741819901239789, guid: 1ba04a843d80f1a48833d85eb0f013d7, type: 3}
+    - {fileID: 8675556629525421744, guid: e970feeaa8c990c4dbffd308cbf1cdcf, type: 3}
+    Random: 1
+    _name: Pillar
+    Rules: []
+  - _group: 01_Stone_map
+    _tileID: 884612866
+    Default: {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+    Randoms:
+    - {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+    - {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+    - {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+    - {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+    - {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+    - {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+    - {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+    - {fileID: 1261312191591634, guid: a95f32ffd89eb5a4eb1bbe0715cb0b28, type: 3}
+    - {fileID: 1261312191591634, guid: 7236db4ccd890cc469b8771f07a4037b, type: 3}
+    - {fileID: 6747624848208816671, guid: cfe91a4b58c11714aa9b344122c96524, type: 3}
+    - {fileID: 5057007362057750661, guid: 8ab5c266599faf148b02be64004cf613, type: 3}
+    Random: 1
+    _name: Outside
+    Rules: []
+  - _group: 01_Stone_map
+    _tileID: 154791818
+    Default: {fileID: 1955443390100158, guid: 000d3b56373a9e34c8d39d3012511058, type: 3}
+    Randoms:
+    - {fileID: 1955443390100158, guid: b1f256b2a6e80c54b925d7e4604a5baa, type: 3}
+    Random: 1
+    _name: Grass_Tile
+    Rules: []
+  - _group: 01_Stone_map
+    _tileID: 275993782
+    Default: {fileID: 1294187099171700, guid: a21e1690d596ed3499651a1a5241e642, type: 3}
+    Randoms:
+    - {fileID: 1203026694859312, guid: 0d87772d2a08b24489972c491ad859f7, type: 3}
+    - {fileID: 1336325228074974, guid: e0f78d60020db8a4082db6b84ecd955a, type: 3}
+    Random: 1
+    _name: Grass_Deco
+    Rules: []
+  - _group: 01_Stone_map
+    _tileID: 1357857627
+    Default: {fileID: 1261312191591634, guid: beef90a3e4006b548af6b9ebb7905142, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Water
+    Rules: []

@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5548579e4c37e8e41a18fc96b9fd397b, type: 3}
+  m_Name: TileGroup_Grid_tile
+  m_EditorClassIdentifier: 
+  Tiles:
+  - _group: TileGroup_Grid_tile
+    _tileID: 766953681
+    Default: {fileID: 3232304797889120383, guid: 0777232e890f08943ae7ddaa19324696, type: 3}
+    Randoms:
+    - {fileID: 3232304797889120383, guid: 845ad9800542f1848b35d8a4adffe774, type: 3}
+    - {fileID: 3232304797889120383, guid: 30adb9430d97aab4bae763004603564b, type: 3}
+    Random: 1
+    _name: floor_01
+    Rules: []
+  - _group: TileGroup_Grid_tile
+    _tileID: -1013906710
+    Default: {fileID: 3232304797889120383, guid: a0bf2a78892fe53429a931eecbb2cad4, type: 3}
+    Randoms: []
+    Random: 0
+    _name: floor_02
+    Rules: []
+  - _group: TileGroup_Grid_tile
+    _tileID: 1873502731
+    Default: {fileID: 3232304797889120383, guid: fb89c5bef7028f04b92a74f1d5bef7a2, type: 3}
+    Randoms:
+    - {fileID: 3232304797889120383, guid: 70a3bf749d0350a459c64e0dfa37b711, type: 3}
+    Random: 1
+    _name: floor_03
+    Rules: []
+  - _group: TileGroup_Grid_tile
+    _tileID: -1509172277
+    Default: {fileID: 3232304797889120383, guid: a50c4e6feb89de94bbe3350584a8aaff, type: 3}
+    Randoms:
+    - {fileID: 3232304797889120383, guid: f58e51c3da9c3c64894c6964edbf1556, type: 3}
+    Random: 1
+    _name: Wall
+    Rules: []
+  - _group: TileGroup_Grid_tile
+    _tileID: 66715621
+    Default: {fileID: 3232304797889120383, guid: c4304d7b14bb1a543a23d32faca763fe, type: 3}
+    Randoms: []
+    Random: 1
+    _name: Wall_Top
+    Rules: []
+  - _group: TileGroup_Grid_tile
+    _tileID: -293388096
+    Default: {fileID: 3232304797889120383, guid: 25d16ee39df2f294fa103fa8a22c8732, type: 3}
+    Randoms:
+    - {fileID: 3232304797889120383, guid: 6dd28e256c71ac64f8b0c7bafb646e1e, type: 3}
+    Random: 1
+    _name: Corner_Pillar
+    Rules: []
+  - _group: TileGroup_Grid_tile
+    _tileID: -1104071968
+    Default: {fileID: 3232304797889120383, guid: 215f6179800f21c468dc078fa52ebc82, type: 3}
+    Randoms:
+    - {fileID: 3232304797889120383, guid: bc4495917654b4f43a4e61e6f23f0082, type: 3}
+    Random: 1
+    _name: Corner_Top
+    Rules: []
+  - _group: TileGroup_Grid_tile
+    _tileID: 1668444619
+    Default: {fileID: 3232304797889120383, guid: 7dca99edd211511478819bf20488bf5f, type: 3}
+    Randoms:
+    - {fileID: 3232304797889120383, guid: daf159697bc0e4549a45988858f28e6e, type: 3}
+    - {fileID: 3232304797889120383, guid: 70a9035fe96b31e4a95fc266bcc77fba, type: 3}
+    Random: 1
+    _name: Door
+    Rules: []
+  - _group: TileGroup_Grid_tile
+    _tileID: 1053028480
+    Default: {fileID: 7892582922265585021, guid: 1db533841d77fb241be084788a3022c9, type: 3}
+    Randoms: []
+    Random: 0
+    _name: Floor_light
+    Rules: []
+  - _group: TileGroup_Grid_tile
+    _tileID: -1726811742
+    Default: {fileID: 3232304797889120383, guid: 9cb456411faefa745b334c134881823b, type: 3}
+    Randoms:
+    - {fileID: 3232304797889120383, guid: d08cf4c3029d9b846999ba15c7ed5cd3, type: 3}
+    - {fileID: 3232304797889120383, guid: 3705a0155dcdd0f43ab7d83703bbca76, type: 3}
+    - {fileID: 968954286206308583, guid: ad74e95a896400542b48008edbb2f712, type: 3}
+    - {fileID: 1461325412616613803, guid: a4c8f388ec61e764b9abe102d87b3406, type: 3}
+    - {fileID: 3232304797889120383, guid: 6b2c25318957fd24d8c0d322c023ca8c, type: 3}
+    - {fileID: 3232304797889120383, guid: c8b6fd4b385ddab43b4f6f646331f5c9, type: 3}
+    Random: 1
+    _name: Wall_deco
+    Rules: []
+  - _group: TileGroup_Grid_tile
+    _tileID: 670094437
+    Default: {fileID: 3232304797889120383, guid: 997cbdb58b539e04dbd24adcef607b30, type: 3}
+    Randoms: []
+    Random: 1
+    _name: Empty
+    Rules: []
