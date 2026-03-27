@@ -1,26 +1,29 @@
 using System.Collections;
 using System.Linq;
 using System.IO;
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
 
 namespace DavidTiles3D
 {
     public class DavidTiles3D_Settings : ScriptableObject
     {
         private static DavidTiles3D_Settings _settings;
+
         private const string DefaultSettingsAssetName = "DavidTiles3D_Settings.asset";
+        private const string DefaultFolderPath = "Assets/Settings";
+        private const string DefaultAssetPath = DefaultFolderPath + "/" + DefaultSettingsAssetName;
 
         [FormerlySerializedAs("UseUndoAPI")]
         [SerializeField]
-        private bool _useUndoAPI = false; //recommend off, because Unitys Undo API is incredible slow and inefficient.
+        private bool _useUndoAPI = false; // recommend off (Unity Undo API is slow)
         public bool UseUndoAPI => _useUndoAPI;
+
         [FormerlySerializedAs("SuppressTileAmountWarning")]
         [SerializeField]
         private bool _suppressTileAmountWarning = false;
@@ -43,7 +46,8 @@ namespace DavidTiles3D
             _suppressTileAmountWarning = value;
             MarkDirty();
         }
-        //for editor use
+
+        // for editor use
         public static bool IsLocked;
 
         private void MarkDirty()
@@ -56,59 +60,70 @@ namespace DavidTiles3D
 
 #if UNITY_EDITOR
 
-
         public static DavidTiles3D_Settings EditorInstance
         {
             get
             {
                 if (_settings == null)
                 {
-                    var settings = FindExistingSettingsAsset();
-                    if (settings == null)
-                    {
-                        settings = CreateSettingsAsset();
-                    }
-                    _settings = settings;
+                    _settings = LoadOrCreateSettings();
                 }
+
                 return _settings;
             }
         }
 
-        private static DavidTiles3D_Settings FindExistingSettingsAsset()
+        private static DavidTiles3D_Settings LoadOrCreateSettings()
         {
-            string[] guids = AssetDatabase.FindAssets("t:DavidTiles3D_Settings");
-            if (guids.Length == 0)
-                return null;
+            // 1. fixed path first
+            var settings = AssetDatabase.LoadAssetAtPath<DavidTiles3D_Settings>(DefaultAssetPath);
+            if (settings != null)
+                return settings;
 
-            var assetPaths = guids
+            // 2. fallback: project-wide search for legacy support
+            string[] guids = AssetDatabase.FindAssets("t:DavidTiles3D_Settings");
+
+            var paths = guids
                 .Select(AssetDatabase.GUIDToAssetPath)
-                .Where(path => !string.IsNullOrEmpty(path))
+                .Where(p => !string.IsNullOrEmpty(p))
                 .Distinct()
-                .OrderBy(path => string.Equals(Path.GetFileName(path), DefaultSettingsAssetName, System.StringComparison.OrdinalIgnoreCase) ? 0 : 1)
-                .ThenBy(path => path)
                 .ToList();
 
-            if (assetPaths.Count > 1)
+            if (paths.Count > 0)
             {
-                Debug.LogWarning($"DavidTiles3D: Multiple settings assets found. Using '{assetPaths[0]}'.");
-            }
+                if (paths.Count > 1)
+                {
+                    Debug.LogWarning($"DavidTiles3D: Multiple settings assets found. Using '{paths[0]}'. Consider cleaning up duplicates.");
+                }
 
-            foreach (var assetPath in assetPaths)
-            {
-                var settings = AssetDatabase.LoadAssetAtPath<DavidTiles3D_Settings>(assetPath);
+                settings = AssetDatabase.LoadAssetAtPath<DavidTiles3D_Settings>(paths[0]);
+
                 if (settings != null)
+                {
+                    Debug.LogWarning($"DavidTiles3D: Settings asset found at legacy path '{paths[0]}'. Move it to '{DefaultAssetPath}' for consistency.");
                     return settings;
+                }
             }
 
-            return null;
+            // 3. create if missing
+            return CreateSettingsAsset();
         }
 
         private static DavidTiles3D_Settings CreateSettingsAsset()
         {
+            // create the folder if missing
+            if (!AssetDatabase.IsValidFolder(DefaultFolderPath))
+            {
+                AssetDatabase.CreateFolder("Assets", "DavidTiles3D");
+            }
+
             var settings = ScriptableObject.CreateInstance<DavidTiles3D_Settings>();
-            string assetPath = AssetDatabase.GenerateUniqueAssetPath($"Assets/{DefaultSettingsAssetName}");
-            AssetDatabase.CreateAsset(settings, assetPath);
+
+            AssetDatabase.CreateAsset(settings, DefaultAssetPath);
             AssetDatabase.SaveAssets();
+
+            Debug.Log($"DavidTiles3D: Created settings asset at '{DefaultAssetPath}'");
+
             return settings;
         }
 
@@ -116,9 +131,7 @@ namespace DavidTiles3D
         {
             return new SerializedObject(EditorInstance);
         }
+
 #endif
     }
-
-
-
 }
