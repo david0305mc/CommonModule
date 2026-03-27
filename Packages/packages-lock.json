@@ -36,6 +36,12 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.david.tiles3d": {
+      "version": "file:com.david.tiles3d",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.david.utils": {
       "version": "file:com.david.utils",
       "depth": 0,

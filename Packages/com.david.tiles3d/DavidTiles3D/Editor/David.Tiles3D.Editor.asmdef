@@ -1,0 +1,16 @@
+{
+    "name": "David.Tiles3D.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a151f49c4a69d9441bc85e534af975f4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
