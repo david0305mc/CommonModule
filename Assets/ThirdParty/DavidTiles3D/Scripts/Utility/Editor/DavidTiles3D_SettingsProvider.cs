@@ -35,12 +35,14 @@ namespace DavidTiles3D
             // Use IMGUI to display UI:
             if (_settings != null)
             {
-                _settings.SuppressTileAmountWarning = EditorGUILayout.Toggle(Styles.Suppress, _settings.SuppressTileAmountWarning, GUILayout.Width(200));
+                bool suppressWarning = EditorGUILayout.Toggle(Styles.Suppress, _settings.SuppressTileAmountWarning);
+                if (suppressWarning != _settings.SuppressTileAmountWarning)
+                    _settings.SetSuppressTileAmountWarning(suppressWarning);
+
                 EditorGUILayout.LabelField("(Experimental)");
                 bool useUndo = EditorGUILayout.Toggle(Styles.UndoAPI, _settings.UseUndoAPI);
                 if (useUndo != _settings.UseUndoAPI)
                     _settings.SetUndoAPI(useUndo);
-
             }
         }
 

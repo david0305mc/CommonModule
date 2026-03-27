@@ -355,7 +355,7 @@ namespace DavidTiles3D
         {
             System.Type originalType = original.GetType();
             System.Type destinationType = destination.GetType();
-            if (destinationType.IsSubclassOf(originalType))
+            if (destinationType == originalType || destinationType.IsSubclassOf(originalType))
             {
                 FieldInfo[] originalFields = originalType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
                 foreach (FieldInfo field in originalFields)

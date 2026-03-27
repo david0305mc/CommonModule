@@ -84,6 +84,7 @@ namespace DavidTiles3D
                 if (GUILayout.Button($"Paste copied tile ({CopyBuffer.Name})"))
                 {
                     Debug.Log($"Pasting copied tile!");
+                    Undo.RegisterCompleteObjectUndo(_group, "Tile Paste");
                     _group.Tiles.Add(new DavidTiles3D_Tile(CopyBuffer));
                 }
             }

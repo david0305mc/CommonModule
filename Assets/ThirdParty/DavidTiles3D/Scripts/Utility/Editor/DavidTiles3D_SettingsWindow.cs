@@ -72,6 +72,13 @@ namespace DavidTiles3D
             {
                 DavidTiles3D_Settings.EditorInstance.SetUndoAPI(useUndo);
             }
+
+            bool suppressWarning = EditorGUILayout.Toggle("Suppress high tile amount warning", DavidTiles3D_Settings.EditorInstance.SuppressTileAmountWarning);
+            if (suppressWarning != DavidTiles3D_Settings.EditorInstance.SuppressTileAmountWarning)
+            {
+                DavidTiles3D_Settings.EditorInstance.SetSuppressTileAmountWarning(suppressWarning);
+            }
+
             EditorGUIUtility.labelWidth = 0;
             EditorGUILayout.EndVertical();
         }

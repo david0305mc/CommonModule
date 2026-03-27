@@ -140,7 +140,7 @@ namespace DavidTiles3D
         }
         public void ResetID()
         {
-            _tileID = 0;
+            _tileID = -1;
         }
         public void SetGroupName(string group)
         {
@@ -184,11 +184,8 @@ namespace DavidTiles3D
         public DavidTiles3D_Tile(DavidTiles3D_Tile copy)
         {
             Default = copy.Default;
-            Randoms = new List<GameObject>();
-            foreach (var random in Randoms)
-            {
-                Randoms.Add(random);
-            }
+            Random = copy.Random;
+            Randoms = new List<GameObject>(copy.Randoms);
             _name = copy.Name + "(Copy)";
             foreach (var rule in copy.Rules)
             {

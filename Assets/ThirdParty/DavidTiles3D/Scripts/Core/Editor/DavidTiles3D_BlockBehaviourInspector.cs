@@ -33,6 +33,7 @@ namespace DavidTiles3D
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+            _canRandomize = CheckIfCanRandomize();
 
             DavidTiles3D_Tile tile = _baseBlock.GetTile();
             DavidTiles3D_TileGroup group = null;

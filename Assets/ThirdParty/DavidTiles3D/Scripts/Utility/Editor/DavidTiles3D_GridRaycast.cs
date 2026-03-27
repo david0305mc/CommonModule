@@ -45,13 +45,13 @@ namespace DavidTiles3D
             var gy1 = end.y;
             var gz1 = end.z;
 
-            var gx0idx = Mathf.Floor(gx0);
-            var gy0idx = Mathf.Floor(gy0);
-            var gz0idx = Mathf.Floor(gz0);
+            var gx0idx = Mathf.FloorToInt(gx0);
+            var gy0idx = Mathf.FloorToInt(gy0);
+            var gz0idx = Mathf.FloorToInt(gz0);
 
-            var gx1idx = Mathf.Floor(gx1);
-            var gy1idx = Mathf.Floor(gy1);
-            var gz1idx = Mathf.Floor(gz1);
+            var gx1idx = Mathf.FloorToInt(gx1);
+            var gy1idx = Mathf.FloorToInt(gy1);
+            var gz1idx = Mathf.FloorToInt(gz1);
 
             var sx = gx1idx > gx0idx ? 1 : gx1idx < gx0idx ? -1 : 0;
             var sy = gy1idx > gy0idx ? 1 : gy1idx < gy0idx ? -1 : 0;
@@ -85,7 +85,7 @@ namespace DavidTiles3D
             var derry = sy * vxvz;
             var derrz = sz * vxvy;
 
-            var testEscape = 100;
+            var remainingSteps = Mathf.Max(1, Mathf.Abs(gx1idx - gx0idx) + Mathf.Abs(gy1idx - gy0idx) + Mathf.Abs(gz1idx - gz0idx) + 1);
 
             Vector3Int prevVistor = new Vector3Int(Mathf.RoundToInt(gx), Mathf.RoundToInt(gy), Mathf.RoundToInt(gz));
 
@@ -127,7 +127,7 @@ namespace DavidTiles3D
                 prevVistor = visitor;
 
 
-            } while (testEscape-- > 0);
+            } while (remainingSteps-- > 0);
 
             return false;
 

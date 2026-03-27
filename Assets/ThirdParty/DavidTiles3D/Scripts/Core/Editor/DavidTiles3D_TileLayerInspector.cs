@@ -261,7 +261,7 @@ namespace DavidTiles3D
                 bool succesfullHit = false;
                 if (!_tileLayer.IsLayerEmpty)
                 {
-                    if (DavidTiles3D_GridRaycast.GridRayCast(_tileLayer, _MouseRay.origin, _MouseRay.GetPoint(50), out Vector3Int internalHit, out Vector3Int internalHitNormal, out visits))
+                    if (DavidTiles3D_GridRaycast.GridRayCast(_tileLayer, _MouseRay.origin, _MouseRay.GetPoint(GetSceneRayDistance(_MouseRay.origin)), out Vector3Int internalHit, out Vector3Int internalHitNormal, out visits))
                     {
                         if (_tileLayer.ContainsKey(internalHit))
                         {
@@ -662,12 +662,13 @@ namespace DavidTiles3D
                 var groupNames = _tileLayer.LoadedGroups.Select(g => g.name).ToList();
                 var activeGroupName = _tileLayer.Group != null ? _tileLayer.Group.name : "";
                 int index = Math.Max(groupNames.IndexOf(activeGroupName), 0);
+                GUIStyle groupPopupStyle = new GUIStyle(EditorStyles.popup)
+                {
+                    fixedHeight = fatHeight
+                };
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.ExpandWidth(false);
-                EditorStyles.popup.fixedHeight = fatHeight;
-                int newIndex = EditorGUILayout.Popup(index, groupNames.ToArray(), GUILayout.Width(_sp1 * 2), GUILayout.Height(fatHeight));
-                EditorStyles.popup.fontSize = 0;
-                EditorStyles.popup.fixedHeight = 0;
+                int newIndex = EditorGUILayout.Popup(index, groupNames.ToArray(), groupPopupStyle, GUILayout.Width(_sp1 * 2), GUILayout.Height(fatHeight));
                 if (index != newIndex)
                 {
                     _tileLayer.Group = _tileLayer.LoadedGroups[newIndex];
@@ -905,7 +906,9 @@ namespace DavidTiles3D
                     {
                         EditorGUILayout.LabelField($"<color=red> {amount} </color> <color=yellow> {tile.Name} </color> Tiles. This amount is very high! Consider", DavidTiles3D_Utility.RichStyle, GUILayout.Width(_sp2));
                         EditorGUILayout.LabelField($"a) <color=red>reducing </color> amount of tiles, \nb)<color=red> baking </color> meshes or \nc) working with <color=red> multiple layers </color> to improve perfomance.", DavidTiles3D_Utility.RichStyle, GUILayout.Width(_sp2));
-                        DavidTiles3D_Settings.EditorInstance.SuppressTileAmountWarning = EditorGUILayout.Toggle("Suppress warning", DavidTiles3D_Settings.EditorInstance.SuppressTileAmountWarning);
+                        bool suppressWarning = EditorGUILayout.Toggle("Suppress warning", DavidTiles3D_Settings.EditorInstance.SuppressTileAmountWarning);
+                        if (suppressWarning != DavidTiles3D_Settings.EditorInstance.SuppressTileAmountWarning)
+                            DavidTiles3D_Settings.EditorInstance.SetSuppressTileAmountWarning(suppressWarning);
                         GUILayout.Space(EditorGUIUtility.singleLineHeight);
                     }
 
@@ -1066,7 +1069,7 @@ namespace DavidTiles3D
                         _tileLayer.DestroyHoverInstance();
                         hoverInstance = PrefabUtility.InstantiatePrefab(prefab, _tileLayer.transform) as UnityEngine.GameObject;
                         hoverInstance.name = "HoverInstance";
-                        hoverInstance.layer = 1 << 0;
+                        hoverInstance.layer = 0;
                         _tileLayer.HoverInstance = (_tileLayer.ActiveTileID, hoverInstance);
                         _tileLayer.HoverPrefabObject = prefab;
                     }
@@ -1145,8 +1148,33 @@ namespace DavidTiles3D
         public int AddRandomRotation()
         {
             int[] possibleAdditions = { -90, 0, 90, 180 };
-            int index = UnityEngine.Random.Range(0, possibleAdditions.Length - 1);
+            int index = UnityEngine.Random.Range(0, possibleAdditions.Length);
             return possibleAdditions[index];
+        }
+
+        private float GetSceneRayDistance(Vector3 rayOrigin)
+        {
+            float rayDistance = Vector3.Distance(rayOrigin, Grid.transform.position) + (Unit * 4f);
+
+            if (Grid.GridSize == LevelSize.Finite)
+            {
+                Vector3 gridSize = new Vector3(Grid.Width, Grid.Height, Grid.Width) * Unit;
+                return rayDistance + gridSize.magnitude;
+            }
+
+            if (_tileLayer.IsLayerEmpty)
+                return rayDistance + (50f * Unit);
+
+            var positions = _tileLayer.GetAllInternalPositions();
+            int minX = positions.Min(p => p.x);
+            int maxX = positions.Max(p => p.x);
+            int minY = positions.Min(p => p.y);
+            int maxY = positions.Max(p => p.y);
+            int minZ = positions.Min(p => p.z);
+            int maxZ = positions.Max(p => p.z);
+
+            Vector3 layerSize = new Vector3(maxX - minX + 2, maxY - minY + 2, maxZ - minZ + 2) * Unit;
+            return rayDistance + layerSize.magnitude;
         }
         public void GridSelection(EventType eventType, Event e, Vector3Int internalPosition)
         {
