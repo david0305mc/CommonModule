@@ -24,12 +24,6 @@
         "com.cysharp.unitask": "2.5.0"
       }
     },
-    "com.david.joystick": {
-      "version": "file:com.david.joystick",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.david.popupmanager": {
       "version": "file:com.david.popupmanager",
       "depth": 0,
