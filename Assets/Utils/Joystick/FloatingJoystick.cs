@@ -11,43 +11,68 @@ public class FloatingJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler
 
     [Header("Settings")]
     [SerializeField] private float radius = 100f;
+    [SerializeField, Range(0f, 0.5f)] private float deadZone = 0.1f;
     [SerializeField] private bool hideWhenIdle = true;
 
     public Vector2 InputVector { get; private set; }
+    public bool IsPressed { get; private set; }
 
     private Camera UICamera
     {
         get
         {
             if (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay)
+            {
                 return canvas.worldCamera;
+            }
+
             return null;
         }
     }
 
+    private void OnValidate()
+    {
+        radius = Mathf.Max(1f, radius);
+        deadZone = Mathf.Clamp01(deadZone);
+    }
+
     private void Awake()
     {
-        if (canvas == null)
-            canvas = GetComponentInParent<Canvas>();
-
-        if (rootCanvasRect == null && canvas != null)
-            rootCanvasRect = canvas.GetComponent<RectTransform>();
+        if (!TryResolveReferences())
+        {
+            Debug.LogWarning($"{nameof(FloatingJoystick)} on {name} is missing required references.", this);
+            enabled = false;
+            return;
+        }
 
         ResetJoystickVisual();
     }
 
+    private void OnEnable()
+    {
+        RegisterWithInputManager();
+    }
+
+    private void OnDisable()
+    {
+        ClearInput();
+        UnregisterFromInputManager();
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (rootCanvasRect == null)
+        if (!TryResolveReferences())
+        {
             return;
+        }
 
-        Vector2 localPoint;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 rootCanvasRect,
                 eventData.position,
                 UICamera,
-                out localPoint))
+                out Vector2 localPoint))
         {
+            IsPressed = true;
             background.anchoredPosition = localPoint;
             handle.anchoredPosition = localPoint;
 
@@ -58,34 +83,47 @@ public class FloatingJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (rootCanvasRect == null)
+        if (!TryResolveReferences())
+        {
             return;
+        }
 
-        Vector2 pointerLocalPoint;
         if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 rootCanvasRect,
                 eventData.position,
                 UICamera,
-                out pointerLocalPoint))
+                out Vector2 pointerLocalPoint))
+        {
             return;
+        }
 
         Vector2 center = background.anchoredPosition;
         Vector2 delta = pointerLocalPoint - center;
+        float effectiveRadius = Mathf.Max(1f, radius);
+        Vector2 normalizedInput = Vector2.ClampMagnitude(delta / effectiveRadius, 1f);
 
-        Vector2 clamped = Vector2.ClampMagnitude(delta, radius);
-        handle.anchoredPosition = center + clamped;
+        if (normalizedInput.sqrMagnitude < deadZone * deadZone)
+        {
+            normalizedInput = Vector2.zero;
+        }
 
-        InputVector = clamped / radius;
+        InputVector = normalizedInput;
+        handle.anchoredPosition = center + (normalizedInput * effectiveRadius);
+        PushInputToManager();
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        InputVector = Vector2.zero;
-        ResetJoystickVisual();
+        ClearInput();
     }
 
     private void ResetJoystickVisual()
     {
+        if (background == null || handle == null)
+        {
+            return;
+        }
+
         handle.anchoredPosition = background.anchoredPosition;
 
         if (hideWhenIdle)
@@ -100,8 +138,66 @@ public class FloatingJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler
 
     private void SetVisualActive(bool active)
     {
+        if (background == null || handle == null)
+        {
+            return;
+        }
+
         background.gameObject.SetActive(active);
         handle.gameObject.SetActive(active);
+    }
+
+    private bool TryResolveReferences()
+    {
+        if (canvas == null)
+        {
+            canvas = GetComponentInParent<Canvas>();
+        }
+
+        if (rootCanvasRect == null && canvas != null)
+        {
+            rootCanvasRect = canvas.GetComponent<RectTransform>();
+        }
+
+        return rootCanvasRect != null && background != null && handle != null;
+    }
+
+    private void ClearInput()
+    {
+        InputVector = Vector2.zero;
+        IsPressed = false;
+        ResetJoystickVisual();
+        PushInputToManager();
+    }
+
+    private void RegisterWithInputManager()
+    {
+        if (!GameInputManager.HasInstance)
+        {
+            return;
+        }
+
+        GameInputManager.Instance.RegisterVirtualJoystick(this);
+    }
+
+    private void UnregisterFromInputManager()
+    {
+        if (!GameInputManager.HasInstance)
+        {
+            return;
+        }
+
+        GameInputManager.Instance.UnregisterVirtualJoystick(this);
+    }
+
+    private void PushInputToManager()
+    {
+        if (!GameInputManager.HasInstance)
+        {
+            return;
+        }
+
+        GameInputManager.Instance.SetVirtualMoveInput(this, InputVector);
     }
 
     public float Horizontal => InputVector.x;
