@@ -21,4 +21,9 @@ public class PlayerMovementTest : MonoBehaviour
     {
         Debug.Log("Jump!");
     }
+
+    void OnEnable()
+    {
+        
+    }
 }
