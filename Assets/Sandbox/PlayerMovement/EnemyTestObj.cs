@@ -4,15 +4,16 @@ using UnityEngine.AI;
 public class EnemyTestObj : MonoBehaviour
 {
     [SerializeField] private Transform target;
-    NavMeshAgent navMeshAgent;
+    NavMeshAgent enemyAgent;
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        enemyAgent = GetComponent<NavMeshAgent>();
+        enemyAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     void Update()
     {
-        navMeshAgent.SetDestination(target.position);
+        enemyAgent.SetDestination(target.position);
     }
 
 

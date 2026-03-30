@@ -1,8 +1,16 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerMovementTest : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
+    private NavMeshAgent navMeshAgent;
+
+    void Start()
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+    }
 
     private void Update()
     {
@@ -14,7 +22,7 @@ public class PlayerMovementTest : MonoBehaviour
         }
 
         Vector3 movement = Vector3.ClampMagnitude(new Vector3(input.x, 0f, input.y), 1f);
-        transform.Translate(movement * moveSpeed * Time.deltaTime);
+        navMeshAgent.Move(movement * moveSpeed * Time.deltaTime);
     }
 
     public void OnJump()
@@ -24,6 +32,6 @@ public class PlayerMovementTest : MonoBehaviour
 
     void OnEnable()
     {
-        
+
     }
 }
