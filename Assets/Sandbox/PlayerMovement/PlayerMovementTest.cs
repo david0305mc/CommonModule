@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerMovementTest : MonoBehaviour
 {
-    [SerializeField] private FloatingJoystick joystick;
     [SerializeField] private float moveSpeed = 5f;
 
     private void Update()
@@ -12,11 +11,6 @@ public class PlayerMovementTest : MonoBehaviour
         if (GameInputManager.HasInstance)
         {
             input = GameInputManager.Instance.MoveValue;
-        }
-        else if (joystick != null)
-        {
-            // Keep the sandbox scene usable even if the input manager is not present.
-            input = joystick.InputVector;
         }
 
         Vector3 movement = Vector3.ClampMagnitude(new Vector3(input.x, 0f, input.y), 1f);
