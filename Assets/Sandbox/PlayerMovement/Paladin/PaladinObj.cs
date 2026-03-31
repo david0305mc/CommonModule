@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,10 +7,13 @@ public class PaladinObj : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     private NavMeshAgent navMeshAgent;
 
+
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        
+        GameInputManager.Instance.JumpPressed += OnJump;
     }
 
     private void Update()
@@ -22,7 +26,12 @@ public class PaladinObj : MonoBehaviour
         }
 
         Vector3 movement = Vector3.ClampMagnitude(new Vector3(input.x, 0f, input.y), 1f);
-        navMeshAgent.Move(movement * moveSpeed * Time.deltaTime);
+        if (movement.sqrMagnitude > 0.001f)
+        {
+            navMeshAgent.Move(movement * moveSpeed * Time.deltaTime);
+            var targetRotation = Quaternion.LookRotation(movement);
+            transform.rotation = targetRotation;
+        }
     }
 
     public void OnJump()
@@ -30,8 +39,8 @@ public class PaladinObj : MonoBehaviour
         Debug.Log("Jump!");
     }
 
-    void OnEnable()
+    void OnDestroy()
     {
-
+        GameInputManager.Instance.JumpPressed -= OnJump;
     }
 }
