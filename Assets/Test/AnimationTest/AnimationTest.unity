@@ -527,7 +527,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &3622188045564140035
+--- !u!1001 &8489694426187858327
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -535,65 +535,69 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2546897813271783025, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.97219
-      objectReference: {fileID: 0}
-    - target: {fileID: 2546897813271783025, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2546897813271783025, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.28254
-      objectReference: {fileID: 0}
-    - target: {fileID: 2546897813271783025, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2546897813271783025, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2546897813271783025, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2546897813271783025, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2546897813271783025, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2546897813271783025, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2546897813271783025, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2887852711992687819, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
-      propertyPath: m_Name
-      value: Paladin WProp J Nordstrom
-      objectReference: {fileID: 0}
-    - target: {fileID: 8482612110976973835, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
+    - target: {fileID: 1577326341725681473, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: f6f2f6eefd0376e4db1d2a9783eaab97, type: 2}
+    - target: {fileID: 1577326341725681473, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188355605030224304, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188355605030224304, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188355605030224304, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188355605030224304, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188355605030224304, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188355605030224304, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188355605030224304, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188355605030224304, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188355605030224304, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188355605030224304, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7216138377684237434, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: m_Name
+      value: Paladin
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0ae3b1dd84da45a418b0e2e7572a4735, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 961739753}
   - {fileID: 203844589}
-  - {fileID: 1784155806}
-  - {fileID: 3622188045564140035}
   - {fileID: 2027013122}
+  - {fileID: 1784155806}
+  - {fileID: 8489694426187858327}
