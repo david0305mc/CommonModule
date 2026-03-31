@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerObj : MonoBehaviour
+public class PaladinObj : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     private NavMeshAgent navMeshAgent;
