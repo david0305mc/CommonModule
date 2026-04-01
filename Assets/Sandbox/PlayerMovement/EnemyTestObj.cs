@@ -40,10 +40,15 @@ namespace PaladinTest
             }
 
             destinationUpdateTimer -= Time.deltaTime;
-            if (destinationUpdateTimer > 0f) return;
+            if (destinationUpdateTimer <= 0f)
+            {
+                destinationUpdateTimer = destinationUpdateInterval;
+                SetDestivation();
+            }
+        }
 
-            destinationUpdateTimer = destinationUpdateInterval;
-
+        private void SetDestivation()
+        {
             Vector3 separationOffset = CalculateSeparationOffset();
             Vector3 desiredDestination = target.position + separationOffset;
 

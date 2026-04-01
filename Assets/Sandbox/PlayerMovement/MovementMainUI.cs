@@ -13,7 +13,7 @@ namespace PaladinTest
         {
             skillButton.onClick.AddListener(() =>
             {
-                paladinObj.Attack();
+                paladinObj.Attack(null);
             });
         }
 

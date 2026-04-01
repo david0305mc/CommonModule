@@ -110,6 +110,8 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  stopDistance: 3
+  destinationUpdateInterval: 0.5
 --- !u!195 &4743759271175791452
 NavMeshAgent:
   m_ObjectHideFlags: 0

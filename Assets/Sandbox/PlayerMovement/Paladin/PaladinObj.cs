@@ -70,9 +70,10 @@ namespace PaladinTest
             }
             else
             {
-                if (IsEnemyNearby())
+                Collider[] enemies = GetEnemyNearby();
+                if (enemies.Length > 0)
                 {
-                    Attack();
+                    Attack(enemies[0].transform);
                 }
             }
         }
@@ -120,31 +121,35 @@ namespace PaladinTest
             navMeshAgent.Warp(transform.position);
         }
 
-        public void Attack()
+        public void Attack(Transform target)
         {
             if (animator == null)
                 return;
 
             if (Time.time - lastAttackTime < attackCooldown)
                 return;
+            if (target != null)
+            {
+                transform.LookAt(target);
+            }
 
             lastAttackTime = Time.time;
             animator.SetTrigger(AttackHash);
         }
 
-        private bool IsEnemyNearby()
+        private Collider[] GetEnemyNearby()
         {
             int enemyLayer = LayerMask.NameToLayer(GameDefine.EnemyLayerName);
 
             if (enemyLayer < 0)
             {
                 Debug.LogWarning($"{nameof(PaladinObj)}: Enemy layer '{GameDefine.EnemyLayerName}' not found.", this);
-                return false;
+                return null;
             }
 
             int layerMask = 1 << enemyLayer;
             Collider[] hits = Physics.OverlapSphere(transform.position, enemyDetectRadius, layerMask);
-            return hits.Length > 0;
+            return hits;
         }
 
 #if UNITY_EDITOR
