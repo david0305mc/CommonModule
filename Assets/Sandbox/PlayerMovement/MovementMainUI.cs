@@ -1,19 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MovementMainUI : MonoBehaviour
+namespace PaladinTest
 {
-    [SerializeField] private Button skillButton;
-    [SerializeField] private PaladinObj paladinObj;
-
-
-    void Awake()
+    public class MovementMainUI : MonoBehaviour
     {
-        skillButton.onClick.AddListener(() =>
-        {
-            paladinObj.Attack();
-        });
-    }
+        [SerializeField] private Button skillButton;
+        [SerializeField] private PaladinObj paladinObj;
 
+
+        void Awake()
+        {
+            skillButton.onClick.AddListener(() =>
+            {
+                paladinObj.Attack();
+            });
+        }
+
+
+    }
 
 }

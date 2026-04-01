@@ -1,118 +1,158 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
-public class PaladinObj : MonoBehaviour
+namespace PaladinTest
 {
-
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float rotationSpeed = 15f;
-    [SerializeField] private float navMeshSampleDistance = 0.3f;
-    private Animator animator;
-
-    private NavMeshAgent navMeshAgent;
-    private CharacterController characterController;
-
-    private void Awake()
+    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(CharacterController))]
+    public class PaladinObj : MonoBehaviour
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponentInChildren<Animator>();
-        characterController = GetComponent<CharacterController>();
-    }
+        private static readonly int SpeedHash = Animator.StringToHash("Speed");
+        private static readonly int AttackHash = Animator.StringToHash("Attack");
 
-    private void Start()
-    {
-        navMeshAgent.updatePosition = false;
-        navMeshAgent.updateRotation = false;
-        navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-    }
+        [Header("Movement")]
+        [SerializeField] private float moveSpeed = 5f;
+        [SerializeField] private float rotationSpeed = 15f;
+        [SerializeField] private float navMeshSampleDistance = 0.3f;
 
-    private void Update()
-    {
-        Vector2 input = Vector2.zero;
+        [Header("Combat")]
+        [SerializeField] private float enemyDetectRadius = 3f;
+        [SerializeField] private float attackCooldown = 0.8f;
 
-        if (GameInputManager.HasInstance)
+        private Animator animator;
+        private NavMeshAgent navMeshAgent;
+        private CharacterController characterController;
+
+        private float lastAttackTime = -999f;
+
+        private void Awake()
         {
-            input = GameInputManager.Instance.MoveValue;
+            navMeshAgent = GetComponent<NavMeshAgent>();
+            characterController = GetComponent<CharacterController>();
+            animator = GetComponentInChildren<Animator>();
+
+            if (animator == null)
+            {
+                Debug.LogError($"{nameof(PaladinObj)}: Animator not found in children.", this);
+            }
         }
 
-        Vector3 moveDir = new Vector3(input.x, 0f, input.y);
-        moveDir = Vector3.ClampMagnitude(moveDir, 1f);
-        float speed = moveDir.magnitude;
-        animator.SetFloat("Speed", speed);
-
-        MoveOnNavMesh(moveDir);
-        Rotate(moveDir);
-        SyncAgent();
-    }
-
-    private void MoveOnNavMesh(Vector3 moveDir)
-    {
-        if (moveDir.sqrMagnitude <= 0.0001f)
-            return;
-
-        Vector3 moveAmount = moveDir * moveSpeed * Time.deltaTime;
-        Vector3 currentPosition = transform.position;
-
-        if (TryGetNavMeshPosition(currentPosition + moveAmount, out Vector3 nextPosition))
+        private void Start()
         {
-            transform.position = nextPosition;
-            return;
+            navMeshAgent.updatePosition = false;
+            navMeshAgent.updateRotation = false;
+            navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         }
 
-        Vector3 xOnly = new Vector3(moveAmount.x, 0f, 0f);
-        if (xOnly.sqrMagnitude > 0.0001f &&
-            TryGetNavMeshPosition(currentPosition + xOnly, out nextPosition))
+        private void Update()
         {
-            transform.position = nextPosition;
-            return;
+            Vector2 input = Vector2.zero;
+
+            if (GameInputManager.HasInstance)
+            {
+                input = GameInputManager.Instance.MoveValue;
+            }
+
+            Vector3 moveDir = new Vector3(input.x, 0f, input.y);
+            moveDir = Vector3.ClampMagnitude(moveDir, 1f);
+
+            float speed = moveDir.magnitude;
+            if (animator != null)
+            {
+                animator.SetFloat(SpeedHash, speed);
+            }
+
+            if (moveDir.sqrMagnitude > 0.0001f)
+            {
+                MoveOnNavMesh(moveDir);
+                Rotate(moveDir);
+                SyncAgent();
+            }
+            else
+            {
+                if (IsEnemyNearby())
+                {
+                    Attack();
+                }
+            }
         }
 
-        Vector3 zOnly = new Vector3(0f, 0f, moveAmount.z);
-        if (zOnly.sqrMagnitude > 0.0001f &&
-            TryGetNavMeshPosition(currentPosition + zOnly, out nextPosition))
+        private void MoveOnNavMesh(Vector3 moveDir)
         {
-            transform.position = nextPosition;
-        }
-    }
+            Vector3 moveAmount = moveDir * moveSpeed * Time.deltaTime;
+            Vector3 currentPosition = transform.position;
+            Vector3 targetPosition = currentPosition + moveAmount;
 
-    private bool TryGetNavMeshPosition(Vector3 targetPosition, out Vector3 result)
-    {
-        if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, navMeshSampleDistance, NavMesh.AllAreas))
+            if (!TryGetNavMeshPosition(targetPosition, out Vector3 nextPosition))
+            {
+                return;
+            }
+
+            Vector3 delta = nextPosition - currentPosition;
+            characterController.Move(delta);
+        }
+
+        private bool TryGetNavMeshPosition(Vector3 targetPosition, out Vector3 result)
         {
-            result = hit.position;
-            return true;
+            if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, navMeshSampleDistance, NavMesh.AllAreas))
+            {
+                result = hit.position;
+                return true;
+            }
+
+            result = transform.position;
+            return false;
         }
 
-        result = transform.position;
-        return false;
-    }
+        private void Rotate(Vector3 moveDir)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDir, Vector3.up);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
 
-    private void Rotate(Vector3 moveDir)
-    {
-        if (moveDir.sqrMagnitude <= 0.0001f)
-            return;
+        private void SyncAgent()
+        {
+            navMeshAgent.nextPosition = transform.position;
+            navMeshAgent.Warp(transform.position);
+        }
 
-        Quaternion targetRotation = Quaternion.LookRotation(moveDir, Vector3.up);
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            targetRotation,
-            rotationSpeed * Time.deltaTime
-        );
-    }
+        public void Attack()
+        {
+            if (animator == null)
+                return;
 
-    private void SyncAgent()
-    {
-        navMeshAgent.nextPosition = transform.position;
-    }
+            if (Time.time - lastAttackTime < attackCooldown)
+                return;
 
-    public void OnJump()
-    {
-        Debug.Log("Jump!");
-    }
+            lastAttackTime = Time.time;
+            animator.SetTrigger(AttackHash);
+        }
 
-    public void Attack()
-    {
-        animator.SetTrigger("Attack");
+        private bool IsEnemyNearby()
+        {
+            int enemyLayer = LayerMask.NameToLayer(GameDefine.EnemyLayerName);
+
+            if (enemyLayer < 0)
+            {
+                Debug.LogWarning($"{nameof(PaladinObj)}: Enemy layer '{GameDefine.EnemyLayerName}' not found.", this);
+                return false;
+            }
+
+            int layerMask = 1 << enemyLayer;
+            Collider[] hits = Physics.OverlapSphere(transform.position, enemyDetectRadius, layerMask);
+            return hits.Length > 0;
+        }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, enemyDetectRadius);
+        }
+#endif
     }
 }
