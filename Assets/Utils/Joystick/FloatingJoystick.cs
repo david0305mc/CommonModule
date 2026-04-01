@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -17,6 +18,7 @@ public class FloatingJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler
     public Vector2 InputVector { get; private set; }
     public bool IsPressed { get; private set; }
 
+    private static readonly List<RaycastResult> s_RaycastResults = new();
     private Camera UICamera
     {
         get
@@ -62,6 +64,11 @@ public class FloatingJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!TryResolveReferences())
+        {
+            return;
+        }
+
+        if (IsPointerOverBlockingUI(eventData))
         {
             return;
         }
@@ -198,6 +205,33 @@ public class FloatingJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler
         }
 
         GameInputManager.Instance.SetVirtualMoveInput(this, InputVector);
+    }
+
+    private bool IsPointerOverBlockingUI(PointerEventData eventData)
+    {
+        if (EventSystem.current == null)
+        {
+            return false;
+        }
+
+        s_RaycastResults.Clear();
+        EventSystem.current.RaycastAll(eventData, s_RaycastResults);
+
+        for (int i = 0; i < s_RaycastResults.Count; i++)
+        {
+            GameObject hitObject = s_RaycastResults[i].gameObject;
+
+            // 자기 자신(조이스틱 루트/배경/핸들 포함)이면 허용
+            if (hitObject.transform == transform || hitObject.transform.IsChildOf(transform))
+            {
+                continue;
+            }
+
+            // 조이스틱이 아닌 다른 UI를 건드렸으면 차단
+            return true;
+        }
+
+        return false;
     }
 
     public float Horizontal => InputVector.x;

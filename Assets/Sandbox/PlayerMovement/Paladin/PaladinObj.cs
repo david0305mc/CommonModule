@@ -110,4 +110,9 @@ public class PaladinObj : MonoBehaviour
     {
         Debug.Log("Jump!");
     }
+
+    public void Attack()
+    {
+        animator.SetTrigger("Attack");
+    }
 }
