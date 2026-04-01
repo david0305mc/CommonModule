@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 5597835328122030283}
   - component: {fileID: 4668814574278753973}
   - component: {fileID: 4743759271175791452}
-  - component: {fileID: 8524729849529878440}
-  - component: {fileID: 4744840737662614187}
+  - component: {fileID: 6351066864470295700}
   m_Layer: 9
   m_Name: EnemyTestObj
   m_TagString: Untagged
@@ -106,7 +105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07465f876c3dffd43871f4e92cb310f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTestObj
-  target: {fileID: 0}
+  separationRadius: 1.2
+  separationStrength: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!195 &4743759271175791452
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -129,7 +132,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!143 &8524729849529878440
+--- !u!143 &6351066864470295700
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,20 +157,3 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4744840737662614187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4854950168363188206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7628fa46e3584a408f2cfe31a533837, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySeparation
-  separationRadius: 1.2
-  separationStrength: 2
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 512
