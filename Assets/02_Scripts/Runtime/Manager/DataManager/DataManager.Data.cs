@@ -125,4 +125,30 @@ public partial class DataManager : Singleton<DataManager> {
 		Debug.LogError($"테이블에 ID가 없습니다: {_id}");
 		return null;
 	}
+	[Preserve]
+	public partial class Unit {
+		public int id;
+		public string memo;
+		public string name;
+		public string icon;
+		public string prefabname;
+		public int hp;
+		public int damage;
+	}
+	public Unit[] UnitArray { get; private set; }
+	public Dictionary<int, Unit> UnitDic { get; private set; }
+	[Preserve]
+	public void BindUnitData(Type type, string text) {
+		var deserializedData = CSVSerializer.Deserialize(text, type, new CSVSerializer.Options() { SkipDataRows = 2 });
+		GetType().GetProperty(nameof(UnitArray))?.SetValue(this, deserializedData, null);
+		UnitDic = UnitArray?.ToDictionary(i => i.id) ?? new Dictionary<int, Unit>();
+	}
+	[Preserve]
+	public Unit GetUnitData(int _id) {
+		if (UnitDic != null && UnitDic.TryGetValue(_id, out Unit value)) {
+			return value;
+		}
+		Debug.LogError($"테이블에 ID가 없습니다: {_id}");
+		return null;
+	}
 }
