@@ -3,13 +3,15 @@ using System.Collections.Generic;
 public sealed class UserDataDto
 {
     public UserCurrencyDataDto Currency = new();
-    public Dictionary<int, SkillDataDto> SkillMap = new();
+    public Dictionary<int, SkillDataDto> Skills = new();
+    public AllyUnitDataDto AllyUnit = new();
 }
 
 public sealed class UserData : IDtoConvertible<UserDataDto>
 {
     public UserCurrencyData Currency { get; private set; } = new();
-    public Dictionary<int, SkillData> SkillMap { get; private set; } = new();
+    public Dictionary<int, SkillData> Skills { get; private set; } = new();
+    public AllyUnitData AllyUnit { get; private set; } = new();
 
     public void ApplyDto(UserDataDto dto)
     {
@@ -19,7 +21,8 @@ public sealed class UserData : IDtoConvertible<UserDataDto>
         if (dto.Currency != null)
             Currency.ApplyDto(dto.Currency);
 
-        DataMapperUtil.ApplyDtoDictionary(SkillMap, dto.SkillMap, dtoValue => {
+        DataMapperUtil.ApplyDtoDictionary(Skills, dto.Skills, dtoValue =>
+        {
             var skillData = new SkillData(dtoValue.SkillID);
             skillData.ApplyDto(dtoValue);
             return skillData;
@@ -31,7 +34,8 @@ public sealed class UserData : IDtoConvertible<UserDataDto>
         return new UserDataDto
         {
             Currency = Currency.ToDto(),
-            SkillMap = DataMapperUtil.ToDtoDictionary<int, SkillData, SkillDataDto>(SkillMap)
+            Skills = DataMapperUtil.ToDtoDictionary<int, SkillData, SkillDataDto>(Skills),
+            AllyUnit = AllyUnit.ToDto()
         };
     }
 }

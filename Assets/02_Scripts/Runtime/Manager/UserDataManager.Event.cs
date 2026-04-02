@@ -7,7 +7,7 @@ public partial class UserDataManager : Singleton<UserDataManager>
         if (amount <= 0)
             return;
 
-        UserData.Currency.Gem.Value += amount;
+        User.Currency.Gem.Value += amount;
         SaveLocalDataAsync().Forget();
     }
 
@@ -16,7 +16,7 @@ public partial class UserDataManager : Singleton<UserDataManager>
         if (amount <= 0)
             return;
 
-        UserData.Currency.Gold.Value += amount;
+        User.Currency.Gold.Value += amount;
         SaveLocalDataAsync().Forget();
     }
 
@@ -25,7 +25,7 @@ public partial class UserDataManager : Singleton<UserDataManager>
         if (amount <= 0)
             return;
 
-        UserData.Currency.Heart.Value += amount;
+        User.Currency.Heart.Value += amount;
         SaveLocalDataAsync().Forget();
     }
 
@@ -34,10 +34,10 @@ public partial class UserDataManager : Singleton<UserDataManager>
         if (skillId <= 0)
             return;
 
-        if (!UserData.SkillMap.TryGetValue(skillId, out var skill))
+        if (!User.Skills.TryGetValue(skillId, out var skill))
         {
             skill = new SkillData(skillId);
-            UserData.SkillMap[skillId] = skill;
+            User.Skills[skillId] = skill;
         }
 
         skill.Level.Value = level;

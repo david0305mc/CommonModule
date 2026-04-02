@@ -1,10 +1,14 @@
 
+
 public partial class UserDataManager : Singleton<UserDataManager>
 {
-    public UserData UserData { get; private set; }
+    public UserData User { get; private set; }
+    public BattleData Battle { get; private set; } 
 
     public void Init()
     {
-        UserData = new UserData();
+        User = new UserData();
+        Battle = new BattleData();
+
     }
 }

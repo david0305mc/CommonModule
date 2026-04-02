@@ -48,7 +48,7 @@ public partial class UserDataManager : Singleton<UserDataManager>
 
     public async UniTask LoadLocalDataAsync()
     {
-        if (UserData == null)
+        if (User == null)
         {
             Debug.LogError("UserData is null. Call Init() before LoadLocalDataAsync().");
             return;
@@ -77,7 +77,7 @@ public partial class UserDataManager : Singleton<UserDataManager>
                 return;
             }
 
-            UserData.ApplyDto(dto);
+            User.ApplyDto(dto);
             Debug.Log("로컬 데이터 로드 완료");
         }
         catch (Exception e)
@@ -88,7 +88,7 @@ public partial class UserDataManager : Singleton<UserDataManager>
 
     public async UniTask SaveLocalDataAsync()
     {
-        if (UserData == null)
+        if (User == null)
         {
             Debug.LogError("UserData is null. Cannot save.");
             return;
@@ -110,7 +110,7 @@ public partial class UserDataManager : Singleton<UserDataManager>
             {
                 _pendingSave = false;
 
-                UserDataDto dto = UserData.ToDto();
+                UserDataDto dto = User.ToDto();
                 string json = JsonConvert.SerializeObject(dto, JsonSettings);
                 await File.WriteAllTextAsync(LocalUserDataPath, json);
             }
