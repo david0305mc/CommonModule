@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,7 +18,7 @@ namespace PaladinTest
 
         [Header("Combat")]
         [SerializeField] private float enemyDetectRadius = 3f;
-        [SerializeField] private float attackCooldown = 0.8f;
+        [SerializeField] private float attackCooldown = 3f;
 
         private Animator animator;
         private NavMeshAgent navMeshAgent;
@@ -130,7 +131,9 @@ namespace PaladinTest
                 return;
             if (target != null)
             {
-                transform.LookAt(target);
+                Vector3 dir = target.position - transform.position;
+                dir.y = 0;
+                transform.rotation = Quaternion.LookRotation(dir);
             }
 
             lastAttackTime = Time.time;

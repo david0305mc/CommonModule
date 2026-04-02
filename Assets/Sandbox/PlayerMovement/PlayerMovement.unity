@@ -9926,6 +9926,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 775975010}
     m_Modifications:
+    - target: {fileID: -8731274988791218325, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
+      propertyPath: attackCooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 11262888522944908, guid: 88b045feda99fdc44af4b6d90c58303c, type: 3}
       propertyPath: m_Layer
       value: 8
