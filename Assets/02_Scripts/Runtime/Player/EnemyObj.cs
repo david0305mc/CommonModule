@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyObj : MonoBehaviour
 {
     private Transform target;
     private NavMeshAgent enemyAgent;
+    private Animator animator;
 
     [Header("Separation")]
     [SerializeField] private float separationRadius = 1.2f;
@@ -20,6 +22,7 @@ public class EnemyObj : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         enemyAgent = GetComponent<NavMeshAgent>();
         enemyAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         target = WorldObj.Instance.PlayerObj.transform;

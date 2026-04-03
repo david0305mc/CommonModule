@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8233599587176049087}
   - component: {fileID: 3368522321044207835}
   - component: {fileID: 4973311636018067995}
+  - component: {fileID: 3519848931284455091}
   m_Layer: 0
   m_Name: ZombieObj
   m_TagString: Untagged
@@ -75,6 +76,31 @@ MonoBehaviour:
     m_Bits: 0
   stopDistance: 3
   destinationUpdateInterval: 0.1
+--- !u!143 &3519848931284455091
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5666395306426381018}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4069089453148122890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85,15 +111,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.57489
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.17634
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.90302
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
       propertyPath: m_LocalRotation.w
