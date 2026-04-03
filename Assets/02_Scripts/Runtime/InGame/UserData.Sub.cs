@@ -1,6 +1,4 @@
 
-using System;
-using PaladinTest;
 using R3;
 
 public sealed class UserCurrencyData : IDtoConvertible<UserCurrencyDataDto>
@@ -71,61 +69,33 @@ public sealed class SkillDataDto
     public long Level;
 }
 
-public class UnitBaseData
+
+public sealed class HeroData : IDtoConvertible<HeroDataDto>
 {
-    public ReactiveProperty<long> HP { get; } = new();
-    public ReactiveProperty<long> MaxHP { get; } = new();
-    public ReactiveProperty<long> AttackPower { get; } = new();
+    public int UID { get; private set; }
+    public int TableID { get; private set; }
+    public ReactiveProperty<long> Level { get; private set; } = new();
 
-    public void TakeDamage(long damage)
+    public void ApplyDto(HeroDataDto dto)
     {
-        HP.Value -= damage;
-        if (HP.Value < 0)
-            HP.Value = 0;
-    }
-    public void Heal(long amount)
-    {
-        if (amount < 0)
-            throw new ArgumentOutOfRangeException(nameof(amount));
-
-        HP.Value = Math.Min(MaxHP.Value, HP.Value + amount);
-    }
-}
-
-
-public class AllyUnitDataDto
-{
-    public long HP { get; set; }
-    public long MaxHP { get; set; }
-    public long AttackPower { get; set; }
-    public long Exp { get; set; }
-}
-
-public class AllyUnitData : UnitBaseData, IDtoConvertible<AllyUnitDataDto>
-{
-    public ReactiveProperty<long> Exp { get; set; }
-
-    public void ApplyDto(AllyUnitDataDto dto)
-    {
-        HP.Value = dto.HP;
-        MaxHP.Value = dto.MaxHP;
-        AttackPower.Value = dto.AttackPower;
-        Exp.Value = dto.Exp;
+        UID = dto.UID;
+        TableID = dto.TableID;
+        Level.Value = dto.Level;
     }
 
-    public AllyUnitDataDto ToDto()
+    public HeroDataDto ToDto()
     {
-        return new AllyUnitDataDto()
+        return new HeroDataDto()
         {
-            HP = HP.Value,
-            MaxHP = MaxHP.Value,
-            AttackPower = AttackPower.Value,
-            Exp = Exp.Value
+            UID = UID,
+            TableID = TableID,
+            Level = Level.Value
         };
     }
 }
-
-public class EnemyData : UnitBaseData
+public sealed class HeroDataDto
 {
-    public long RewardGold { get; set; }
+    public int UID;
+    public int TableID;
+    public long Level;
 }

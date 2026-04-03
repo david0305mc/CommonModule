@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class BattleData
 {
-    public AllyUnitData AllyUnit { get; private set; }
-    private Dictionary<int, EnemyData> enemies;
+    public HeroRuntimeData AllyUnit { get; private set; }
+    private Dictionary<int, EnemyRuntimeData> enemies;
 
     public void Init()
     {
-        AllyUnit = new AllyUnitData();
-        enemies = new Dictionary<int, EnemyData>();
+        AllyUnit = new HeroRuntimeData();
+        enemies = new Dictionary<int, EnemyRuntimeData>();
     }
 
     public void AddEnemy()
