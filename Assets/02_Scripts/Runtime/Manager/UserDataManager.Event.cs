@@ -2,6 +2,11 @@ using Cysharp.Threading.Tasks;
 
 public partial class UserDataManager : Singleton<UserDataManager>
 {
+    public void AddLevel(int amt = 1)
+    {
+        User.Hero.Level.Value += amt;
+        SaveLocalDataAsync().Forget();
+    }
     public void AddGem(long amount = 1)
     {
         if (amount <= 0)
