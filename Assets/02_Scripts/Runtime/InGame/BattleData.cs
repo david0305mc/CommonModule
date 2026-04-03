@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class BattleData
 {
@@ -11,10 +10,13 @@ public class BattleData
         AllyUnit = new HeroRuntimeData();
         enemies = new Dictionary<int, EnemyRuntimeData>();
     }
+    
 
-    public void AddEnemy()
+    public EnemyRuntimeData AddEnemy(int tid)
     {
-        
+        var enemy = EnemyRuntimeData.Create(tid);
+        enemies.Add(tid, enemy);
+        return enemy;
     }
     
 }

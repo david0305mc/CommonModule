@@ -6,6 +6,7 @@ public class UnitBaseData
     public ReactiveProperty<long> HP { get; } = new();
     public ReactiveProperty<long> MaxHP { get; } = new();
     public ReactiveProperty<long> AttackPower { get; } = new();
+    public DataManager.Unit UnitTable { get; protected set; }
 
     public void TakeDamage(long damage)
     {
@@ -31,4 +32,17 @@ public class HeroRuntimeData : UnitBaseData
 public class EnemyRuntimeData : UnitBaseData
 {
     public long RewardGold { get; set; }
+
+    public static EnemyRuntimeData Create(int tid)
+    {
+        var enemy = new EnemyRuntimeData()
+        {
+            UnitTable = DataManager.Instance.GetUnitData(tid)
+        };
+        enemy.AttackPower.Value = enemy.UnitTable.damage;
+        enemy.MaxHP.Value = enemy.UnitTable.hp;
+        enemy.HP.Value = enemy.UnitTable.hp;
+
+        return enemy;
+    }
 }
