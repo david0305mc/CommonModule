@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -30,7 +31,11 @@ public class EnemyObj : MonoBehaviour
 
     private void Update()
     {
-        if (target == null) return;
+        if (target == null)
+            return;
+        var dir = target.position - transform.position;
+        dir.y = 0;
+        transform.rotation = Quaternion.LookRotation(dir);
 
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
