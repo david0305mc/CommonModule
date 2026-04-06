@@ -73,7 +73,7 @@ MonoBehaviour:
   separationStrength: 1.5
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   stopDistance: 2
   destinationUpdateInterval: 0.3
 --- !u!143 &3519848931284455091
