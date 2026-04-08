@@ -67,7 +67,7 @@ namespace PaladinTest
                 return;
             }
 
-            SpawnEnemy();
+            SpawnEnemy(1002);
         }
 
         private void OnClickRemoveEnemy()
@@ -82,25 +82,13 @@ namespace PaladinTest
             spawnedEnemy = null;
         }
 
-        public void SpawnEnemy()
+        public void SpawnEnemy(int unitId)
         {
-            if (DataManager.Instance?.UnitArray == null || DataManager.Instance.UnitArray.Length == 0)
-            {
-                Debug.LogError("[MovementMainUI] UnitArray is null or empty.");
-                return;
-            }
 
-            var unit = DataManager.Instance.UnitArray[0];
-            if (unit == null)
-            {
-                Debug.LogError("[MovementMainUI] Unit data is null.");
-                return;
-            }
-
-            var enemyPrefab = ResourceManager.Instance.GetUnitPrefab(unit.id);
+            var enemyPrefab = ResourceManager.Instance.GetUnitPrefab(unitId);
             if (enemyPrefab == null)
             {
-                Debug.LogError($"[MovementMainUI] Enemy prefab not found. UnitId: {unit.id}");
+                Debug.LogError($"[MovementMainUI] Enemy prefab not found. UnitId: {unitId}");
                 return;
             }
 
