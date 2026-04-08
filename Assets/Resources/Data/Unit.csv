@@ -1,11 +1,11 @@
 ID|Memo|Name|Icon|PrefabName|Hp|Damage
 int|string|string|string|string|int|int
-1001|근거리|슬라임||Monster/01_slime|200|20
-1002|근거리|스켈레톤 소드||Monster/skeleton_sword|200|40
-1003|원거리|스켈레톤 메이지||Monster/skeleton_mage|200|30
-1004|근거리|스켈레톤 워리어||Monster/skeleton_warrior|300|100
-1005|원거리|눈발사람||Monster/5_snow_bomb|200|250
-1006|원거리|스켈보틀||Monster/6_poison_bomb|200|20
-2001|원거리|스켈레톤 보스||Monster/skeleton_boss|5000|100
-2002|원거리|스켈레톤 보스||Monster/skeleton_boss|5000|100
-9001|허수아비|허수아비||Monster/9999_Dummy|1000000|0
+1001|근거리|히어로||Monster/ZombieObj|200|20
+1002|근거리|스켈레톤 소드||Monster/ZombieObj|200|40
+1003|원거리|스켈레톤 메이지||Monster/ZombieObj|200|30
+1004|근거리|스켈레톤 워리어||Monster/ZombieObj|300|100
+1005|원거리|눈발사람||Monster/ZombieObj|200|250
+1006|원거리|스켈보틀||Monster/ZombieObj|200|20
+2001|원거리|스켈레톤 보스||Monster/ZombieObj|5000|100
+2002|원거리|스켈레톤 보스||Monster/ZombieObj|5000|100
+9001|허수아비|허수아비||Monster/ZombieObj|1000000|0
