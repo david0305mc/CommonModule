@@ -26,7 +26,7 @@ public class EnemyObj : MonoBehaviour
         animator = GetComponent<Animator>();
         enemyAgent = GetComponent<NavMeshAgent>();
         enemyAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-        target = WorldObj.Instance.PlayerObj.transform;
+        target = WorldRoot.Instance.PlayerObj.transform;
     }
 
     private void Update()

@@ -12,6 +12,7 @@ public class UIIntro : MonoBehaviour
         {
             // Debug.Log($"MathUtil.Clamp01(100f) {MathUtil.Clamp01(100f)}");
             await DataManager.Instance.LoadDataAsync();
+            await ResourceManager.Instance.PreLoading();
             // foreach (var item in DataManager.Instance.CoralArray)
             // {
             //     Debug.Log($"item {item.id}");

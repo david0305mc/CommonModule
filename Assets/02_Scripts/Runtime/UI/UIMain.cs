@@ -12,7 +12,8 @@ public class UIMain : MonoBehaviour
     {
         testButton.onClick.AddListener(() =>
         {
-            UserDataManager.Instance.AddLevel();
+            // UserDataManager.Instance.AddLevel();
+            GameManager.Instance.SpawnEnemy(GameDefine.Enemy01);
         });
     }
 }
