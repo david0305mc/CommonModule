@@ -15,13 +15,10 @@ public class GameManager : SingletonMono<GameManager>
         await SceneTransition.Instance.LoadSceneWithFadeAsync(GameDefine.MainSceneName);
     }
 
-    public void SpawnEnemy()
-    {
-        var enemyData = UserDataManager.Instance.Battle.AddEnemy(GameDefine.Enemy01);
-
-    }
     public void SpawnEnemy(int unitId)
     {
+        var enemyData = UserDataManager.Instance.Battle.AddEnemy(unitId);
+        // enemyData.UnitTable.prefabname
         var enemyPrefab = ResourceManager.Instance.GetUnitPrefab(unitId);
         if (enemyPrefab == null)
         {

@@ -31,17 +31,26 @@ public class HeroRuntimeData : UnitBaseData
 
 public class EnemyRuntimeData : UnitBaseData
 {
+    public long UID { get; private set; }
     public long RewardGold { get; set; }
 
-    public static EnemyRuntimeData Create(int tid)
+    public static EnemyRuntimeData Create(long uid, int tid)
     {
+        if (uid <= 0)
+            throw new ArgumentOutOfRangeException(nameof(uid));
+
+        var unitTable = DataManager.Instance.GetUnitData(tid);
+        if (unitTable == null)
+            throw new ArgumentException($"Unit data not found. tid: {tid}", nameof(tid));
+
         var enemy = new EnemyRuntimeData()
         {
-            UnitTable = DataManager.Instance.GetUnitData(tid)
+            UID = uid,
+            UnitTable = unitTable
         };
-        enemy.AttackPower.Value = enemy.UnitTable.damage;
-        enemy.MaxHP.Value = enemy.UnitTable.hp;
-        enemy.HP.Value = enemy.UnitTable.hp;
+        enemy.AttackPower.Value = unitTable.damage;
+        enemy.MaxHP.Value = unitTable.hp;
+        enemy.HP.Value = unitTable.hp;
 
         return enemy;
     }

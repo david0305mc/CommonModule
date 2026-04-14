@@ -3,20 +3,22 @@ using System.Collections.Generic;
 public class BattleData
 {
     public HeroRuntimeData AllyUnit { get; private set; }
-    private Dictionary<int, EnemyRuntimeData> enemies;
+    private Dictionary<long, EnemyRuntimeData> enemies;
 
     public void Init()
     {
         AllyUnit = new HeroRuntimeData();
-        enemies = new Dictionary<int, EnemyRuntimeData>();
+        enemies = new Dictionary<long, EnemyRuntimeData>();
     }
     
 
     public EnemyRuntimeData AddEnemy(int tid)
     {
-        var enemy = EnemyRuntimeData.Create(tid);
-        enemies.Add(tid, enemy);
+        long uid = UserDataManager.Instance.User.GenerateUID();
+        var enemy = EnemyRuntimeData.Create(uid, tid);
+        enemies.Add(enemy.UID, enemy);
         return enemy;
     }
     
 }
+
