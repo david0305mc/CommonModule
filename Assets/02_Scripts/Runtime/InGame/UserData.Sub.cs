@@ -72,7 +72,7 @@ public sealed class SkillDataDto
 
 public sealed class HeroData : IDtoConvertible<HeroDataDto>
 {
-    public int UID { get; private set; }
+    public long UID { get; private set; }
     public int TableID { get; private set; }
     public ReactiveProperty<long> Level { get; private set; } = new();
 
@@ -95,7 +95,7 @@ public sealed class HeroData : IDtoConvertible<HeroDataDto>
 }
 public sealed class HeroDataDto
 {
-    public int UID;
+    public long UID;
     public int TableID;
     public long Level;
 }

@@ -10,7 +10,9 @@ public sealed class UserDataDto
 
 public sealed class UserData : IDtoConvertible<UserDataDto>
 {
-    public long UIDSeed { get; set; } = 1000;
+    private const long DefaultPersistentUid = 1000;
+
+    public long NextPersistentUid { get; private set; } = DefaultPersistentUid;
     public UserCurrencyData Currency { get; private set; } = new();
     public Dictionary<int, SkillData> Skills { get; private set; } = new();
     public HeroData Hero { get; private set; } = new();
@@ -32,22 +34,26 @@ public sealed class UserData : IDtoConvertible<UserDataDto>
 
         if (dto.HeroDto != null)
             Hero.ApplyDto(dto.HeroDto);
-        UIDSeed = dto.UIDSeed;
+
+        NextPersistentUid = dto.UIDSeed > 0 ? dto.UIDSeed : DefaultPersistentUid;
     }
 
     public UserDataDto ToDto()
     {
         return new UserDataDto
         {
-            UIDSeed = UIDSeed,
+            UIDSeed = NextPersistentUid,
             CurrencyDto = Currency.ToDto(),
             SkillDtos = DataMapperUtil.ToDtoDictionary<int, SkillData, SkillDataDto>(Skills),
             HeroDto = Hero.ToDto()
         };
     }
 
-    public long GenerateUID()
+    public long GeneratePersistentUid()
     {
-        return UIDSeed++;
+        if (NextPersistentUid <= 0)
+            NextPersistentUid = DefaultPersistentUid;
+
+        return NextPersistentUid++;
     }
 }
