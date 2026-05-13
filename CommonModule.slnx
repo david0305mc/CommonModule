@@ -40,6 +40,7 @@
   <Project Path="UnityEditor.UI.csproj" />
   <Project Path="David.Tiles3D.csproj" />
   <Project Path="Unity.TextMeshPro.csproj" />
+  <Project Path="UnityHFSM.csproj" />
   <Project Path="Unity.Burst.Editor.csproj" />
   <Project Path="Unity.2D.Sprite.AIIntegration.Editor.csproj" />
   <Project Path="Unity.AI.Navigation.Updater.csproj" />
