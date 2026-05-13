@@ -484,10 +484,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1196551796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5367f7583dcaa8a4391dfdfb8e8c4908, type: 3}
+  m_Script: {fileID: 11500000, guid: b8fc6235fa1d8ec418f6d1559bb97c88, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerObj
-  moveSpeed: 5
+  m_EditorClassIdentifier: Assembly-CSharp::HFSMTest2D.PlayerObj
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
