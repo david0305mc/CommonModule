@@ -5,7 +5,8 @@ namespace HFSMTest2D
     public class PlayerObj : MonoBehaviour
     {
         public static PlayerObj Instance { get; private set; }
-        void Start()
+
+        void Awake()
         {
             Instance = this;
         }
