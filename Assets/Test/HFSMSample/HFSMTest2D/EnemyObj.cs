@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityHFSM;
 
 namespace HFSMTest2D
 {
     public class EnemyObj : MonoBehaviour
     {
+        [SerializeField] private Text stateText;
         [SerializeField] private List<Transform> patrolPoints;
         private Transform _target;
 
@@ -20,11 +22,11 @@ namespace HFSMTest2D
                 onEnterAsync:
                 async ct =>
                 {
-                    await UniTask.Delay(1000, cancellationToken: ct);
-                },
-                onLogic: s =>
-                {
-                    Debug.Log("Patrol");
+                    while (true)
+                    {
+                        Patrol();
+                        await UniTask.Yield(cancellationToken: ct);
+                    }
                 }));
             fsm.AddState("Fight");
             fsm.AddState("Chase");
@@ -34,9 +36,19 @@ namespace HFSMTest2D
             fsm.Init();
         }
 
+        private void Patrol()
+        {
+            var dist = _target.position - transform.position;
+            if (dist.magnitude > 1f)
+            {
+                transform.position += dist * Time.deltaTime;
+            }
+        }
+
         void Update()
         {
             fsm.OnLogic();
+            stateText.text = fsm.GetActiveHierarchyPath();
             // var dist = _target.position - transform.position;
             // if (dist.magnitude > 1f)
             // {
