@@ -22,12 +22,13 @@ namespace HFSMTest2D
                 onEnterAsync:
                 async ct =>
                 {
-                    while (true)
+                    while (!ct.IsCancellationRequested)
                     {
                         Patrol();
                         await UniTask.Yield(cancellationToken: ct);
                     }
-                }));
+                },
+                externalCancellationToken: this.GetCancellationTokenOnDestroy()));
             fsm.AddState("Fight");
             fsm.AddState("Chase");
             fsm.AddState("Search");
@@ -38,6 +39,11 @@ namespace HFSMTest2D
 
         private void Patrol()
         {
+            if (_target == null)
+            {
+                return;
+            }
+
             var dist = _target.position - transform.position;
             if (dist.magnitude > 1f)
             {
@@ -47,8 +53,16 @@ namespace HFSMTest2D
 
         void Update()
         {
+            if (fsm == null)
+            {
+                return;
+            }
+
             fsm.OnLogic();
-            stateText.text = fsm.GetActiveHierarchyPath();
+            if (stateText != null)
+            {
+                stateText.text = fsm.GetActiveHierarchyPath();
+            }
             // var dist = _target.position - transform.position;
             // if (dist.magnitude > 1f)
             // {
@@ -56,6 +70,12 @@ namespace HFSMTest2D
             //     transform.position += dist * Time.deltaTime;      
             // }
 
+        }
+
+        void OnDestroy()
+        {
+            fsm?.OnExit();
+            fsm = null;
         }
 
     }

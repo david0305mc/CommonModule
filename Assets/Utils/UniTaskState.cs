@@ -7,6 +7,7 @@ public class UniTaskState : UnityHFSM.State
 {
     private readonly Func<CancellationToken, UniTask> onEnterAsync;
     private readonly Action<Exception> onException;
+    private readonly CancellationToken externalCancellationToken;
     private CancellationTokenSource cts;
 
     public bool IsRunning => cts != null;
@@ -18,7 +19,8 @@ public class UniTaskState : UnityHFSM.State
         Func<UnityHFSM.State, bool> canExit = null,
         bool needsExitTime = false,
         bool isGhostState = false,
-        Action<Exception> onException = null
+        Action<Exception> onException = null,
+        CancellationToken externalCancellationToken = default
     ) : base(
         onLogic: onLogic == null ? null : state => onLogic((UnityHFSM.State)state),
         onExit: onExit == null ? null : state => onExit((UnityHFSM.State)state),
@@ -29,6 +31,7 @@ public class UniTaskState : UnityHFSM.State
     {
         this.onEnterAsync = onEnterAsync;
         this.onException = onException;
+        this.externalCancellationToken = externalCancellationToken;
     }
 
     public override void OnEnter()
@@ -57,7 +60,9 @@ public class UniTaskState : UnityHFSM.State
             return;
         }
 
-        cts = new CancellationTokenSource();
+        cts = externalCancellationToken.CanBeCanceled
+            ? CancellationTokenSource.CreateLinkedTokenSource(externalCancellationToken)
+            : new CancellationTokenSource();
         RunOnEnterAsync(cts, cts.Token).Forget();
     }
 
@@ -88,6 +93,7 @@ public class UniTaskState : UnityHFSM.State
     {
         try
         {
+            token.ThrowIfCancellationRequested();
             await onEnterAsync(token);
         }
         catch (OperationCanceledException) when (token.IsCancellationRequested)
