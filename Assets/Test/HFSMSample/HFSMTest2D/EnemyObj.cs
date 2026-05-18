@@ -16,7 +16,6 @@ namespace HFSMTest2D
         [SerializeField] private List<Transform> patrolPoints;
 
         private float _moveSpeed = 3f;
-        private float _minDistance = 1f;
         private Transform _target;
 
         private StateMachine fsm;
@@ -51,7 +50,12 @@ namespace HFSMTest2D
 
         private async UniTask PatrolState(CancellationToken ct)
         {
-            int currPatrolIndex = 0;
+            if (patrolPoints == null || patrolPoints.Count == 0)
+            {
+                return;
+            }
+
+            int currPatrolIndex = FindClosestPatrolPoint();
             while (!ct.IsCancellationRequested)
             {
                 await Patrol(patrolPoints[currPatrolIndex].position, ct);
@@ -66,9 +70,9 @@ namespace HFSMTest2D
 
         private async UniTask Patrol(Vector3 target, CancellationToken ct, float tolerance = 0.05f)
         {
-            while (!ct.IsCancellationRequested && Vector3.Distance(transform.position, target) < tolerance)
+            while (!ct.IsCancellationRequested && Vector3.Distance(transform.position, target) > tolerance)
             {
-                MoveToward(target, _minDistance);
+                MoveToward(target, 0f);
                 await UniTask.Yield(cancellationToken: ct);
             }
         }
