@@ -52,36 +52,24 @@ namespace HFSMTest2D
         private async UniTask PatrolState(CancellationToken ct)
         {
             int currPatrolIndex = 0;
-            var targetPatrolPoint = patrolPoints[currPatrolIndex];
             while (!ct.IsCancellationRequested)
             {
-                MoveToward(targetPatrolPoint.position, _minDistance);
-
-
+                await Patrol(patrolPoints[currPatrolIndex].position, ct);
+                currPatrolIndex++;
+                if (currPatrolIndex >= patrolPoints.Count)
+                {
+                    currPatrolIndex = 0;
+                }
                 await UniTask.Yield(cancellationToken: ct);
             }
         }
 
-        private void Patrol()
+        private async UniTask Patrol(Vector3 target, CancellationToken ct, float tolerance = 0.05f)
         {
-            if (_target == null)
+            while (!ct.IsCancellationRequested && Vector3.Distance(transform.position, target) < tolerance)
             {
-                return;
-            }
-
-            var dist = _target.position - transform.position;
-            if (dist.magnitude > 1f)
-            {
-                transform.position += dist * Time.deltaTime;
-            }
-        }
-
-        private void MoveToward(Vector3 targetPos)
-        {
-            var dist = targetPos - transform.position;
-            if (dist.magnitude > 1f)
-            {
-                transform.position += dist * Time.deltaTime;
+                MoveToward(target, _minDistance);
+                await UniTask.Yield(cancellationToken: ct);
             }
         }
 
