@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ namespace HFSMTest2D
         [SerializeField] private Text stateText;
         [SerializeField] private List<Transform> patrolPoints;
 
+        private float _minDistance = 0.5f;
         private float _moveSpeed = 3f;
         private Transform _target;
 
@@ -58,7 +60,7 @@ namespace HFSMTest2D
             int currPatrolIndex = FindClosestPatrolPoint();
             while (!ct.IsCancellationRequested)
             {
-                await Patrol(patrolPoints[currPatrolIndex].position, ct);
+                await Patrol(patrolPoints[currPatrolIndex].position, ct, _minDistance);
                 currPatrolIndex++;
                 if (currPatrolIndex >= patrolPoints.Count)
                 {
@@ -70,9 +72,11 @@ namespace HFSMTest2D
 
         private async UniTask Patrol(Vector3 target, CancellationToken ct, float tolerance = 0.05f)
         {
-            while (!ct.IsCancellationRequested && Vector3.Distance(transform.position, target) > tolerance)
+            const float arriveEpsilon = 0.01f;
+
+            while (!ct.IsCancellationRequested && Vector3.Distance(transform.position, target) > tolerance + arriveEpsilon)
             {
-                MoveToward(target, 0f);
+                MoveToward(target, tolerance);
                 await UniTask.Yield(cancellationToken: ct);
             }
         }
