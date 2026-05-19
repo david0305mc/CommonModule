@@ -13,11 +13,14 @@ namespace HFSMTest2D
 {
     public class EnemyObj : MonoBehaviour
     {
+        [SerializeField] private Collider patrolCollider;
         [SerializeField] private Text stateText;
         [SerializeField] private List<Transform> patrolPoints;
+        private const float _fightDist = 3f;
 
         private float _minDistance = 0.5f;
         private float _moveSpeed = 3f;
+        private float _distanceToTarget;
         private Transform _target;
 
         private StateMachine fsm;
@@ -39,6 +42,7 @@ namespace HFSMTest2D
                 }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
             fsm.AddState("Chase");
             fsm.AddState("Search");
+            fsm.AddTransition("", "", s => _distanceToTarget < _fightDist);
 
             fsm.SetStartState("Patrol");
             fsm.Init();
@@ -118,6 +122,20 @@ namespace HFSMTest2D
             }
 
             return minIndex;
+        }
+
+        private void CheckDistanceToTarget()
+        {
+            _distanceToTarget = Vector3.Distance(transform.position, _target.position);
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                Debug.Log("PlayerSpotted");
+                // fsm.Trigger("PlayerSpotted");
+            }
         }
 
     }
