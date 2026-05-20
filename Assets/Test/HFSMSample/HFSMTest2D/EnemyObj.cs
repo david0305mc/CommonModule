@@ -16,34 +16,49 @@ namespace HFSMTest2D
         [SerializeField] private Collider patrolCollider;
         [SerializeField] private Text stateText;
         [SerializeField] private List<Transform> patrolPoints;
-        private const float _fightDist = 3f;
+        private const float _attackRange = 3f;
+        private const float _searchRange = 5f;
 
         private float _minDistance = 0.5f;
         private float _moveSpeed = 3f;
-        private float _distanceToTarget;
-        private Transform _target;
+        private float DistanceToTarget => _playerObj == null ? 0 : Vector3.Distance(transform.position, _playerObj.position);
+        private Transform _playerObj;
 
         private StateMachine fsm;
         void Start()
         {
-            _target = PlayerObj.Instance.transform;
+            _playerObj = PlayerObj.Instance.transform;
             fsm = new StateMachine();
             fsm.AddState("Patrol", new UniTaskState(
                 onEnterAsync: PatrolState,
                 externalCancellationToken: this.GetCancellationTokenOnDestroy()));
+            fsm.AddState("Chase", new UniTaskState(
+                onEnterAsync: ChaseState,
+                externalCancellationToken: this.GetCancellationTokenOnDestroy()));
+
             fsm.AddState("Fight", new UniTaskState(
                 onEnterAsync: async ct =>
                 {
                     while (!ct.IsCancellationRequested)
                     {
                         await UniTask.Yield(cancellationToken: ct);
+                        Debug.Log("Attack");
                     }
 
                 }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
-            fsm.AddState("Chase");
-            fsm.AddState("Search");
-            fsm.AddTransition("", "", s => _distanceToTarget < _fightDist);
+            fsm.AddState("Search", new UniTaskState(onEnterAsync: async ct =>
+            {
+                while (!ct.IsCancellationRequested)
+                {
+                    await UniTask.Yield(cancellationToken: ct);
+                    Debug.Log("Search");
+                }
+            }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
 
+            fsm.AddTriggerTransition("PlayerSpotted", "Patrol", "Chase");
+            fsm.AddTwoWayTransition("Chase", "Fight", s => { return DistanceToTarget <= _attackRange; });
+            fsm.AddTransition("Chase", "Search", s => { return DistanceToTarget <= _searchRange; });
+            fsm.AddTransition(new TransitionAfter("Search", "Patrol", 2f));
             fsm.SetStartState("Patrol");
             fsm.Init();
         }
@@ -51,7 +66,8 @@ namespace HFSMTest2D
         private void MoveToward(Vector3 targetPos, float minDist)
         {
             var dist = Vector3.Distance(transform.position, targetPos);
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, Math.Max(0, Math.Min(_moveSpeed * Time.deltaTime, dist - minDist)));
+            transform.position = Vector3.MoveTowards(transform.position, targetPos,
+            Math.Max(0, Math.Min(_moveSpeed * Time.deltaTime, dist - minDist)));
         }
 
         private async UniTask PatrolState(CancellationToken ct)
@@ -73,7 +89,14 @@ namespace HFSMTest2D
                 await UniTask.Yield(cancellationToken: ct);
             }
         }
-
+        private async UniTask ChaseState(CancellationToken ct)
+        {
+            while (!ct.IsCancellationRequested)
+            {
+                MoveToward(_playerObj.position, 0.1f);
+                await UniTask.Yield(cancellationToken: ct);
+            }
+        }
         private async UniTask Patrol(Vector3 target, CancellationToken ct, float tolerance = 0.05f)
         {
             const float arriveEpsilon = 0.01f;
@@ -124,17 +147,12 @@ namespace HFSMTest2D
             return minIndex;
         }
 
-        private void CheckDistanceToTarget()
-        {
-            _distanceToTarget = Vector3.Distance(transform.position, _target.position);
-        }
-
         void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
             {
                 Debug.Log("PlayerSpotted");
-                // fsm.Trigger("PlayerSpotted");
+                fsm.Trigger("PlayerSpotted");
             }
         }
 
