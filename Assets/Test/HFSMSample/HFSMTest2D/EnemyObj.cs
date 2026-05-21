@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -20,6 +21,12 @@ namespace HFSMTest2D
             Fight,
             Search,
         }
+        public enum FightState
+        {
+            Wait,
+            Telegraph,
+            Attack,
+        }
 
         [SerializeField] private Collider patrolCollider;
         [SerializeField] private Text stateText;
@@ -36,7 +43,30 @@ namespace HFSMTest2D
         void Start()
         {
             _playerObj = PlayerObj.Instance.transform;
+
+            HybridStateMachine fightFsm = new HybridStateMachine(needsExitTime: true, beforeOnLogic: s =>
+            {
+                MoveToward(_playerObj.position, 2);
+            });
+            fightFsm.AddState(nameof(FightState.Wait), new UniTaskState(async ct =>
+            {
+
+            }));
+            fightFsm.AddState(nameof(FightState.Telegraph), new UniTaskState(async ct =>
+            {
+
+            }));
+            fightFsm.AddState(nameof(FightState.Attack), new UniTaskState(async ct =>
+            {
+
+            }));
+            fightFsm.AddExitTransition(nameof(FightState.Wait));
+            fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Wait), nameof(FightState.Telegraph), 0.5f));
+            fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Telegraph), nameof(FightState.Attack), 0.42f));
+            fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Attack), nameof(FightState.Wait), 0.5f));
+
             fsm = new StateMachine();
+            fsm.AddState(nameof(EnemyState.Fight), fightFsm);
             fsm.AddState(nameof(EnemyState.Patrol), new UniTaskState(
                 onEnterAsync: PatrolState,
                 externalCancellationToken: this.GetCancellationTokenOnDestroy()));
@@ -44,16 +74,17 @@ namespace HFSMTest2D
                 onEnterAsync: ChaseState,
                 externalCancellationToken: this.GetCancellationTokenOnDestroy()));
 
-            fsm.AddState(nameof(EnemyState.Fight), new UniTaskState(
-                onEnterAsync: async ct =>
-                {
-                    while (!ct.IsCancellationRequested)
-                    {
-                        await UniTask.Yield(cancellationToken: ct);
-                        MoveToward(_playerObj.position, _minDistance);
-                    }
+            // fsm.AddState(nameof(EnemyState.Fight), new UniTaskState(
+            //     onEnterAsync: async ct =>
+            //     {
+            //         while (!ct.IsCancellationRequested)
+            //         {
+            //             await UniTask.Yield(cancellationToken: ct);
+            //             MoveToward(_playerObj.position, _minDistance);
+            //         }
 
-                }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
+            //     }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
+
             fsm.AddState(nameof(EnemyState.Search), new UniTaskState(onEnterAsync: async ct =>
             {
                 while (!ct.IsCancellationRequested)
