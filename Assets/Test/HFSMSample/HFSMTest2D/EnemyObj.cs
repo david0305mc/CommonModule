@@ -32,6 +32,8 @@ namespace HFSMTest2D
         [SerializeField] private Text stateText;
         [SerializeField] private List<Transform> patrolPoints;
         private const float _attackRange = 2f;
+        private const float _attackExitRange = 2.4f;
+        private const float _fightKeepDistance = 1f;
         private const float _searchRange = 7f;
 
         private float _minDistance = 0.5f;
@@ -46,7 +48,7 @@ namespace HFSMTest2D
 
             HybridStateMachine fightFsm = new HybridStateMachine(needsExitTime: true, beforeOnLogic: s =>
             {
-                MoveToward(_playerObj.position, 2);
+                MoveToward(_playerObj.position, _fightKeepDistance);
             });
             fightFsm.AddState(nameof(FightState.Wait), new UniTaskState(async ct =>
             {
@@ -99,7 +101,7 @@ namespace HFSMTest2D
                 s => { return DistanceToTarget <= _attackRange; },
                 onTransition: transition => LogTransition(transition));
             fsm.AddTransition(nameof(EnemyState.Fight), nameof(EnemyState.Chase),
-                s => { return DistanceToTarget > _attackRange; },
+                s => { return DistanceToTarget > _attackExitRange; },
                 onTransition: transition => LogTransition(transition));
             fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Search),
                 s => { return DistanceToTarget > _searchRange; },
