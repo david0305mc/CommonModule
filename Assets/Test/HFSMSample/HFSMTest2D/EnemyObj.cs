@@ -24,8 +24,8 @@ namespace HFSMTest2D
         [SerializeField] private Collider patrolCollider;
         [SerializeField] private Text stateText;
         [SerializeField] private List<Transform> patrolPoints;
-        private const float _attackRange = 3f;
-        private const float _searchRange = 5f;
+        private const float _attackRange = 2f;
+        private const float _searchRange = 7f;
 
         private float _minDistance = 0.5f;
         private float _moveSpeed = 3f;
@@ -50,7 +50,7 @@ namespace HFSMTest2D
                     while (!ct.IsCancellationRequested)
                     {
                         await UniTask.Yield(cancellationToken: ct);
-                        Debug.Log("Attack");
+                        MoveToward(_playerObj.position, _minDistance);
                     }
 
                 }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
@@ -59,16 +59,32 @@ namespace HFSMTest2D
                 while (!ct.IsCancellationRequested)
                 {
                     await UniTask.Yield(cancellationToken: ct);
-                    Debug.Log("Search");
                 }
             }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
 
-            fsm.AddTriggerTransition("PlayerSpotted", nameof(EnemyState.Patrol), nameof(EnemyState.Chase));
-            fsm.AddTwoWayTransition(nameof(EnemyState.Chase), nameof(EnemyState.Fight), s => { return DistanceToTarget <= _attackRange; });
-            fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Search), s => { return DistanceToTarget <= _searchRange; });
-            fsm.AddTransition(new TransitionAfter(nameof(EnemyState.Search), nameof(EnemyState.Patrol), 2f));
+            fsm.AddTriggerTransition("PlayerSpotted", nameof(EnemyState.Patrol), nameof(EnemyState.Chase),
+                onTransition: transition => LogTransition(transition));
+            fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Fight),
+                s => { return DistanceToTarget <= _attackRange; },
+                onTransition: transition => LogTransition(transition));
+            fsm.AddTransition(nameof(EnemyState.Fight), nameof(EnemyState.Chase),
+                s => { return DistanceToTarget > _attackRange; },
+                onTransition: transition => LogTransition(transition));
+            fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Search),
+                s => { return DistanceToTarget > _searchRange; },
+                onTransition: transition => LogTransition(transition));
+            fsm.AddTransition(nameof(EnemyState.Search), nameof(EnemyState.Chase),
+                s => { return DistanceToTarget <= _searchRange; },
+                onTransition: transition => LogTransition(transition));
+            fsm.AddTransition(new TransitionAfter(nameof(EnemyState.Search), nameof(EnemyState.Patrol), 2f,
+                onTransition: transition => LogTransition(transition)));
             fsm.SetStartState(nameof(EnemyState.Patrol));
             fsm.Init();
+        }
+
+        private void LogTransition(TransitionBase<string> transition)
+        {
+            Debug.Log($"[EnemyObj] State Transition: {transition.from} -> {transition.to}");
         }
 
         private void MoveToward(Vector3 targetPos, float minDist)
