@@ -13,6 +13,14 @@ namespace HFSMTest2D
 {
     public class EnemyObj : MonoBehaviour
     {
+        public enum EnemyState
+        {
+            Patrol,
+            Chase,
+            Fight,
+            Search,
+        }
+
         [SerializeField] private Collider patrolCollider;
         [SerializeField] private Text stateText;
         [SerializeField] private List<Transform> patrolPoints;
@@ -29,14 +37,14 @@ namespace HFSMTest2D
         {
             _playerObj = PlayerObj.Instance.transform;
             fsm = new StateMachine();
-            fsm.AddState("Patrol", new UniTaskState(
+            fsm.AddState(nameof(EnemyState.Patrol), new UniTaskState(
                 onEnterAsync: PatrolState,
                 externalCancellationToken: this.GetCancellationTokenOnDestroy()));
-            fsm.AddState("Chase", new UniTaskState(
+            fsm.AddState(nameof(EnemyState.Chase), new UniTaskState(
                 onEnterAsync: ChaseState,
                 externalCancellationToken: this.GetCancellationTokenOnDestroy()));
 
-            fsm.AddState("Fight", new UniTaskState(
+            fsm.AddState(nameof(EnemyState.Fight), new UniTaskState(
                 onEnterAsync: async ct =>
                 {
                     while (!ct.IsCancellationRequested)
@@ -46,7 +54,7 @@ namespace HFSMTest2D
                     }
 
                 }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
-            fsm.AddState("Search", new UniTaskState(onEnterAsync: async ct =>
+            fsm.AddState(nameof(EnemyState.Search), new UniTaskState(onEnterAsync: async ct =>
             {
                 while (!ct.IsCancellationRequested)
                 {
@@ -55,11 +63,11 @@ namespace HFSMTest2D
                 }
             }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
 
-            fsm.AddTriggerTransition("PlayerSpotted", "Patrol", "Chase");
-            fsm.AddTwoWayTransition("Chase", "Fight", s => { return DistanceToTarget <= _attackRange; });
-            fsm.AddTransition("Chase", "Search", s => { return DistanceToTarget <= _searchRange; });
-            fsm.AddTransition(new TransitionAfter("Search", "Patrol", 2f));
-            fsm.SetStartState("Patrol");
+            fsm.AddTriggerTransition("PlayerSpotted", nameof(EnemyState.Patrol), nameof(EnemyState.Chase));
+            fsm.AddTwoWayTransition(nameof(EnemyState.Chase), nameof(EnemyState.Fight), s => { return DistanceToTarget <= _attackRange; });
+            fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Search), s => { return DistanceToTarget <= _searchRange; });
+            fsm.AddTransition(new TransitionAfter(nameof(EnemyState.Search), nameof(EnemyState.Patrol), 2f));
+            fsm.SetStartState(nameof(EnemyState.Patrol));
             fsm.Init();
         }
 
