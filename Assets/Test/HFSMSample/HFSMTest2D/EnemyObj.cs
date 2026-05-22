@@ -35,17 +35,20 @@ namespace HFSMTest2D
         private const float _attackExitRange = 2.4f;
         private const float _fightKeepDistance = 1f;
         private const float _searchRange = 7f;
-
         private float _minDistance = 0.5f;
         private float _moveSpeed = 3f;
         private float DistanceToTarget => _playerObj == null ? 0 : Vector3.Distance(transform.position, _playerObj.position);
         private Transform _playerObj;
 
-        private StateMachine fsm;
+        private StateMachine _fsm;
         void Start()
         {
             _playerObj = PlayerObj.Instance.transform;
+            InitFsm();
+        }
 
+        private void InitFsm()
+        {
             HybridStateMachine fightFsm = new HybridStateMachine(needsExitTime: true, beforeOnLogic: s =>
             {
                 MoveToward(_playerObj.position, _fightKeepDistance);
@@ -68,16 +71,16 @@ namespace HFSMTest2D
             fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Wait), nameof(FightState.Telegraph), 0.5f));
             fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Telegraph), nameof(FightState.Attack), 0.42f));
 
-            fsm = new StateMachine();
-            fsm.AddState(nameof(EnemyState.Fight), fightFsm);
-            fsm.AddState(nameof(EnemyState.Patrol), new UniTaskState(
+            _fsm = new StateMachine();
+            _fsm.AddState(nameof(EnemyState.Fight), fightFsm);
+            _fsm.AddState(nameof(EnemyState.Patrol), new UniTaskState(
                 onEnterAsync: PatrolState,
                 externalCancellationToken: this.GetCancellationTokenOnDestroy()));
-            fsm.AddState(nameof(EnemyState.Chase), new UniTaskState(
+            _fsm.AddState(nameof(EnemyState.Chase), new UniTaskState(
                 onEnterAsync: ChaseState,
                 externalCancellationToken: this.GetCancellationTokenOnDestroy()));
 
-            fsm.AddState(nameof(EnemyState.Search), new UniTaskState(onEnterAsync: async ct =>
+            _fsm.AddState(nameof(EnemyState.Search), new UniTaskState(onEnterAsync: async ct =>
             {
                 while (!ct.IsCancellationRequested)
                 {
@@ -88,24 +91,24 @@ namespace HFSMTest2D
                 state.fsm.StateCanExit();
             }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
 
-            fsm.AddTriggerTransition("PlayerSpotted", nameof(EnemyState.Patrol), nameof(EnemyState.Chase),
+            _fsm.AddTriggerTransition("PlayerSpotted", nameof(EnemyState.Patrol), nameof(EnemyState.Chase),
                 onTransition: transition => LogTransition(transition));
-            fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Fight),
+            _fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Fight),
                 s => { return DistanceToTarget <= _attackRange; },
                 onTransition: transition => LogTransition(transition));
-            fsm.AddTransition(nameof(EnemyState.Fight), nameof(EnemyState.Chase),
+            _fsm.AddTransition(nameof(EnemyState.Fight), nameof(EnemyState.Chase),
                 s => { return DistanceToTarget > _attackExitRange; },
                 onTransition: transition => LogTransition(transition));
-            fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Search),
+            _fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Search),
                 s => { return DistanceToTarget > _searchRange; },
                 onTransition: transition => LogTransition(transition));
-            fsm.AddTransition(nameof(EnemyState.Search), nameof(EnemyState.Chase),
+            _fsm.AddTransition(nameof(EnemyState.Search), nameof(EnemyState.Chase),
                 s => { return DistanceToTarget <= _searchRange; },
                 onTransition: transition => LogTransition(transition));
-            fsm.AddTransition(new TransitionAfter(nameof(EnemyState.Search), nameof(EnemyState.Patrol), 2f,
+            _fsm.AddTransition(new TransitionAfter(nameof(EnemyState.Search), nameof(EnemyState.Patrol), 2f,
                 onTransition: transition => LogTransition(transition)));
-            fsm.SetStartState(nameof(EnemyState.Patrol));
-            fsm.Init();
+            _fsm.SetStartState(nameof(EnemyState.Patrol));
+            _fsm.Init();
         }
 
         private void LogTransition(TransitionBase<string> transition)
@@ -160,22 +163,22 @@ namespace HFSMTest2D
 
         void Update()
         {
-            if (fsm == null)
+            if (_fsm == null)
             {
                 return;
             }
 
-            fsm.OnLogic();
+            _fsm.OnLogic();
             if (stateText != null)
             {
-                stateText.text = fsm.GetActiveHierarchyPath();
+                stateText.text = _fsm.GetActiveHierarchyPath();
             }
         }
 
         void OnDestroy()
         {
-            fsm?.OnExit();
-            fsm = null;
+            _fsm?.OnExit();
+            _fsm = null;
         }
 
 
@@ -202,7 +205,7 @@ namespace HFSMTest2D
             if (other.CompareTag("Player"))
             {
                 Debug.Log("PlayerSpotted");
-                fsm.Trigger("PlayerSpotted");
+                _fsm.Trigger("PlayerSpotted");
             }
         }
 
