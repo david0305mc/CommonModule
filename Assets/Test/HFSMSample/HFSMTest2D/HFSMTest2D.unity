@@ -1002,6 +1002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1353f10ff1d57a14699f53dc4679a509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HFSMTest2D.EnemyObj
+  animator: {fileID: 1805527658}
   patrolCollider: {fileID: 0}
   stateText: {fileID: 69707741}
   patrolPoints:

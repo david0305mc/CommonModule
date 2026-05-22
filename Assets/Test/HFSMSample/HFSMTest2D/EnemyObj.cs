@@ -27,7 +27,7 @@ namespace HFSMTest2D
             Telegraph,
             Attack,
         }
-
+        [SerializeField] private Animator animator;
         [SerializeField] private Collider patrolCollider;
         [SerializeField] private Text stateText;
         [SerializeField] private List<Transform> patrolPoints;
@@ -52,14 +52,15 @@ namespace HFSMTest2D
             });
             fightFsm.AddState(nameof(FightState.Wait), new UniTaskState(async ct =>
             {
-                
+                animator.Play("GuardIdle");
             }));
             fightFsm.AddState(nameof(FightState.Telegraph), new UniTaskState(async ct =>
             {
-                
+                animator.Play("GuardTelegraph");
             }));
             fightFsm.AddState(nameof(FightState.Attack), new UniTaskState(async ct =>
             {
+                animator.Play("GuardHit");
                 await UniTask.WaitForSeconds(0.5f, cancellationToken: ct);
                 fightFsm.RequestStateChange(nameof(FightState.Wait));
             }));
@@ -82,6 +83,9 @@ namespace HFSMTest2D
                 {
                     await UniTask.Yield(cancellationToken: ct);
                 }
+            }, onLogic: state =>
+            {
+                state.fsm.StateCanExit();
             }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
 
             fsm.AddTriggerTransition("PlayerSpotted", nameof(EnemyState.Patrol), nameof(EnemyState.Chase),
