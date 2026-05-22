@@ -52,20 +52,20 @@ namespace HFSMTest2D
             });
             fightFsm.AddState(nameof(FightState.Wait), new UniTaskState(async ct =>
             {
-
+                
             }));
             fightFsm.AddState(nameof(FightState.Telegraph), new UniTaskState(async ct =>
             {
-
+                
             }));
             fightFsm.AddState(nameof(FightState.Attack), new UniTaskState(async ct =>
             {
-
+                await UniTask.WaitForSeconds(0.5f, cancellationToken: ct);
+                fightFsm.RequestStateChange(nameof(FightState.Wait));
             }));
             fightFsm.AddExitTransition(nameof(FightState.Wait));
             fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Wait), nameof(FightState.Telegraph), 0.5f));
             fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Telegraph), nameof(FightState.Attack), 0.42f));
-            fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Attack), nameof(FightState.Wait), 0.5f));
 
             fsm = new StateMachine();
             fsm.AddState(nameof(EnemyState.Fight), fightFsm);
@@ -75,17 +75,6 @@ namespace HFSMTest2D
             fsm.AddState(nameof(EnemyState.Chase), new UniTaskState(
                 onEnterAsync: ChaseState,
                 externalCancellationToken: this.GetCancellationTokenOnDestroy()));
-
-            // fsm.AddState(nameof(EnemyState.Fight), new UniTaskState(
-            //     onEnterAsync: async ct =>
-            //     {
-            //         while (!ct.IsCancellationRequested)
-            //         {
-            //             await UniTask.Yield(cancellationToken: ct);
-            //             MoveToward(_playerObj.position, _minDistance);
-            //         }
-
-            //     }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
 
             fsm.AddState(nameof(EnemyState.Search), new UniTaskState(onEnterAsync: async ct =>
             {
