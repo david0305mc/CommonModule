@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityHFSM;
 
-[RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyObj : MonoBehaviour
 {
@@ -23,6 +22,8 @@ public class EnemyObj : MonoBehaviour
         Telegraph,
         Attack,
     }
+
+    [SerializeField] private ColliderDetection _detectionRange;
 
     private const float _attackRange = 2f;
     private const float _attackExitRange = 2.4f;
@@ -46,6 +47,18 @@ public class EnemyObj : MonoBehaviour
         target = WorldRoot.Instance.PlayerObj.transform;
         patrolPoints = WorldRoot.Instance.EnemyPatrolPoints.Points;
         InitFsm();
+        InitDetection();
+    }
+
+    private void InitDetection()
+    {
+        _detectionRange.SetOnTriggerAction(other =>
+        {
+            if (other.CompareTag("Player"))
+            {
+                _fsm.Trigger("PlayerSpotted");
+            }
+        });
     }
 
     private void InitFsm()
@@ -94,6 +107,9 @@ public class EnemyObj : MonoBehaviour
 
         _fsm.AddTriggerTransition("PlayerSpotted", nameof(EnemyState.Patrol), nameof(EnemyState.Chase),
             onTransition: transition => LogTransition(transition));
+
+
+
         _fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Fight),
             s => { return DistanceToTarget <= _attackRange; },
             onTransition: transition => LogTransition(transition));
@@ -152,6 +168,21 @@ public class EnemyObj : MonoBehaviour
     private void LogTransition(TransitionBase<string> transition)
     {
         Debug.Log($"[EnemyObj] State Transition: {transition.from} -> {transition.to}");
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("플레이어 발견!");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("플레이어 놓침!");
+        }
     }
 
     // private void Update()

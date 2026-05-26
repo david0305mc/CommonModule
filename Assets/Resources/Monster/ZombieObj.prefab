@@ -1,5 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5238099723448255145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2514818671890801288}
+  - component: {fileID: 5326904451862886931}
+  - component: {fileID: 4132120311081586918}
+  m_Layer: 0
+  m_Name: DetectRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2514818671890801288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5238099723448255145}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8233599587176049087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5326904451862886931
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5238099723448255145}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 3
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &4132120311081586918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5238099723448255145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cea47e9b575022a4da8c07caddcb8dbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ColliderDetection
 --- !u!1 &5666395306426381018
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +77,7 @@ GameObject:
   - component: {fileID: 8233599587176049087}
   - component: {fileID: 3368522321044207835}
   - component: {fileID: 4973311636018067995}
-  - component: {fileID: 3519848931284455091}
+  - component: {fileID: 797712052602322297}
   m_Layer: 9
   m_Name: ZombieObj
   m_TagString: Untagged
@@ -33,6 +99,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4608016059211172065}
+  - {fileID: 2514818671890801288}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &3368522321044207835
@@ -69,14 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08945fda3faccc4292b970fba743517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyObj
-  separationRadius: 1.2
-  separationStrength: 1.5
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  stopDistance: 2
-  destinationUpdateInterval: 0.3
---- !u!143 &3519848931284455091
+  _detectionRange: {fileID: 4132120311081586918}
+--- !u!143 &797712052602322297
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +161,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &4069089453148122890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -308,6 +369,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 976506834366898501, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
       propertyPath: m_Layer
