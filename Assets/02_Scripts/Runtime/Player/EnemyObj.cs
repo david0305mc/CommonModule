@@ -31,7 +31,7 @@ public class EnemyObj : MonoBehaviour
     private float _minDistance = 0.5f;
     private float _moveSpeed = 3f;
 
-
+    private Transform[] patrolPoints;
     private Transform target;
     private NavMeshAgent enemyAgent;
     private Animator animator;
@@ -44,6 +44,7 @@ public class EnemyObj : MonoBehaviour
         enemyAgent = GetComponent<NavMeshAgent>();
         enemyAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         target = WorldRoot.Instance.PlayerObj.transform;
+        patrolPoints = WorldRoot.Instance.EnemyPatrolPoints.Points;
         InitFsm();
     }
 
@@ -113,12 +114,28 @@ public class EnemyObj : MonoBehaviour
 
     private async UniTask PatrolState(CancellationToken ct)
     {
+        int patrolIndex = 0;
         while (!ct.IsCancellationRequested)
         {
-            MoveToward(target.position);
-            await UniTask.Yield(ct);
+            var targetPos = patrolPoints[patrolIndex].position;
+            await MoveToAsync(targetPos, ct);
+            patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
         }
     }
+
+    private async UniTask MoveToAsync(Vector3 targetPos, CancellationToken ct)
+    {
+        enemyAgent.SetDestination(targetPos);
+        while (!ct.IsCancellationRequested)
+        {
+            if (!enemyAgent.pathPending && enemyAgent.remainingDistance <= enemyAgent.stoppingDistance + 0.1f)
+            {
+                break;
+            }
+            await UniTask.Yield(cancellationToken: ct);
+        }
+    }
+
     private async UniTask ChaseState(CancellationToken ct)
     {
         while (!ct.IsCancellationRequested)
@@ -127,7 +144,6 @@ public class EnemyObj : MonoBehaviour
             await UniTask.Yield(ct);
         }
     }
-
     private void MoveToward(Vector3 _targetPos)
     {
         enemyAgent.SetDestination(_targetPos);
