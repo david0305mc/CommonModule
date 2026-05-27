@@ -95,12 +95,23 @@ public class EnemyObj : MonoBehaviour
                 enemyAgent.isStopped = false;
             }
         });
-        fightFsm.AddState(nameof(FightState.Wait), new UniTaskState(ct =>
+        fightFsm.AddState(nameof(FightState.Wait), new UniTaskState(async ct =>
         {
             animator.Play(_zombieIdleAnimation);
-            return UniTask.CompletedTask;
+            while(!ct.IsCancellationRequested)
+            {
+                FacePositionImmediately(target.position);
+                await UniTask.Yield(cancellationToken:ct);
+            }
         }));
-        fightFsm.AddState(nameof(FightState.Telegraph), new UniTaskState());
+        fightFsm.AddState(nameof(FightState.Telegraph), new UniTaskState(async ct =>
+        {
+            while(!ct.IsCancellationRequested)
+            {
+                FacePositionImmediately(target.position);
+                await UniTask.Yield(cancellationToken:ct);
+            }
+        }));
         fightFsm.AddState(nameof(FightState.Attack), new UniTaskState(async ct =>
         {
             animator.Play(_zombieAttackAnimation, 0, 0f);
