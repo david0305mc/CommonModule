@@ -276,6 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyObj
   _detectionRange: {fileID: 4132120311081586918}
   _stateText: {fileID: 6205911425331537932}
+  animator: {fileID: 7571354603026780827}
   _moveSpeed: 2
 --- !u!143 &797712052602322297
 CharacterController:
@@ -793,5 +794,10 @@ PrefabInstance:
 --- !u!4 &4608016059211172065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
+  m_PrefabInstance: {fileID: 4069089453148122890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7571354603026780827 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
   m_PrefabInstance: {fileID: 4069089453148122890}
   m_PrefabAsset: {fileID: 0}

@@ -27,24 +27,25 @@ public class EnemyObj : MonoBehaviour
 
     [SerializeField] private ColliderDetection _detectionRange;
     [SerializeField] TextMeshProUGUI _stateText;
-
-    private const float _attackRange = 2f;
+    [SerializeField] private Animator animator;
+    private const float _attackRange = 1.5f;
     private const float _attackExitRange = 2.4f;
     private const float _fightKeepDistance = 1f;
     private const float _searchRange = 3f;
+    private const string _zombieIdleAnimation = "ZombieIdle";
+    private const string _zombieAttackAnimation = "ZombieAttack";
     private float _minDistance = 0.5f;
     [SerializeField, Min(0f)] private float _moveSpeed = 2f;
 
     private Transform[] patrolPoints;
     private Transform target;
     private NavMeshAgent enemyAgent;
-    private Animator animator;
+
     private StateMachine _fsm;
     private float DistanceToTarget => target == null ? 0 : Vector3.Distance(transform.position, target.position);
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
         enemyAgent = GetComponent<NavMeshAgent>();
         ApplyAgentSettings();
         target = WorldRoot.Instance.PlayerObj.transform;
@@ -82,25 +83,33 @@ public class EnemyObj : MonoBehaviour
     {
         HybridStateMachine fightFsm = new HybridStateMachine(needsExitTime: true, beforeOnLogic: s =>
         {
-            MoveToward(target.position);
+        }, beforeOnEnter: s =>
+        {
+            enemyAgent.ResetPath();
+            enemyAgent.velocity = Vector3.zero;
+            enemyAgent.isStopped = true;
+        }, afterOnExit: s =>
+        {
+            if(enemyAgent.isStopped)
+            {
+                enemyAgent.isStopped = false;
+            }
         });
-        fightFsm.AddState(nameof(FightState.Wait), new UniTaskState(async ct =>
+        fightFsm.AddState(nameof(FightState.Wait), new UniTaskState(ct =>
         {
-            // animator.Play("GuardIdle");
+            animator.Play(_zombieIdleAnimation);
+            return UniTask.CompletedTask;
         }));
-        fightFsm.AddState(nameof(FightState.Telegraph), new UniTaskState(async ct =>
-        {
-            // animator.Play("GuardTelegraph");
-        }));
+        fightFsm.AddState(nameof(FightState.Telegraph), new UniTaskState());
         fightFsm.AddState(nameof(FightState.Attack), new UniTaskState(async ct =>
         {
-            // animator.Play("GuardHit");
-            await UniTask.WaitForSeconds(0.5f, cancellationToken: ct);
+            animator.Play(_zombieAttackAnimation, 0, 0f);
+            await WaitForAnimationEndAsync(_zombieAttackAnimation, ct);
             fightFsm.RequestStateChange(nameof(FightState.Wait));
         }));
         fightFsm.AddExitTransition(nameof(FightState.Wait));
-        fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Wait), nameof(FightState.Telegraph), 0.5f));
-        fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Telegraph), nameof(FightState.Attack), 0.42f));
+        fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Wait), nameof(FightState.Telegraph), 0.1f));
+        fightFsm.AddTransition(new TransitionAfter(nameof(FightState.Telegraph), nameof(FightState.Attack), 0.2f));
 
         _fsm = new StateMachine();
         _fsm.AddState(nameof(EnemyState.Fight), fightFsm);
@@ -113,6 +122,7 @@ public class EnemyObj : MonoBehaviour
 
         _fsm.AddState(nameof(EnemyState.Search), new UniTaskState(onEnterAsync: async ct =>
         {
+            animator.Play("ZombieWalk");
             while (!ct.IsCancellationRequested)
             {
                 await UniTask.Yield(cancellationToken: ct);
@@ -140,8 +150,29 @@ public class EnemyObj : MonoBehaviour
         _fsm.Init();
     }
 
+    private async UniTask WaitForAnimationEndAsync(string stateName, CancellationToken ct)
+    {
+        int stateHash = Animator.StringToHash(stateName);
+        await UniTask.Yield(cancellationToken: ct);
+
+        while (true)
+        {
+            ct.ThrowIfCancellationRequested();
+
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            bool isTargetState = stateInfo.shortNameHash == stateHash || stateInfo.IsName(stateName);
+            if (isTargetState && stateInfo.normalizedTime >= 1f && !animator.IsInTransition(0))
+            {
+                break;
+            }
+
+            await UniTask.Yield(cancellationToken: ct);
+        }
+    }
+
     private async UniTask PatrolState(CancellationToken ct)
     {
+        animator.Play("ZombieWalk");
         int patrolIndex = 0;
         while (!ct.IsCancellationRequested)
         {
@@ -166,15 +197,23 @@ public class EnemyObj : MonoBehaviour
 
     private async UniTask ChaseState(CancellationToken ct)
     {
+        animator.Play("ZombieRun");
         while (!ct.IsCancellationRequested)
         {
-            MoveToward(target.position);
+            MoveToward(target.position, 0f);
             await UniTask.Yield(ct);
         }
     }
-    private void MoveToward(Vector3 targetPos)
+    private void MoveToward(Vector3 targetPos, float minDist)
     {
         FacePositionImmediately(targetPos);
+        enemyAgent.stoppingDistance = minDist;
+        if (Vector3.Distance(transform.position, targetPos) <= minDist)
+        {
+            enemyAgent.ResetPath();
+            return;
+        }
+
         enemyAgent.SetDestination(targetPos);
     }
 
@@ -230,74 +269,4 @@ public class EnemyObj : MonoBehaviour
         _fsm?.OnExit();
         _fsm = null;
     }
-
-
-    // private void Update()
-    // {
-    //     if (target == null)
-    //         return;
-    //     var dir = target.position - transform.position;
-    //     dir.y = 0;
-    //     transform.rotation = Quaternion.LookRotation(dir);
-
-    //     float distanceToTarget = Vector3.Distance(transform.position, target.position);
-
-    //     if (distanceToTarget <= stopDistance)
-    //     {
-    //         enemyAgent.ResetPath();
-    //         return;
-    //     }
-
-    //     destinationUpdateTimer -= Time.deltaTime;
-    //     if (destinationUpdateTimer <= 0f)
-    //     {
-    //         destinationUpdateTimer = destinationUpdateInterval;
-    //         SetDestivation();
-    //     }
-    // }
-
-    // private void SetDestivation()
-    // {
-    //     Vector3 separationOffset = CalculateSeparationOffset();
-    //     Vector3 desiredDestination = target.position + separationOffset;
-
-    //     if (NavMesh.SamplePosition(desiredDestination, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
-    //     {
-    //         enemyAgent.SetDestination(hit.position);
-    //     }
-    //     else
-    //     {
-    //         enemyAgent.SetDestination(target.position);
-    //     }
-    // }
-
-    // private Vector3 CalculateSeparationOffset()
-    // {
-    //     Vector3 separation = Vector3.zero;
-
-    //     Collider[] hits = Physics.OverlapSphere(transform.position, separationRadius, enemyLayer);
-
-    //     foreach (Collider hit in hits)
-    //     {
-    //         if (hit.gameObject == gameObject) continue;
-
-    //         Vector3 diff = transform.position - hit.transform.position;
-    //         diff.y = 0f;
-
-    //         float dist = diff.magnitude;
-    //         if (dist < 0.001f) continue;
-
-    //         float weight = 1f - (dist / separationRadius);
-    //         separation += diff.normalized * weight;
-    //     }
-
-    //     separation.y = 0f;
-
-    //     if (separation.sqrMagnitude > 0.001f)
-    //     {
-    //         separation = separation.normalized * separationStrength;
-    //     }
-
-    //     return separation;
-    // }
 }
