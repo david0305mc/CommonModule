@@ -172,9 +172,23 @@ public class EnemyObj : MonoBehaviour
             await UniTask.Yield(ct);
         }
     }
-    private void MoveToward(Vector3 _targetPos)
+    private void MoveToward(Vector3 targetPos)
     {
-        enemyAgent.SetDestination(_targetPos);
+        FacePositionImmediately(targetPos);
+        enemyAgent.SetDestination(targetPos);
+    }
+
+    private void FacePositionImmediately(Vector3 targetPos)
+    {
+        Vector3 direction = targetPos - transform.position;
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude <= 0.0001f)
+        {
+            return;
+        }
+
+        transform.rotation = Quaternion.LookRotation(direction);
     }
 
     private void LogTransition(TransitionBase<string> transition)
@@ -197,25 +211,25 @@ public class EnemyObj : MonoBehaviour
         }
     }
 
-        void Update()
+    void Update()
+    {
+        if (_fsm == null)
         {
-            if (_fsm == null)
-            {
-                return;
-            }
-
-            _fsm.OnLogic();
-            if (_stateText != null)
-            {
-                _stateText.text = _fsm.GetActiveHierarchyPath();
-            }
+            return;
         }
 
-        void OnDestroy()
+        _fsm.OnLogic();
+        if (_stateText != null)
         {
-            _fsm?.OnExit();
-            _fsm = null;
+            _stateText.text = _fsm.GetActiveHierarchyPath();
         }
+    }
+
+    void OnDestroy()
+    {
+        _fsm?.OnExit();
+        _fsm = null;
+    }
 
 
     // private void Update()
