@@ -58,24 +58,31 @@ namespace PaladinTest
             moveDir = Vector3.ClampMagnitude(moveDir, 1f);
 
             float speed = moveDir.magnitude;
-            if (animator != null)
-            {
-                animator.SetFloat(SpeedHash, speed);
-            }
+            animator.SetFloat(SpeedHash, speed);
 
             if (moveDir.sqrMagnitude > 0.0001f)
             {
-                MoveOnNavMesh(moveDir);
-                Rotate(moveDir);
-                SyncAgent();
+                HandleMovement(moveDir);
             }
             else
             {
-                Collider[] enemies = GetEnemyNearby();
-                if (enemies.Length > 0)
-                {
-                    Attack(enemies[0].transform);
-                }
+                TryAttackNearbyEnemy();
+            }
+        }
+        private void HandleMovement(Vector3 moveDir)
+        {
+            MoveOnNavMesh(moveDir);
+            Rotate(moveDir);
+            SyncAgent();
+        }
+        private void TryAttackNearbyEnemy()
+        {
+            if (Time.time - lastAttackTime < attackCooldown)
+                return;
+            Collider[] enemies = GetEnemyNearby();
+            if (enemies.Length > 0)
+            {
+                Attack(enemies[0].transform);
             }
         }
 
@@ -124,11 +131,6 @@ namespace PaladinTest
 
         public void Attack(Transform target)
         {
-            if (animator == null)
-                return;
-
-            if (Time.time - lastAttackTime < attackCooldown)
-                return;
             if (target != null)
             {
                 Vector3 dir = target.position - transform.position;
