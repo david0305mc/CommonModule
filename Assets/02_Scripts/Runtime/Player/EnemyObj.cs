@@ -1,5 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using NUnit.Framework.Constraints;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
@@ -24,13 +26,14 @@ public class EnemyObj : MonoBehaviour
     }
 
     [SerializeField] private ColliderDetection _detectionRange;
+    [SerializeField] TextMeshProUGUI _stateText;
 
     private const float _attackRange = 2f;
     private const float _attackExitRange = 2.4f;
     private const float _fightKeepDistance = 1f;
-    private const float _searchRange = 7f;
+    private const float _searchRange = 3f;
     private float _minDistance = 0.5f;
-    private float _moveSpeed = 3f;
+    [SerializeField, Min(0f)] private float _moveSpeed = 2f;
 
     private Transform[] patrolPoints;
     private Transform target;
@@ -43,11 +46,25 @@ public class EnemyObj : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         enemyAgent = GetComponent<NavMeshAgent>();
-        enemyAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        ApplyAgentSettings();
         target = WorldRoot.Instance.PlayerObj.transform;
         patrolPoints = WorldRoot.Instance.EnemyPatrolPoints.Points;
         InitFsm();
         InitDetection();
+    }
+
+    private void OnValidate()
+    {
+        if (TryGetComponent(out NavMeshAgent agent))
+        {
+            agent.speed = _moveSpeed;
+        }
+    }
+
+    private void ApplyAgentSettings()
+    {
+        enemyAgent.speed = _moveSpeed;
+        enemyAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     private void InitDetection()
@@ -69,15 +86,15 @@ public class EnemyObj : MonoBehaviour
         });
         fightFsm.AddState(nameof(FightState.Wait), new UniTaskState(async ct =>
         {
-            animator.Play("GuardIdle");
+            // animator.Play("GuardIdle");
         }));
         fightFsm.AddState(nameof(FightState.Telegraph), new UniTaskState(async ct =>
         {
-            animator.Play("GuardTelegraph");
+            // animator.Play("GuardTelegraph");
         }));
         fightFsm.AddState(nameof(FightState.Attack), new UniTaskState(async ct =>
         {
-            animator.Play("GuardHit");
+            // animator.Play("GuardHit");
             await UniTask.WaitForSeconds(0.5f, cancellationToken: ct);
             fightFsm.RequestStateChange(nameof(FightState.Wait));
         }));
@@ -184,6 +201,27 @@ public class EnemyObj : MonoBehaviour
             Debug.Log("플레이어 놓침!");
         }
     }
+
+        void Update()
+        {
+            if (_fsm == null)
+            {
+                return;
+            }
+
+            _fsm.OnLogic();
+            if (_stateText != null)
+            {
+                _stateText.text = _fsm.GetActiveHierarchyPath();
+            }
+        }
+
+        void OnDestroy()
+        {
+            _fsm?.OnExit();
+            _fsm = null;
+        }
+
 
     // private void Update()
     // {
