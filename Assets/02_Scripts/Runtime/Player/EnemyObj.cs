@@ -117,15 +117,10 @@ public class EnemyObj : MonoBehaviour
             {
                 await UniTask.Yield(cancellationToken: ct);
             }
-        }, onLogic: state =>
-        {
-            state.fsm.StateCanExit();
         }, externalCancellationToken: this.GetCancellationTokenOnDestroy()));
 
         _fsm.AddTriggerTransition("PlayerSpotted", nameof(EnemyState.Patrol), nameof(EnemyState.Chase),
             onTransition: transition => LogTransition(transition));
-
-
 
         _fsm.AddTransition(nameof(EnemyState.Chase), nameof(EnemyState.Fight),
             s => { return DistanceToTarget <= _attackRange; },
