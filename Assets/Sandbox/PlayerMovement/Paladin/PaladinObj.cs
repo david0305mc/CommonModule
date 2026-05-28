@@ -139,7 +139,7 @@ namespace PaladinTest
             }
 
             lastAttackTime = Time.time;
-            animator.SetTrigger(AttackHash);
+            animator.Play(AttackHash);
         }
 
         private Collider[] GetEnemyNearby()

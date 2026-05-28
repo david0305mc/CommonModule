@@ -278,6 +278,12 @@ MonoBehaviour:
   _stateText: {fileID: 6205911425331537932}
   animator: {fileID: 7571354603026780827}
   _moveSpeed: 2
+  _attackRange: 1.5
+  _attackExitRange: 2.4
+  _searchRange: 3
+  _attackCooldown: 1
+  _telegraphTime: 0.25
+  _damageNormalizedTime: 0.45
 --- !u!143 &797712052602322297
 CharacterController:
   m_ObjectHideFlags: 0
