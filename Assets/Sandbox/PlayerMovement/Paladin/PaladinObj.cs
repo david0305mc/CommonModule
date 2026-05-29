@@ -1,6 +1,9 @@
-using Unity.Mathematics;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityHFSM;
 
 namespace PaladinTest
 {
@@ -8,6 +11,18 @@ namespace PaladinTest
     [RequireComponent(typeof(CharacterController))]
     public class PaladinObj : MonoBehaviour
     {
+        public enum PlayerState
+        {
+            Locomotion,
+            Combat,
+        }
+
+        public enum CombatState
+        {
+            Idle,
+            Attack,
+        }
+
         private static readonly int SpeedHash = Animator.StringToHash("Speed");
         private static readonly int AttackHash = Animator.StringToHash("Attack");
 
@@ -23,6 +38,7 @@ namespace PaladinTest
         private Animator animator;
         private NavMeshAgent navMeshAgent;
         private CharacterController characterController;
+        private StateMachine _fsm;
 
         private float lastAttackTime = -999f;
 
@@ -43,6 +59,37 @@ namespace PaladinTest
             navMeshAgent.updatePosition = false;
             navMeshAgent.updateRotation = false;
             navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+            InitFsm();
+        }
+        private void InitFsm()
+        {
+            _fsm = new StateMachine();
+            _fsm.AddState(nameof(PlayerState.Locomotion), new UniTaskState(onEnterAsync: async ct =>
+            {
+                while (!ct.IsCancellationRequested)
+                {
+                    await UniTask.Yield(cancellationToken: ct);
+                }
+            }));
+            var combatFsm = new HybridStateMachine(
+                needsExitTime: true,
+                beforeOnEnter: s =>
+                {
+
+                }, afterOnExit: s =>
+                {
+
+                });
+            combatFsm.AddState(nameof(CombatState.Idle), new UniTaskState(async ct =>
+            {
+
+            }));
+            combatFsm.AddState(nameof(CombatState.Attack), new UniTaskState(RunCombatState));
+
+        }
+        private async UniTask RunCombatState(CancellationToken ct)
+        {
+
         }
 
         private void Update()

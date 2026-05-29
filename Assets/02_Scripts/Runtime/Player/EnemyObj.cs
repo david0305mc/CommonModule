@@ -12,11 +12,11 @@ public class EnemyObj : MonoBehaviour
     {
         Patrol,
         Chase,
-        Fight,
+        Combat,
         Search,
     }
 
-    public enum FightState
+    public enum CombatState
     {
         Wait,
         Telegraph,
@@ -51,7 +51,7 @@ public class EnemyObj : MonoBehaviour
     private NavMeshAgent enemyAgent;
 
     private StateMachine _fsm;
-    private HybridStateMachine fightFsm;
+    private HybridStateMachine _combatFsm;
     private bool _damageApplied;
 
     private float DistanceToTarget =>
@@ -101,7 +101,7 @@ public class EnemyObj : MonoBehaviour
 
     private void InitFsm()
     {
-        fightFsm = new HybridStateMachine(
+        _combatFsm = new HybridStateMachine(
             needsExitTime: true,
             beforeOnEnter: s =>
             {
@@ -115,7 +115,7 @@ public class EnemyObj : MonoBehaviour
             }
         );
 
-        fightFsm.AddState(nameof(FightState.Wait), new UniTaskState(async ct =>
+        _combatFsm.AddState(nameof(CombatState.Wait), new UniTaskState(async ct =>
         {
             animator.Play(_zombieIdleAnimation);
 
@@ -131,10 +131,10 @@ public class EnemyObj : MonoBehaviour
                 await UniTask.Yield(cancellationToken: ct);
             }
 
-            fightFsm.RequestStateChange(nameof(FightState.Telegraph));
+            _combatFsm.RequestStateChange(nameof(CombatState.Telegraph));
         }));
 
-        fightFsm.AddState(nameof(FightState.Telegraph), new UniTaskState(async ct =>
+        _combatFsm.AddState(nameof(CombatState.Telegraph), new UniTaskState(async ct =>
         {
             animator.Play(_zombieIdleAnimation);
 
@@ -153,10 +153,10 @@ public class EnemyObj : MonoBehaviour
             // 공격 직전 방향 확정
             FaceTargetImmediately();
 
-            fightFsm.RequestStateChange(nameof(FightState.Attack));
+            _combatFsm.RequestStateChange(nameof(CombatState.Attack));
         }));
 
-        fightFsm.AddState(nameof(FightState.Attack), new UniTaskState(async ct =>
+        _combatFsm.AddState(nameof(CombatState.Attack), new UniTaskState(async ct =>
         {
             _damageApplied = false;
 
@@ -166,14 +166,14 @@ public class EnemyObj : MonoBehaviour
 
             await WaitForAttackAnimationAsync(ct);
 
-            fightFsm.RequestStateChange(nameof(FightState.Wait));
+            _combatFsm.RequestStateChange(nameof(CombatState.Wait));
         }));
 
-        fightFsm.AddExitTransition(nameof(FightState.Wait));
+        _combatFsm.AddExitTransition(nameof(CombatState.Wait));
 
         _fsm = new StateMachine();
 
-        _fsm.AddState(nameof(EnemyState.Fight), fightFsm);
+        _fsm.AddState(nameof(EnemyState.Combat), _combatFsm);
 
         _fsm.AddState(nameof(EnemyState.Patrol), new UniTaskState(
             onEnterAsync: PatrolState,
@@ -195,12 +195,12 @@ public class EnemyObj : MonoBehaviour
 
         _fsm.AddTransition(
             nameof(EnemyState.Chase),
-            nameof(EnemyState.Fight),
+            nameof(EnemyState.Combat),
             s => DistanceToTarget <= _attackRange,
             onTransition: transition => LogTransition(transition));
 
         _fsm.AddTransition(
-            nameof(EnemyState.Fight),
+            nameof(EnemyState.Combat),
             nameof(EnemyState.Chase),
             s => DistanceToTarget > _attackExitRange,
             onTransition: transition => LogTransition(transition));
