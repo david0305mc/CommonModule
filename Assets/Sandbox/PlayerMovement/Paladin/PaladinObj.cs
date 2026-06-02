@@ -64,13 +64,8 @@ namespace PaladinTest
         private void InitFsm()
         {
             _fsm = new StateMachine();
-            _fsm.AddState(nameof(PlayerState.Locomotion), new UniTaskState(onEnterAsync: async ct =>
-            {
-                while (!ct.IsCancellationRequested)
-                {
-                    await UniTask.Yield(cancellationToken: ct);
-                }
-            }));
+            _fsm.AddState(nameof(PlayerState.Locomotion), new UniTaskState(onEnterAsync: RunLocomotionState));
+
             var combatFsm = new HybridStateMachine(
                 needsExitTime: true,
                 beforeOnEnter: s =>
@@ -80,41 +75,74 @@ namespace PaladinTest
                 {
 
                 });
-            combatFsm.AddState(nameof(CombatState.Idle), new UniTaskState(async ct =>
-            {
-
-            }));
-            combatFsm.AddState(nameof(CombatState.Attack), new UniTaskState(RunCombatState));
+            combatFsm.AddState(nameof(CombatState.Idle), new UniTaskState(RunCombatIdleState));
+            combatFsm.AddState(nameof(CombatState.Attack), new UniTaskState(RunAttackState));
+            combatFsm.SetStartState(nameof(CombatState.Idle));
+            _fsm.SetStartState(nameof(PlayerState.Locomotion));
 
         }
-        private async UniTask RunCombatState(CancellationToken ct)
+        private async UniTask RunCombatIdleState(CancellationToken ct)
         {
+            float delay = 0f;
+            while (!ct.IsCancellationRequested && delay < 0.3f)
+            {
+                Collider[] enemies = GetEnemyNearby();
+                if (enemies.Length == 0)
+                {
+                    _fsm.RequestStateChange(nameof(PlayerState.Locomotion));
+                    return;
+                }
+                await UniTask.Yield(cancellationToken: ct);
+            }
 
+            _fsm.RequestStateChange(nameof(CombatState.Attack));
+        }
+        private async UniTask RunAttackState(CancellationToken ct)
+        {
+            Collider[] enemies = GetEnemyNearby();
+            if (enemies.Length > 0)
+            {
+                Attack(enemies[0].transform);
+            }
+            await UniTask.WaitForSeconds(1f, cancellationToken: ct);
+            _fsm.RequestStateChange(nameof(CombatState.Idle));
+        }
+
+        private async UniTask RunLocomotionState(CancellationToken ct)
+        {
+            while (!ct.IsCancellationRequested)
+            {
+                await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: ct);
+
+                Vector2 input = Vector2.zero;
+                if (GameInputManager.HasInstance)
+                {
+                    input = GameInputManager.Instance.MoveValue;
+                }
+
+                Vector3 moveDir = new Vector3(input.x, 0f, input.y);
+                moveDir = Vector3.ClampMagnitude(moveDir, 1f);
+
+                float speed = moveDir.magnitude;
+                animator.SetFloat(SpeedHash, speed);
+
+                if (moveDir.sqrMagnitude > 0.0001f)
+                {
+                    HandleMovement(moveDir);
+                }
+                else
+                {
+                    Collider[] enemies = GetEnemyNearby();
+                    if (enemies.Length > 0)
+                    {
+                        _fsm.RequestStateChange(nameof(PlayerState.Combat));
+                    }
+                }
+            }
         }
 
         private void Update()
         {
-            Vector2 input = Vector2.zero;
-
-            if (GameInputManager.HasInstance)
-            {
-                input = GameInputManager.Instance.MoveValue;
-            }
-
-            Vector3 moveDir = new Vector3(input.x, 0f, input.y);
-            moveDir = Vector3.ClampMagnitude(moveDir, 1f);
-
-            float speed = moveDir.magnitude;
-            animator.SetFloat(SpeedHash, speed);
-
-            if (moveDir.sqrMagnitude > 0.0001f)
-            {
-                HandleMovement(moveDir);
-            }
-            else
-            {
-                TryAttackNearbyEnemy();
-            }
         }
         private void HandleMovement(Vector3 moveDir)
         {
