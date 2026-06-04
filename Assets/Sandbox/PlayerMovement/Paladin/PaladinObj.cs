@@ -81,8 +81,9 @@ namespace PaladinTest
             combatFsm.AddState(nameof(CombatState.Idle), new UniTaskState(RunCombatIdleState));
             combatFsm.AddState(nameof(CombatState.Attack), new UniTaskState(RunAttackState));
             combatFsm.SetStartState(nameof(CombatState.Idle));
+            _fsm.AddState(nameof(CombatState), combatFsm);
             _fsm.SetStartState(nameof(PlayerState.Locomotion));
-
+            _fsm.Init();
         }
         private async UniTask RunCombatIdleState(CancellationToken ct)
         {
