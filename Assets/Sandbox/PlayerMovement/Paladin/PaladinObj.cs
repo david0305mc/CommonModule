@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityHFSM;
@@ -25,6 +26,8 @@ namespace PaladinTest
 
         private static readonly int SpeedHash = Animator.StringToHash("Speed");
         private static readonly int AttackHash = Animator.StringToHash("Attack");
+
+        [SerializeField] private TextMeshProUGUI _stateText;
 
         [Header("Movement")]
         [SerializeField] private float moveSpeed = 5f;
@@ -143,6 +146,7 @@ namespace PaladinTest
 
         private void Update()
         {
+            _stateText.SetText(_fsm.GetActiveHierarchyPath());
         }
         private void HandleMovement(Vector3 moveDir)
         {
