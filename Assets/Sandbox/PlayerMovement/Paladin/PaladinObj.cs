@@ -90,6 +90,7 @@ namespace PaladinTest
             float delay = 0f;
             while (!ct.IsCancellationRequested && delay < 0.3f)
             {
+                delay += Time.deltaTime;
                 Collider[] enemies = GetEnemyNearby();
                 if (enemies.Length == 0)
                 {
