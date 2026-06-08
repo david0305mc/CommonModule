@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Playables;
 using UnityHFSM;
 
 namespace PaladinTest
@@ -82,6 +83,7 @@ namespace PaladinTest
             _combatFsm.AddState(nameof(CombatState.Idle), new UniTaskState(RunCombatIdleState));
             _combatFsm.AddState(nameof(CombatState.Attack), new UniTaskState(RunAttackState));
             _combatFsm.AddExitTransition(nameof(CombatState.Idle));
+            _combatFsm.AddExitTransition(nameof(CombatState.Attack));
             _combatFsm.SetStartState(nameof(CombatState.Idle));
             _fsm.AddState(nameof(PlayerState.Combat), _combatFsm);
             _fsm.SetStartState(nameof(PlayerState.Locomotion));
@@ -92,6 +94,11 @@ namespace PaladinTest
             float delay = 0f;
             while (!ct.IsCancellationRequested && delay < 0.3f)
             {
+                if (HasMoveInput())
+                {
+                    _fsm.RequestStateChange(nameof(PlayerState.Locomotion));
+                    return;
+                }
                 delay += Time.deltaTime;
                 Collider[] enemies = GetEnemyNearby();
                 if (enemies.Length == 0)
@@ -111,8 +118,32 @@ namespace PaladinTest
             {
                 Attack(enemies[0].transform);
             }
-            await UniTask.WaitForSeconds(1f, cancellationToken: ct);
+
+            float timer = 0f;
+
+            while (!ct.IsCancellationRequested && timer < 1f)
+            {
+                if (HasMoveInput())
+                {
+                    _fsm.RequestStateChange(nameof(PlayerState.Locomotion));
+                    return;
+                }
+
+                timer += Time.deltaTime;
+                await UniTask.Yield(cancellationToken: ct);
+            }
+
             _combatFsm.RequestStateChange(nameof(CombatState.Idle));
+        }
+        private bool HasMoveInput()
+        {
+            if (!GameInputManager.HasInstance)
+                return false;
+
+            Vector2 input = GameInputManager.Instance.MoveValue;
+            Vector3 moveDir = new Vector3(input.x, 0f, input.y);
+
+            return moveDir.sqrMagnitude > 0.0001f;
         }
 
         private async UniTask RunLocomotionState(CancellationToken ct)
@@ -228,11 +259,14 @@ namespace PaladinTest
             {
                 Vector3 dir = target.position - transform.position;
                 dir.y = 0;
-                transform.rotation = Quaternion.LookRotation(dir);
+
+                if (dir.sqrMagnitude > 0.001f)
+                    transform.rotation = Quaternion.LookRotation(dir);
             }
 
             lastAttackTime = Time.time;
-            animator.Play(AttackHash);
+
+            animator.Play(AttackHash, 0, 0f);
         }
 
         private Collider[] GetEnemyNearby()
