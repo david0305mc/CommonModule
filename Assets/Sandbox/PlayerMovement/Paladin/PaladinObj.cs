@@ -42,6 +42,7 @@ namespace PaladinTest
         private NavMeshAgent navMeshAgent;
         private CharacterController characterController;
         private StateMachine _fsm;
+        private HybridStateMachine _combatFsm;
 
         private float lastAttackTime = -999f;
 
@@ -69,7 +70,7 @@ namespace PaladinTest
             _fsm = new StateMachine();
             _fsm.AddState(nameof(PlayerState.Locomotion), new UniTaskState(onEnterAsync: RunLocomotionState));
 
-            var combatFsm = new HybridStateMachine(
+            _combatFsm = new HybridStateMachine(
                 needsExitTime: true,
                 beforeOnEnter: s =>
                 {
@@ -78,10 +79,11 @@ namespace PaladinTest
                 {
 
                 });
-            combatFsm.AddState(nameof(CombatState.Idle), new UniTaskState(RunCombatIdleState));
-            combatFsm.AddState(nameof(CombatState.Attack), new UniTaskState(RunAttackState));
-            combatFsm.SetStartState(nameof(CombatState.Idle));
-            _fsm.AddState(nameof(PlayerState.Combat), combatFsm);
+            _combatFsm.AddState(nameof(CombatState.Idle), new UniTaskState(RunCombatIdleState));
+            _combatFsm.AddState(nameof(CombatState.Attack), new UniTaskState(RunAttackState));
+            _combatFsm.AddExitTransition(nameof(CombatState.Idle));
+            _combatFsm.SetStartState(nameof(CombatState.Idle));
+            _fsm.AddState(nameof(PlayerState.Combat), _combatFsm);
             _fsm.SetStartState(nameof(PlayerState.Locomotion));
             _fsm.Init();
         }
@@ -100,7 +102,7 @@ namespace PaladinTest
                 await UniTask.Yield(cancellationToken: ct);
             }
 
-            _fsm.RequestStateChange(nameof(CombatState.Attack));
+            _combatFsm.RequestStateChange(nameof(CombatState.Attack));
         }
         private async UniTask RunAttackState(CancellationToken ct)
         {
@@ -110,7 +112,7 @@ namespace PaladinTest
                 Attack(enemies[0].transform);
             }
             await UniTask.WaitForSeconds(1f, cancellationToken: ct);
-            _fsm.RequestStateChange(nameof(CombatState.Idle));
+            _combatFsm.RequestStateChange(nameof(CombatState.Idle));
         }
 
         private async UniTask RunLocomotionState(CancellationToken ct)
@@ -148,7 +150,17 @@ namespace PaladinTest
 
         private void Update()
         {
-            _stateText.SetText(_fsm.GetActiveHierarchyPath());
+            if (_fsm == null)
+            {
+                return;
+            }
+
+            _fsm.OnLogic();
+
+            if (_stateText != null)
+            {
+                _stateText.SetText(_fsm.GetActiveHierarchyPath());
+            }
         }
         private void HandleMovement(Vector3 moveDir)
         {
@@ -230,7 +242,7 @@ namespace PaladinTest
             if (enemyLayer < 0)
             {
                 Debug.LogWarning($"{nameof(PaladinObj)}: Enemy layer '{GameDefine.EnemyLayerName}' not found.", this);
-                return null;
+                return System.Array.Empty<Collider>();
             }
 
             int layerMask = 1 << enemyLayer;
@@ -245,5 +257,12 @@ namespace PaladinTest
             Gizmos.DrawWireSphere(transform.position, enemyDetectRadius);
         }
 #endif
+
+        private void OnDestroy()
+        {
+            _fsm?.OnExit();
+            _fsm = null;
+            _combatFsm = null;
+        }
     }
 }
