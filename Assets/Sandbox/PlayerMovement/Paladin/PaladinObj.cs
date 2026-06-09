@@ -27,6 +27,7 @@ namespace PaladinTest
 
         private static readonly int SpeedHash = Animator.StringToHash("Speed");
         private static readonly int AttackHash = Animator.StringToHash("Attack");
+        private static readonly int LocomotionHash = Animator.StringToHash("Locomotion");
 
         [SerializeField] private TextMeshProUGUI _stateText;
 
@@ -91,6 +92,9 @@ namespace PaladinTest
         }
         private async UniTask RunCombatIdleState(CancellationToken ct)
         {
+            animator.CrossFade(LocomotionHash, 0.2f);
+            var state = animator.GetCurrentAnimatorStateInfo(0);
+            Debug.Log($"Current State Hash: {state.shortNameHash}, LocomotionHash: {LocomotionHash}");
             float delay = 0f;
             while (!ct.IsCancellationRequested && delay < 0.3f)
             {
@@ -148,6 +152,8 @@ namespace PaladinTest
 
         private async UniTask RunLocomotionState(CancellationToken ct)
         {
+            animator.CrossFade(LocomotionHash, 0.2f);
+            
             while (!ct.IsCancellationRequested)
             {
                 await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: ct);
@@ -266,7 +272,7 @@ namespace PaladinTest
 
             lastAttackTime = Time.time;
 
-            animator.Play(AttackHash, 0, 0f);
+            animator.CrossFade(AttackHash, 0.1f);
         }
 
         private Collider[] GetEnemyNearby()
