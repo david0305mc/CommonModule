@@ -6,13 +6,15 @@ using UnityEngine;
 public class HitFlash : MonoBehaviour
 {
     private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+    private static readonly int ColorId = Shader.PropertyToID("_Color");
 
     [SerializeField] private Renderer _targetRender;
-    [SerializeField] private float _flashTime = 0.08f;
+    [SerializeField] private float _flashTime = 1f;
     [SerializeField] private Color _hitColor = Color.red;
 
     private MaterialPropertyBlock _block;
     private Color _originalColor;
+    private int _colorPropertyId;
 
     private void Awake()
     {
@@ -21,30 +23,40 @@ public class HitFlash : MonoBehaviour
         if (_targetRender == null)
             _targetRender = GetComponentInChildren<Renderer>();
 
-        _originalColor = _targetRender.sharedMaterial.GetColor(BaseColorId);
+        var mat = _targetRender.sharedMaterial;
+
+        if (mat.HasProperty(BaseColorId))
+            _colorPropertyId = BaseColorId;
+        else if (mat.HasProperty(ColorId))
+            _colorPropertyId = ColorId;
+        else
+        {
+            Debug.LogWarning("이 머티리얼에는 _BaseColor / _Color 프로퍼티가 없습니다.");
+            enabled = false;
+            return;
+        }
+
+        _originalColor = mat.GetColor(_colorPropertyId);
     }
 
     public async UniTask PlayFlash(CancellationToken ct)
     {
-        SetFlashColor(_hitColor);
+        SetColor(_hitColor);
 
         try
         {
-            await UniTask.Delay(
-                TimeSpan.FromSeconds(_flashTime),
-                cancellationToken: ct
-            );
+            await UniTask.Delay(TimeSpan.FromSeconds(_flashTime), cancellationToken: ct);
         }
         finally
         {
-            SetFlashColor(_originalColor);
+            SetColor(_originalColor);
         }
     }
 
-    private void SetFlashColor(Color color)
+    private void SetColor(Color color)
     {
         _targetRender.GetPropertyBlock(_block);
-        _block.SetColor(BaseColorId, color);
+        _block.SetColor(_colorPropertyId, color);
         _targetRender.SetPropertyBlock(_block);
     }
 }

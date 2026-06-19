@@ -324,8 +324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitFlash
   _targetRender: {fileID: 4776249655813277392}
-  _flashTime: 0.08
-  _hitColor: {r: 1, g: 0, b: 0, a: 1}
+  _flashTime: 2
+  _hitColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6415414571120747213
 GameObject:
   m_ObjectHideFlags: 0

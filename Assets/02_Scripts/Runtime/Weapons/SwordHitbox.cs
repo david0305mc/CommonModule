@@ -33,16 +33,23 @@ public class SwordHitbox : MonoBehaviour
         if (_owner.layer == other.gameObject.layer)
             return;
 
-        if (!other.TryGetComponent(out IDamageable damageable))
+        IDamageable damageable = other.GetComponentInParent<IDamageable>();
+
+        if (damageable == null)
             return;
+
         damageable.TakeDamage();
         // if (!_hitTargets.Add(damageable))
         //     return;
 
+        GameObject targetObject = damageable is Component component
+            ? component.gameObject
+            : other.gameObject;
+
         var hitContext = new HitContext
         {
             Attacker = _owner,
-            Target = other.gameObject,
+            Target = targetObject,
             HitPoint = other.ClosestPoint(transform.position)
         };
 
