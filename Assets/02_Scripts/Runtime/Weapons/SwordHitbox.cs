@@ -38,10 +38,10 @@ public class SwordHitbox : MonoBehaviour
         if (damageable == null)
             return;
 
+        if (!_hitTargets.Add(damageable))
+            return;
         damageable.TakeDamage();
-        // if (!_hitTargets.Add(damageable))
-        //     return;
-
+        
         GameObject targetObject = damageable is Component component
             ? component.gameObject
             : other.gameObject;

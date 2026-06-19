@@ -52,7 +52,7 @@ namespace PaladinTest
         private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
-        characterController = GetComponent<CharacterController>();
+            characterController = GetComponent<CharacterController>();
             animator = GetComponentInChildren<Animator>();
 
             if (animator == null)
@@ -62,8 +62,9 @@ namespace PaladinTest
 
             _swordHitbox.Initialize(gameObject, context =>
             {
-                
+
             });
+            _swordHitbox.gameObject.SetActive(false);
         }
 
         private void Start()
@@ -92,12 +93,14 @@ namespace PaladinTest
             _combatFsm.AddExitTransition(nameof(CombatState.Idle));
             _combatFsm.AddExitTransition(nameof(CombatState.Attack));
             _combatFsm.SetStartState(nameof(CombatState.Idle));
+            
             _fsm.AddState(nameof(PlayerState.Combat), _combatFsm);
             _fsm.SetStartState(nameof(PlayerState.Locomotion));
             _fsm.Init();
         }
         private async UniTask RunCombatIdleState(CancellationToken ct)
         {
+            _swordHitbox.gameObject.SetActive(false);
             animator.CrossFade(LocomotionHash, 0.2f);
             var state = animator.GetCurrentAnimatorStateInfo(0);
             float delay = 0f;
@@ -122,6 +125,8 @@ namespace PaladinTest
         }
         private async UniTask RunAttackState(CancellationToken ct)
         {
+            _swordHitbox.gameObject.SetActive(true);
+            _swordHitbox.ResetHitTargets();
             Collider[] enemies = GetEnemyNearby();
             if (enemies.Length > 0)
             {
@@ -157,8 +162,9 @@ namespace PaladinTest
 
         private async UniTask RunLocomotionState(CancellationToken ct)
         {
+            _swordHitbox.gameObject.SetActive(false);
             animator.CrossFade(LocomotionHash, 0.2f);
-            
+
             while (!ct.IsCancellationRequested)
             {
                 await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: ct);
