@@ -28,6 +28,7 @@ public class EnemyObj : MonoBehaviour, IDamageable
     [SerializeField] private TextMeshProUGUI _stateText;
     [SerializeField] private Animator animator;
 
+
     [SerializeField] private HitFlash _hitFlash;
 
     [Header("Movement")]
@@ -476,10 +477,39 @@ public class EnemyObj : MonoBehaviour, IDamageable
         _fsm = null;
     }
 
-    public void TakeDamage()
+    public void TakeDamage(HitContext hitContext)
     {
         Debug.Log("Enemy TakeDamage");
         // throw new System.NotImplementedException();
         _hitFlash.PlayFlash(default).Forget();
+        KnockBack(hitContext.Attacker.transform.position, 2f).Forget();
+    }
+
+    [SerializeField] private AnimationCurve knockbackCurve;
+    [SerializeField] private float knockbackDuration = 0.3f;
+    private async UniTask KnockBack(Vector3 src, float power)
+    {
+        Vector3 dir = (transform.position - src).normalized;
+
+        enemyAgent.isStopped = true;
+        enemyAgent.updatePosition = false;
+
+        float duration = 0.3f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            float curveValue = knockbackCurve.Evaluate(t);
+
+            // transform.position += dir * power * curveValue * Time.deltaTime;
+            enemyAgent.Move(dir * power * curveValue * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            await UniTask.Yield(PlayerLoopTiming.Update);
+        }
+
+        enemyAgent.Warp(transform.position); // agent 내부 위치 동기화
+        enemyAgent.updatePosition = true;
+        enemyAgent.isStopped = false;
     }
 }

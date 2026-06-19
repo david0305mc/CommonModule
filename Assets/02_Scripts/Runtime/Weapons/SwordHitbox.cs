@@ -40,8 +40,7 @@ public class SwordHitbox : MonoBehaviour
 
         if (!_hitTargets.Add(damageable))
             return;
-        damageable.TakeDamage();
-        
+
         GameObject targetObject = damageable is Component component
             ? component.gameObject
             : other.gameObject;
@@ -52,7 +51,7 @@ public class SwordHitbox : MonoBehaviour
             Target = targetObject,
             HitPoint = other.ClosestPoint(transform.position)
         };
-
+        damageable.TakeDamage(hitContext);
         _hitAction?.Invoke(hitContext);
     }
 }
