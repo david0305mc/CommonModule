@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityHFSM;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class EnemyObj : MonoBehaviour
+public class EnemyObj : MonoBehaviour, IDamageable
 {
     public enum EnemyState
     {
@@ -27,6 +27,8 @@ public class EnemyObj : MonoBehaviour
     [SerializeField] private ColliderDetection _detectionRange;
     [SerializeField] private TextMeshProUGUI _stateText;
     [SerializeField] private Animator animator;
+
+    [SerializeField] private HitFlash _hitFlash;
 
     [Header("Movement")]
     [SerializeField, Min(0f)] private float _moveSpeed = 2f;
@@ -472,5 +474,11 @@ public class EnemyObj : MonoBehaviour
     {
         _fsm?.OnExit();
         _fsm = null;
+    }
+
+    public void TakeDamage()
+    {
+        // throw new System.NotImplementedException();
+        _hitFlash.PlayFlash(default).Forget();
     }
 }

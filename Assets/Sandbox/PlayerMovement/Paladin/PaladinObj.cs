@@ -39,6 +39,7 @@ namespace PaladinTest
         [Header("Combat")]
         [SerializeField] private float enemyDetectRadius = 3f;
         [SerializeField] private float attackCooldown = 3f;
+        [SerializeField] private SwordHitbox _swordHitbox;
 
         private Animator animator;
         private NavMeshAgent navMeshAgent;
@@ -51,13 +52,18 @@ namespace PaladinTest
         private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
-            characterController = GetComponent<CharacterController>();
+        characterController = GetComponent<CharacterController>();
             animator = GetComponentInChildren<Animator>();
 
             if (animator == null)
             {
                 Debug.LogError($"{nameof(PaladinObj)}: Animator not found in children.", this);
             }
+
+            _swordHitbox.Initialize(gameObject, context =>
+            {
+                
+            });
         }
 
         private void Start()

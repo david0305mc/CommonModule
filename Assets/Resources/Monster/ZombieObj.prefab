@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7943328329471335050}
   - component: {fileID: 2677774405338626997}
   - component: {fileID: 6205911425331537932}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 2514818671890801288}
   - component: {fileID: 5326904451862886931}
   - component: {fileID: 4132120311081586918}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DetectRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,13 +215,14 @@ GameObject:
   - component: {fileID: 3368522321044207835}
   - component: {fileID: 4973311636018067995}
   - component: {fileID: 797712052602322297}
+  - component: {fileID: 7994523121880644644}
   m_Layer: 9
   m_Name: ZombieObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8233599587176049087
 Transform:
   m_ObjectHideFlags: 0
@@ -277,6 +278,7 @@ MonoBehaviour:
   _detectionRange: {fileID: 4132120311081586918}
   _stateText: {fileID: 6205911425331537932}
   animator: {fileID: 7571354603026780827}
+  _hitFlash: {fileID: 7994523121880644644}
   _moveSpeed: 2
   _attackRange: 1.5
   _attackExitRange: 2.4
@@ -309,6 +311,21 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7994523121880644644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5666395306426381018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87aad14fab75c04ba6533a14d9d79cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlash
+  _targetRender: {fileID: 4776249655813277392}
+  _flashTime: 0.08
+  _hitColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &6415414571120747213
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +339,7 @@ GameObject:
   - component: {fileID: 115622293627408895}
   - component: {fileID: 8890227858166057371}
   - component: {fileID: 2493915293000176402}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -800,6 +817,11 @@ PrefabInstance:
 --- !u!4 &4608016059211172065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
+  m_PrefabInstance: {fileID: 4069089453148122890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4776249655813277392 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8804795166771358170, guid: 72516b09a04bf0c478abd7c3b72b89c6, type: 3}
   m_PrefabInstance: {fileID: 4069089453148122890}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &7571354603026780827 stripped

@@ -16,6 +16,7 @@ public class HitFlash : MonoBehaviour
 
     private void Awake()
     {
+        gameObject.layer = 0;
         _block = new MaterialPropertyBlock();
 
         if (_targetRender == null)
