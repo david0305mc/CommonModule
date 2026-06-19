@@ -100,7 +100,6 @@ namespace PaladinTest
         {
             animator.CrossFade(LocomotionHash, 0.2f);
             var state = animator.GetCurrentAnimatorStateInfo(0);
-            Debug.Log($"Current State Hash: {state.shortNameHash}, LocomotionHash: {LocomotionHash}");
             float delay = 0f;
             while (!ct.IsCancellationRequested && delay < 0.3f)
             {

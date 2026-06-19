@@ -11,7 +11,7 @@ public class SwordHitbox : MonoBehaviour
 
     public void Initialize(GameObject owner, Action<HitContext> hitAction)
     {
-        // GameUtil.SetLayerRecursively(gameObject, LayerMask.NameToLayer("Default"));
+        GameUtil.SetLayerRecursively(gameObject, LayerMask.NameToLayer("Default"));
         _owner = owner;
         _hitAction = hitAction;
         _hitTargets.Clear();
@@ -36,8 +36,8 @@ public class SwordHitbox : MonoBehaviour
         if (!other.TryGetComponent(out IDamageable damageable))
             return;
         damageable.TakeDamage();
-        if (!_hitTargets.Add(damageable))
-            return;
+        // if (!_hitTargets.Add(damageable))
+        //     return;
 
         var hitContext = new HitContext
         {

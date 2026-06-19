@@ -379,7 +379,7 @@ public class EnemyObj : MonoBehaviour, IDamageable
             return;
         }
 
-        Debug.Log("공격 적중!");
+        // Debug.Log("공격 적중!");
 
         // TODO:
         // 여기서 Player 체력 감소 처리
@@ -478,6 +478,7 @@ public class EnemyObj : MonoBehaviour, IDamageable
 
     public void TakeDamage()
     {
+        Debug.Log("Enemy TakeDamage");
         // throw new System.NotImplementedException();
         _hitFlash.PlayFlash(default).Forget();
     }
