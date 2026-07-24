@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PopupManager : SingletonMono<PopupManager>
 {
     private const string ResourcesPopupPath = "Popup";
+    [Header("Input")]
+    [SerializeField] private InputActionReference cancelAction;
 
     [Header("Roots")]
     [SerializeField] private Transform popupRoot;
@@ -36,10 +39,19 @@ public class PopupManager : SingletonMono<PopupManager>
         if (poolRoot == null) poolRoot = popupRoot;
     }
 
-    private void Update()
+    void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            TryCloseTopPopup().Forget();
+        cancelAction.action.performed += OnCancelPerformed;
+        cancelAction.action.Enable();
+    }
+    void OnDisable()
+    {
+        cancelAction.action.performed -= OnCancelPerformed;
+        cancelAction.action.Disable();
+    }
+    private void OnCancelPerformed(InputAction.CallbackContext context)
+    {
+        TryCloseTopPopup().Forget();
     }
 
     /// <summary>

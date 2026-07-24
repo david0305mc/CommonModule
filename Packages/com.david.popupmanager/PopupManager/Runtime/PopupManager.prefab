@@ -160,6 +160,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
+  cancelAction: {fileID: 7801357477552940066, guid: fa46d1dc08e9cad4e851bb72be97fa79, type: 3}
   popupRoot: {fileID: 961550528200767479}
+  poolRoot: {fileID: 0}
   popupPrefabs:
   - {fileID: 5842411446071940116, guid: 1a25aef2c7c22ab46a43edee440e0157, type: 3}

@@ -21,4 +21,11 @@ public class UIIntro : MonoBehaviour
             button.interactable = false;
         });
     }
+
+    void Start()
+    {
+        button.gameObject.SetActive(true);
+    }
+
+
 }
