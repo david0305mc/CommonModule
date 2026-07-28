@@ -296,7 +296,7 @@ public static class TableCodeGenerator
                 // ✅ Bind 메서드 Preserve
                 sb.AppendLine("\t[Preserve]");
                 sb.AppendLine($"\tpublic void Bind{tableNameUpper}Data(Type type, string text) {{");
-                sb.AppendLine("\t\tvar deserializedData = CSVSerializer.Deserialize(text, type, new CSVSerializer.Options() { SkipDataRows = 2 });");
+                sb.AppendLine("\t\tvar deserializedData = CSVSerializer.Deserialize(text, type, new CSVSerializer.Options() { SkipDataRows = 1 });");
                 sb.AppendLine($"\t\tGetType().GetProperty(nameof({arrayName}))?.SetValue(this, deserializedData, null);");
                 sb.AppendLine($"\t\t{dicName} = {arrayName}?.ToDictionary(i => i.id) ?? new Dictionary<{keyType}, {tableNameUpper}>();");
                 sb.AppendLine("\t}");
