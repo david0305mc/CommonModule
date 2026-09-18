@@ -1,6 +1,6 @@
 {
   "name": "com.david.utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "David Utils",
   "description": "Common utility scripts (Collections, Math, StringUtil).",
   "unity": "2021.3",
