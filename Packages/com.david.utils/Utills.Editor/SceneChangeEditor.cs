@@ -35,7 +35,11 @@ public static class SceneChangeEditor
     {
         OpenSceneByIndex(2);
     }
-
+    [MenuItem("SceneMove/Open Scene 4 &4")]
+    private static void OpenScene4()
+    {
+        OpenSceneByIndex(3);
+    }
     private static void OpenSceneByIndex(int index)
     {
         var scenes = GetSortedScenes();
