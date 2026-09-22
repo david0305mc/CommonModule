@@ -1,4 +1,3 @@
-// PopupManager.cs
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +13,16 @@ public class PopupManager : SingletonMono<PopupManager>
 
     [Header("Roots")]
     [SerializeField] private Transform popupRoot;
-    [SerializeField] private Transform poolRoot; // 비워두면 popupRoot를 재사용
+    [SerializeField] private Transform poolRoot;
 
     [Header("Fallback Prefabs (optional)")]
     [SerializeField] private List<GameObject> popupPrefabs;
 
-    // key = typeof(TPopup).Name
     private readonly Dictionary<string, Stack<GameObject>> _pool = new();
-    private readonly List<PopupBaseBase> _active = new(); // top = last
+    private readonly List<PopupBaseBase> _active = new();
+    // Keep the last lease while pooled too, so a late failure can discard only its own rental.
+    private readonly Dictionary<PopupBaseBase, object> _leases = new();
+    private Transform _creationRoot;
 
     public bool IsOnStack<TPopup>() where TPopup : PopupBaseBase
         => _active.Any(p => p is TPopup);
@@ -36,27 +37,27 @@ public class PopupManager : SingletonMono<PopupManager>
     {
         _pool.Clear();
         _active.Clear();
+        _leases.Clear();
         if (poolRoot == null) poolRoot = popupRoot;
     }
 
     void OnEnable()
     {
+        if (cancelAction == null) return;
         cancelAction.action.performed += OnCancelPerformed;
         cancelAction.action.Enable();
     }
+
     void OnDisable()
     {
+        if (cancelAction == null) return;
         cancelAction.action.performed -= OnCancelPerformed;
         cancelAction.action.Disable();
     }
-    private void OnCancelPerformed(InputAction.CallbackContext context)
-    {
-        TryCloseTopPopup().Forget();
-    }
 
-    /// <summary>
-    /// 팝업 인스턴스를 반환 (결과는 popup.WaitForResultAsync()로 대기)
-    /// </summary>
+    private void OnCancelPerformed(InputAction.CallbackContext context)
+        => TryCloseTopPopup().Forget();
+
     public UniTask<TPopup> ShowPopup<TPopup, TResult>(params object[] args)
         where TPopup : PopupBase<TResult>
         => ShowPopup<TPopup, TResult>(waitOpenAni: false, args);
@@ -64,45 +65,119 @@ public class PopupManager : SingletonMono<PopupManager>
     public async UniTask<TPopup> ShowPopup<TPopup, TResult>(bool waitOpenAni, params object[] args)
         where TPopup : PopupBase<TResult>
     {
-        if (popupRoot == null)
-            throw new Exception("[PopupManager] popupRoot is null.");
-
-        var key = typeof(TPopup).Name;
-        var go = Rent(key);
-
-        var popup = go.GetComponent<TPopup>();
-        if (popup == null)
-            throw new Exception($"[PopupManager] {key} prefab has no component: {typeof(TPopup).Name}");
-
-        // active push
-        _active.Add(popup);
-
-        // popup init & show
-        popup.Internal_Init(args, closeCallback: () => ReleasePopup(popup));
-        popup.Show().Forget();
-
-        if (waitOpenAni)
-            await popup.WaitForShowAsync();
-
-        return popup;
+        var session = await ShowPopupCore<TPopup, TResult>(waitOpenAni,
+            (popup, close) => popup.Internal_Init(args, close));
+        return session.Popup;
     }
 
-    /// <summary>
-    /// “팝업 띄우고 결과 await” 한 줄용
-    /// </summary>
-    public async UniTask<TResult> ShowPopupForResult<TPopup, TResult>(params object[] args)
-        where TPopup : PopupBase<TResult>
+    public UniTask<TPopup> ShowPopup<TPopup, TArgs, TResult>(TArgs args)
+        where TPopup : PopupBase<TArgs, TResult>
+        => ShowPopup<TPopup, TArgs, TResult>(waitOpenAni: false, args);
+
+    public async UniTask<TPopup> ShowPopup<TPopup, TArgs, TResult>(bool waitOpenAni, TArgs args)
+        where TPopup : PopupBase<TArgs, TResult>
     {
-        var popup = await ShowPopup<TPopup, TResult>(waitOpenAni: false, args);
-        return await popup.WaitForResultAsync();
+        var session = await ShowPopupCore<TPopup, TResult>(waitOpenAni,
+            (popup, close) => popup.Internal_InitTyped(args, close));
+        return session.Popup;
     }
+
+    public UniTask<TResult> ShowPopupForResult<TPopup, TResult>(params object[] args)
+        where TPopup : PopupBase<TResult>
+        => ShowPopupForResult<TPopup, TResult>(waitOpenAni: false, args);
 
     public async UniTask<TResult> ShowPopupForResult<TPopup, TResult>(bool waitOpenAni, params object[] args)
         where TPopup : PopupBase<TResult>
     {
-        var popup = await ShowPopup<TPopup, TResult>(waitOpenAni, args);
-        return await popup.WaitForResultAsync();
+        var session = await ShowPopupCore<TPopup, TResult>(waitOpenAni,
+            (popup, close) => popup.Internal_Init(args, close));
+        return await session.Result;
     }
+
+    public UniTask<TResult> ShowPopupForResult<TPopup, TArgs, TResult>(TArgs args)
+        where TPopup : PopupBase<TArgs, TResult>
+        => ShowPopupForResult<TPopup, TArgs, TResult>(waitOpenAni: false, args);
+
+    public async UniTask<TResult> ShowPopupForResult<TPopup, TArgs, TResult>(bool waitOpenAni, TArgs args)
+        where TPopup : PopupBase<TArgs, TResult>
+    {
+        var session = await ShowPopupCore<TPopup, TResult>(waitOpenAni,
+            (popup, close) => popup.Internal_InitTyped(args, close));
+        return await session.Result;
+    }
+
+    private async UniTask<(TPopup Popup, UniTask<TResult> Result)> ShowPopupCore<TPopup, TResult>(
+        bool waitOpenAni, Action<TPopup, Action> initialize)
+        where TPopup : PopupBase<TResult>
+    {
+        if (popupRoot == null)
+            throw new InvalidOperationException("[PopupManager] popupRoot is null.");
+
+        var key = typeof(TPopup).Name;
+        var go = Rent(key);
+        TPopup popup = null;
+        var lease = new object();
+        try
+        {
+            popup = go.GetComponent<TPopup>();
+            if (popup == null)
+                throw new InvalidOperationException($"[PopupManager] {key} prefab has no component: {typeof(TPopup).Name}");
+
+            _active.Add(popup);
+            _leases[popup] = lease;
+            initialize(popup, () =>
+            {
+                if (OwnsLease(popup, lease)) ReleasePopup(popup);
+            });
+
+            // Capture this rental's tasks before activation or Show can complete/reuse it.
+            var show = popup.WaitForShowAsync();
+            var result = popup.WaitForResultAsync();
+            if (OwnsLease(popup, lease) && _active.Contains(popup))
+            {
+                go.SetActive(true);
+                if (OwnsLease(popup, lease) && _active.Contains(popup))
+                    await popup.Show();
+            }
+            if (waitOpenAni)
+                await show;
+
+            return (popup, result);
+        }
+        catch (OperationCanceledException) when (!ReferenceEquals(popup, null) &&
+            (!OwnsLease(popup, lease) || !_active.Contains(popup)))
+        {
+            // Returning a popup cancels its unfinished open/show wait normally.
+            throw;
+        }
+        catch
+        {
+            if (ReferenceEquals(popup, null))
+                Destroy(go);
+            else if (OwnsLease(popup, lease))
+            {
+                // Failed initialization/Show may leave subclass state partially initialized.
+                // Discard this instance instead of contaminating the pool.
+                _leases.Remove(popup);
+                _active.Remove(popup);
+                if (_pool.TryGetValue(key, out var stack) && stack.Contains(go))
+                    _pool[key] = new Stack<GameObject>(stack.Where(item => item != go).Reverse());
+                try
+                {
+                    if (go != null) go.SetActive(false);
+                    popup.Internal_Release();
+                }
+                finally
+                {
+                    Destroy(go);
+                }
+            }
+            throw;
+        }
+    }
+
+    private bool OwnsLease(PopupBaseBase popup, object lease)
+        => _leases.TryGetValue(popup, out var current) && ReferenceEquals(current, lease);
 
     private GameObject Rent(string key)
     {
@@ -112,82 +187,93 @@ public class PopupManager : SingletonMono<PopupManager>
             _pool[key] = stack;
         }
 
-        GameObject instance;
-        if (stack.Count > 0)
-        {
+        GameObject instance = null;
+        // Unity objects can have been destroyed externally while pooled.
+        while (stack.Count > 0 && instance == null)
             instance = stack.Pop();
+
+        try
+        {
+            if (instance == null)
+            {
+                var prefab = Resources.Load<GameObject>($"{ResourcesPopupPath}/{key}")
+                          ?? popupPrefabs?.Find(p => p != null && p.name == key);
+                if (prefab == null)
+                    throw new InvalidOperationException($"[PopupManager] Popup prefab '{key}' not found. (Resources/{ResourcesPopupPath}/{key} or popupPrefabs)");
+
+                // Instantiating an active prefab under popupRoot would run OnEnable before Init.
+                if (_creationRoot == null)
+                {
+                    var root = new GameObject("Popup Creation (Inactive)");
+                    root.SetActive(false);
+                    root.transform.SetParent(transform, false);
+                    _creationRoot = root.transform;
+                }
+                instance = Instantiate(prefab, _creationRoot);
+                instance.name = prefab.name;
+            }
+
+            instance.SetActive(false);
             instance.transform.SetParent(popupRoot, false);
             instance.transform.SetAsLastSibling();
-            instance.SetActive(true);
             return instance;
         }
-
-        var prefab = Resources.Load<GameObject>($"{ResourcesPopupPath}/{key}")
-                  ?? popupPrefabs?.Find(p => p != null && p.name == key);
-
-        if (prefab == null)
-            throw new Exception($"[PopupManager] Popup prefab '{key}' not found. (Resources/{ResourcesPopupPath}/{key} or popupPrefabs)");
-
-        instance = Instantiate(prefab, popupRoot);
-        instance.name = prefab.name; // (Clone) 제거 목적이면 여기서 이름 정리해도 됨
-        return instance;
+        catch
+        {
+            if (instance != null) Destroy(instance);
+            throw;
+        }
     }
 
-    /// <summary>
-    /// Release는 “active 제거 + 풀 반환”을 보장
-    /// </summary>
+    /// <summary>Remove an active rental and return it to the pool exactly once.</summary>
     public void ReleasePopup(PopupBaseBase popup)
     {
-        if (popup == null) return;
+        if (popup == null || !_leases.ContainsKey(popup) || !_active.Remove(popup)) return;
 
-        // 1) active에서 제거 (top이 아니어도 제거)
-        _active.Remove(popup);
-
-        // 2) pool push
-        var key = popup.GetType().Name;
-        if (!_pool.TryGetValue(key, out var stack))
-        {
-            stack = new Stack<GameObject>();
-            _pool[key] = stack;
-        }
-
+        var lease = _leases[popup];
         var go = popup.gameObject;
-        go.SetActive(false);
+        try
+        {
+            go.SetActive(false);
+            popup.Internal_Release();
+            if (!OwnsLease(popup, lease)) return;
+            var parent = poolRoot != null ? poolRoot : popupRoot;
+            popup.transform.SetParent(parent, false);
 
-        // poolRoot가 따로 있으면 그 밑으로 넣어두는 게 hierarchy 관리에 편함
-        var parent = poolRoot != null ? poolRoot : popupRoot;
-        popup.transform.SetParent(parent, false);
-
-        stack.Push(go);
+            var key = popup.GetType().Name;
+            if (!_pool.TryGetValue(key, out var stack))
+            {
+                stack = new Stack<GameObject>();
+                _pool[key] = stack;
+            }
+            stack.Push(go);
+        }
+        catch
+        {
+            if (OwnsLease(popup, lease)) _leases.Remove(popup);
+            Destroy(go);
+            throw;
+        }
     }
 
     public async UniTaskVoid TryCloseTopPopup()
     {
-        if (_active.Count == 0)
-            return;
-
+        if (_active.Count == 0) return;
         var top = _active[^1];
         if (top == null)
         {
             _active.RemoveAt(_active.Count - 1);
+            if (!ReferenceEquals(top, null)) _leases.Remove(top);
             return;
         }
-
-        if (top.IsClosing)
-            return;
-
-        await top.CloseAsync();
+        if (!top.IsClosing) await top.CloseAsync();
     }
 
     public bool TryGetTopPopup<TPopup>(out TPopup popup) where TPopup : PopupBaseBase
     {
         popup = null;
-
-        if (_active.Count == 0)
-            return false;
-
-        var top = _active[^1];
-        if (top is TPopup casted)
+        if (_active.Count == 0) return false;
+        if (_active[^1] is TPopup casted)
         {
             popup = casted;
             return true;

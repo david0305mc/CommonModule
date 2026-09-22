@@ -1,0 +1,6 @@
+{
+    "name": "David.PopupManager.Tests",
+    "references": ["David.PopupManager", "David.Utils", "UniTask"],
+    "optionalUnityReferences": ["TestAssemblies"],
+    "autoReferenced": false
+}
