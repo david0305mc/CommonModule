@@ -25,9 +25,24 @@ public class SceneTransition : SingletonMono<SceneTransition>
         canvasGroup.blocksRaycasts = false;
     }
     /// <summary>
-    /// 페이드 포함 씬 전환 (await 가능)
+    /// 페이드 아웃과 씬 로딩/활성화를 기다린 뒤 페이드 인을 시작하고 반환한다.
+    /// 페이드 인 완료까지 기다리려면 LoadSceneWithFullFadeAsync를 사용한다.
     /// </summary>
-    public async UniTask LoadSceneWithFadeAsync(string sceneName, CancellationToken externalCt = default)
+    public UniTask LoadSceneWithFadeAsync(string sceneName, CancellationToken externalCt = default)
+    {
+        return LoadSceneWithFadeCoreAsync(sceneName, false, externalCt);
+    }
+
+    /// <summary>
+    /// 페이드 아웃, 씬 로딩/활성화, 페이드 인 완료와 오버레이 입력 차단 해제까지 기다린다.
+    /// 새 씬의 게임별 비동기 초기화 완료까지 보장하지는 않는다.
+    /// </summary>
+    public UniTask LoadSceneWithFullFadeAsync(string sceneName, CancellationToken externalCt = default)
+    {
+        return LoadSceneWithFadeCoreAsync(sceneName, true, externalCt);
+    }
+
+    private async UniTask LoadSceneWithFadeCoreAsync(string sceneName, bool waitForFadeIn, CancellationToken externalCt)
     {
         transitionCts?.Cancel();
         transitionCts?.Dispose();
@@ -39,8 +54,14 @@ public class SceneTransition : SingletonMono<SceneTransition>
         var op = SceneManager.LoadSceneAsync(sceneName);
         await op.ToUniTask(cancellationToken: ct);
 
-        // 여기서 "완전히 열림"까지 보장하고 싶으면 await
-        FadeToAsync(0f, fadeInTime, ct).Forget();
+        if (waitForFadeIn)
+        {
+            await FadeToAsync(0f, fadeInTime, ct);
+        }
+        else
+        {
+            FadeToAsync(0f, fadeInTime, ct).Forget();
+        }
     }
 
     private async UniTask FadeToAsync(float targetAlpha, float duration, CancellationToken ct)
